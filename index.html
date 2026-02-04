@@ -100,10 +100,66 @@
         .warning {
             color: #F57C00;
         }
+
+        .password-box {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 32px;
+        }
+
+        .password-box input {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            width: 200px;
+        }
+
+        .password-box input::placeholder {
+            color: #888;
+        }
+
+        .password-box button {
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            background: var(--lehavot-red);
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .password-box button:hover {
+            filter: brightness(1.1);
+        }
+
+        .error {
+            color: #ff6b6b;
+            margin-top: 16px;
+            font-size: 13px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Password Screen -->
+    <div class="container" id="login-screen">
+        <div class="logo"><span class="accent">Org</span>Wise BI</div>
+        <div class="subtitle">Dashboard Specification Review</div>
+
+        <div class="password-box">
+            <input type="password" id="password" placeholder="Enter password" onkeypress="if(event.key==='Enter')checkPassword()">
+            <button onclick="checkPassword()">Enter</button>
+        </div>
+        <div id="error" class="error"></div>
+    </div>
+
+    <!-- Main Content (hidden) -->
+    <div class="container" id="main-content" style="display:none;">
         <div class="logo"><span class="accent">Org</span>Wise BI</div>
         <div class="subtitle">Dashboard Specification Review — Feb 2026</div>
 
@@ -126,5 +182,27 @@
             <p>יורי כץ | Elad & Reuven Review</p>
         </div>
     </div>
+
+    <script>
+        const PASS = 'lehavot2026';
+
+        // Check if already logged in
+        if (sessionStorage.getItem('bi-auth') === 'true') {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+
+        function checkPassword() {
+            const input = document.getElementById('password').value;
+            if (input === PASS) {
+                sessionStorage.setItem('bi-auth', 'true');
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+            } else {
+                document.getElementById('error').textContent = 'Wrong password';
+                document.getElementById('password').value = '';
+            }
+        }
+    </script>
 </body>
 </html>
