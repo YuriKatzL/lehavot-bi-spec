@@ -167,49 +167,19 @@
         <div id="error" class="error"></div>
     </div>
 
-    <!-- Menu Screen -->
-    <div class="container menu-screen" id="menu-screen">
-        <div class="logo"><span class="accent">Leha</span>vot BI</div>
-        <div class="subtitle">Dashboard Specification Review</div>
-
-        <div class="cards" style="direction: ltr;">
-            <a href="sales.html" class="card sales">
-                <div class="card-icon">📊</div>
-                <div class="card-title">Sales Dashboard</div>
-                <div class="card-desc">מכירות — Revenue Analysis</div>
-            </a>
-            <a href="orders.html" class="card orders">
-                <div class="card-icon">📦</div>
-                <div class="card-title">Orders Dashboard</div>
-                <div class="card-desc">הזמנות — Order Tracking</div>
-            </a>
-            <a href="spec.html" class="card spec">
-                <div class="card-icon">📋</div>
-                <div class="card-title">מסמך אפיון</div>
-                <div class="card-desc">Specification Document</div>
-            </a>
-        </div>
-
-        <div class="footer">
-            <p>Lehavot BI Spec v2.0 | יורי כץ — IT</p>
-        </div>
-    </div>
-
     <script>
         const PASS = 'lehavot2026';
 
         // Check if already logged in
         if (sessionStorage.getItem('bi-auth') === 'true') {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('menu-screen').classList.add('visible');
+            window.location.href = 'sales.html';
         }
 
         function checkPassword() {
             const input = document.getElementById('password').value;
             if (input === PASS) {
                 sessionStorage.setItem('bi-auth', 'true');
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('menu-screen').classList.add('visible');
+                window.location.href = 'sales.html';
             } else {
                 document.getElementById('error').textContent = 'Wrong password';
                 document.getElementById('password').value = '';
