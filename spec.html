@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מסמך אפיון — להבות BI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'David', 'Times New Roman', serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: black;
+            background: white;
+            padding: 40px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            background: #212121;
+            padding: 12px 40px;
+            display: flex;
+            gap: 16px;
+            z-index: 100;
+        }
+
+        .nav-bar a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 13px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .nav-bar a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .nav-bar a.active {
+            background: #6B46C1;
+            color: white;
+        }
+
+        .content {
+            margin-top: 60px;
+        }
+
+        /* Document Header */
+        .doc-header-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border: 2px solid black;
+        }
+
+        .doc-header-table td {
+            padding: 8px 12px;
+            border: 1px solid black;
+            font-size: 11pt;
+        }
+
+        .doc-header-table .label {
+            background: #f0f0f0;
+            font-weight: bold;
+            width: 120px;
+        }
+
+        .doc-title {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 3px double black;
+            border-bottom: 3px double black;
+        }
+
+        .doc-title h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+        }
+
+        .doc-title h2 {
+            font-size: 14pt;
+            font-weight: normal;
+            margin: 0;
+        }
+
+        /* Table of Contents */
+        .doc-toc {
+            margin: 20px 0 30px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #fafafa;
+        }
+
+        .doc-toc h3 {
+            margin: 0 0 10px 0;
+            font-size: 12pt;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+
+        .doc-toc ol {
+            margin: 0;
+            padding-right: 25px;
+        }
+
+        .doc-toc li {
+            margin: 4px 0;
+        }
+
+        .doc-toc a {
+            color: #1565C0;
+            text-decoration: none;
+        }
+
+        .doc-toc a:hover {
+            text-decoration: underline;
+        }
+
+        /* Section Headers */
+        .spec-section {
+            margin-bottom: 25px;
+            page-break-inside: avoid;
+        }
+
+        .spec-section h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 25px 0 15px 0;
+            padding-bottom: 5px;
+            border-bottom: 2px solid black;
+        }
+
+        .spec-section h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+        }
+
+        .spec-section h4 {
+            font-size: 11pt;
+            font-weight: bold;
+            margin: 15px 0 8px 0;
+        }
+
+        .spec-section p {
+            margin: 10px 0;
+            text-align: justify;
+        }
+
+        /* Tables */
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 10pt;
+        }
+
+        .spec-table th {
+            background: #e0e0e0;
+            padding: 8px;
+            text-align: right;
+            font-weight: bold;
+            border: 1px solid black;
+        }
+
+        .spec-table td {
+            padding: 6px 8px;
+            border: 1px solid black;
+            vertical-align: top;
+        }
+
+        .spec-table code {
+            font-family: 'Courier New', monospace;
+            font-size: 9pt;
+            background: #f5f5f5;
+            padding: 1px 4px;
+        }
+
+        .spec-table .missing {
+            color: red;
+            font-weight: bold;
+        }
+
+        .spec-table .confirmed {
+            color: green;
+        }
+
+        /* Notes and Alerts */
+        .doc-note {
+            margin: 15px 0;
+            padding: 10px 15px;
+            border: 1px solid black;
+            background: #fffde7;
+        }
+
+        .doc-note strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .doc-question {
+            margin: 10px 0;
+            padding: 10px 15px;
+            border: 2px solid red;
+            background: #ffebee;
+        }
+
+        /* Blockquote */
+        blockquote {
+            margin: 15px 0;
+            padding: 10px 20px;
+            border-right: 4px solid #1565C0;
+            background: #e3f2fd;
+            font-style: italic;
+        }
+
+        blockquote.question {
+            border-right-color: red;
+            background: #ffebee;
+            font-style: normal;
+        }
+
+        /* Lists */
+        .spec-list {
+            margin: 10px 0;
+            padding-right: 30px;
+        }
+
+        .spec-list li {
+            margin: 5px 0;
+        }
+
+        /* Signatures */
+        .doc-signatures {
+            margin-top: 40px;
+            border-top: 2px solid black;
+            padding-top: 20px;
+        }
+
+        .doc-signatures table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .doc-signatures td {
+            padding: 10px;
+            border: 1px solid black;
+            text-align: center;
+            width: 33%;
+        }
+
+        .doc-signatures .role {
+            font-weight: bold;
+            background: #f0f0f0;
+        }
+
+        /* Footer */
+        .doc-footer {
+            margin-top: 30px;
+            padding-top: 10px;
+            border-top: 1px solid #ccc;
+            font-size: 9pt;
+            text-align: center;
+            color: #666;
+        }
+
+        /* Print */
+        @media print {
+            .nav-bar {
+                display: none;
+            }
+            .content {
+                margin-top: 0;
+            }
+            body {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-bar">
+        <a href="sales.html">📊 Sales Dashboard</a>
+        <a href="orders.html">📦 Orders Dashboard</a>
+        <a href="spec.html" class="active">📋 מסמך אפיון</a>
+    </nav>
+
+    <div class="content">
+        <div class="container">
+
+            <!-- Document Header -->
+            <table class="doc-header-table">
+                <tr>
+                    <td class="label">מסמך מס'</td>
+                    <td>LHV-BI-SPEC-001</td>
+                    <td class="label">גרסה</td>
+                    <td>2.0</td>
+                </tr>
+                <tr>
+                    <td class="label">תאריך</td>
+                    <td>04/02/2026</td>
+                    <td class="label">סטטוס</td>
+                    <td>טיוטה — ממתין לאישור</td>
+                </tr>
+                <tr>
+                    <td class="label">מחבר</td>
+                    <td>יורי כץ</td>
+                    <td class="label">מחלקה</td>
+                    <td>IT</td>
+                </tr>
+                <tr>
+                    <td class="label">לקוח</td>
+                    <td colspan="3">להבות מערכות כיבוי אש בע"מ</td>
+                </tr>
+            </table>
+
+            <!-- Document Title -->
+            <div class="doc-title">
+                <h1>מסמך אפיון פונקציונלי</h1>
+                <h2>דשבורדים לניתוח מכירות והזמנות</h2>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="doc-toc">
+                <h3>תוכן עניינים</h3>
+                <ol>
+                    <li><a href="#sec1">מבוא ומטרות</a></li>
+                    <li><a href="#sec2">הגדרות וקיצורים</a></li>
+                    <li><a href="#sec3">סגמנטים עסקיים</a></li>
+                    <li><a href="#sec4">דשבורד מכירות (Sales)</a></li>
+                    <li><a href="#sec5">דשבורד הזמנות (Orders)</a></li>
+                    <li><a href="#sec6">מקורות נתונים</a></li>
+                    <li><a href="#sec7">דרישות טכניות</a></li>
+                    <li><a href="#sec8">שאלות פתוחות</a></li>
+                    <li><a href="#sec9">אישורים</a></li>
+                </ol>
+            </div>
+
+            <!-- Section 1 -->
+            <div class="spec-section" id="sec1">
+                <h2>1. מבוא ומטרות</h2>
+
+                <h3>1.1 רקע</h3>
+                <p>מסמך זה מגדיר את הדרישות הפונקציונליות לדשבורדי BI עבור חברת להבות מערכות כיבוי אש בע"מ.</p>
+                <p>הפרויקט מחולק לשלושה שלבים:</p>
+
+                <table class="spec-table">
+                    <tr><th>Phase</th><th>תיאור</th><th>סטטוס</th></tr>
+                    <tr><td><strong>Phase 1</strong></td><td>מודל מכירות/שיווק</td><td>נוכחי</td></tr>
+                    <tr><td>Phase 2</td><td>מודל פיננסי (תזרים, KPI, גבייה, מסגרות)</td><td>עתידי</td></tr>
+                    <tr><td>Phase 3</td><td>מודל תפעולי (real-time delivery)</td><td>עתידי</td></tr>
+                </table>
+
+                <h3>1.2 מטרות Phase 1</h3>
+                <ul class="spec-list">
+                    <li>מעקב אחר ביצועי מכירות בזמן אמת</li>
+                    <li>השוואת ביצועים מול תקציב (Budget)</li>
+                    <li>השוואת ביצועים מול שנה קודמת (YoY)</li>
+                    <li>מעקב אחר קצב כניסת הזמנות</li>
+                    <li>ניתוח לפי סגמנטים עסקיים</li>
+                </ul>
+
+                <h3>1.3 קהל יעד</h3>
+                <p>הנהלה בכירה (מנכ"ל, סמנכ"ל כספים), מנהלי מכירות, מנהלי כספים.</p>
+
+                <h3>1.4 פלטפורמה</h3>
+                <p>Microsoft Power BI + Priority ERP API</p>
+            </div>
+
+            <!-- Section 2 -->
+            <div class="spec-section" id="sec2">
+                <h2>2. הגדרות וקיצורים</h2>
+
+                <table class="spec-table">
+                    <tr><th>מונח</th><th>הגדרה</th></tr>
+                    <tr><td>MTD</td><td>Month-to-Date — מתחילת החודש עד היום</td></tr>
+                    <tr><td>QTD</td><td>Quarter-to-Date — מתחילת הרבעון עד היום</td></tr>
+                    <tr><td>YTD</td><td>Year-to-Date — מתחילת השנה עד היום</td></tr>
+                    <tr><td>LY</td><td>Last Year — שנה קודמת (אותה תקופה)</td></tr>
+                    <tr><td>BU</td><td>Business Unit — יחידה עסקית / סגמנט</td></tr>
+                    <tr><td>Budget</td><td>תקציב שנתי מחולק לחודשים</td></tr>
+                    <tr><td>Due Date</td><td>תאריך אספקה צפוי של הזמנה</td></tr>
+                </table>
+            </div>
+
+            <!-- Section 3 -->
+            <div class="spec-section" id="sec3">
+                <h2>3. סגמנטים עסקיים</h2>
+
+                <h3>3.1 רשימת סגמנטים</h3>
+                <table class="spec-table">
+                    <tr><th>#</th><th>סגמנט</th><th>תתי-סגמנטים</th><th>הערות</th></tr>
+                    <tr><td>1</td><td><strong>מירי</strong></td><td>כולל פז</td><td>פז מקבלת עמלות רק על הדילים שלה</td></tr>
+                    <tr><td>2</td><td><strong>אילן</strong></td><td>—</td><td>—</td></tr>
+                    <tr><td>3</td><td><strong>דודו</strong></td><td>אוטובוסים, מנדפים/מטבחים, כלים חקלאיים, שירות</td><td>תתי-סגמנטים מוצגים בנפרד</td></tr>
+                    <tr><td>4</td><td><strong>חו"ל</strong></td><td>לפי מפיץ (עופר, ירון וכו')</td><td>כולל Orders by Due Date</td></tr>
+                </table>
+
+                <h3>3.2 ציטוט מאלעד</h3>
+                <blockquote>
+                    "בתוך דודו רוצים לראות אוטובוסים לבד, מטבחים לבד, שירות לבד.
+                    בחו"ל אפשר לחלק בין עופר לירון לפי הסוכן."
+                </blockquote>
+
+                <h3>3.3 מיפוי בפריוריטי</h3>
+                <div class="doc-question">
+                    <strong>שאלה #1 לראובן:</strong> כיצד מזהים בפריוריטי לאיזה סגמנט שייכת מכירה/הזמנה?<br>
+                    מדוח 740 (שי): הלוגיקה משלבת סוכן + לקוח + משפחת מוצרים. מהי הלוגיקה המדויקת?
+                </div>
+            </div>
+
+            <!-- Section 4 -->
+            <div class="spec-section" id="sec4">
+                <h2>4. דשבורד מכירות (Sales)</h2>
+
+                <h3>4.1 תיאור כללי</h3>
+                <p>דשבורד מכירות מציג ניתוח הכנסות בהשוואה לתקציב ולשנה קודמת.</p>
+
+                <blockquote>
+                    "בתחילת החודש יופיע תקציב ואפס מכירות, ולאט לאט הפער מצטמצם.
+                    בסוף החודש רוצים לראות שכולם ב-100% או מעל." — אלעד
+                </blockquote>
+
+                <h3>4.2 פילטרים</h3>
+                <table class="spec-table">
+                    <tr><th>#</th><th>פילטר</th><th>סוג</th><th>ברירת מחדל</th><th>מקור</th></tr>
+                    <tr><td>1</td><td>שנה</td><td>Multi-select</td><td>שנה נוכחית</td><td><code>YEAR(DOCUMENTS.CURDATE)</code></td></tr>
+                    <tr><td>2</td><td>רבעון</td><td>Multi-select</td><td>רבעון נוכחי</td><td><code>DATEPART(Q, CURDATE)</code></td></tr>
+                    <tr><td>3</td><td>תקופה</td><td>Date Range</td><td>חודש נוכחי</td><td><code>DOCUMENTS.CURDATE</code></td></tr>
+                    <tr><td>4</td><td>סגמנט מכירות</td><td>Multi-select</td><td>הכל</td><td class="missing">נדרש מיפוי</td></tr>
+                    <tr><td>5</td><td>מפיץ</td><td>Multi-select</td><td>הכל</td><td><code>AGENTS.AGENTCODE</code></td></tr>
+                    <tr><td>6</td><td>משפחת מוצרים</td><td>Multi-select</td><td>הכל</td><td><code>FAMILY.FAMILYNAME</code></td></tr>
+                    <tr><td>7</td><td>חברה</td><td>Single-select</td><td>מאוחד</td><td><code>ENVIRONMENT</code></td></tr>
+                </table>
+
+                <h3>4.3 כרטיסי סיכום</h3>
+                <table class="spec-table">
+                    <tr><th>מדד</th><th>תיאור</th><th>נוסחה</th><th>מקור</th></tr>
+                    <tr><td>% Time Elapsed</td><td>אחוז הזמן שעבר</td><td>יום / ימים בתקופה × 100</td><td><code>DAY(GETDATE())</code></td></tr>
+                    <tr><td>% from Budget</td><td>אחוז מתקציב</td><td>מכירות / תקציב × 100</td><td class="missing">טבלת תקציב</td></tr>
+                    <tr><td>% from LY</td><td>אחוז משנה שעברה</td><td>מכירות / אשתקד × 100</td><td><code>DOCUMENTS</code></td></tr>
+                </table>
+
+                <h3>4.4 טבלת מכירות</h3>
+                <table class="spec-table">
+                    <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
+                    <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
+                    <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
+                    <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
+                    <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי</td><td class="missing">טבלת תקציב</td></tr>
+                    <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">טבלת תקציב</td></tr>
+                    <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>עמודה 3 / עמודה 4</td></tr>
+                    <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>DOCUMENTS WHERE YEAR-1</code></td></tr>
+                    <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>עמודה 3 / עמודה 7</td></tr>
+                </table>
+
+                <h3>4.5 קידוד צבעים</h3>
+                <table class="spec-table">
+                    <tr><th>צבע</th><th>תנאי</th><th>משמעות</th></tr>
+                    <tr><td style="background:#4CAF50;color:white;">ירוק</td><td>≥ 100%</td><td>עמידה ביעד או מעל</td></tr>
+                    <tr><td style="background:#FF9800;color:white;">כתום</td><td>80% - 99%</td><td>קרוב ליעד</td></tr>
+                    <tr><td style="background:#f44336;color:white;">אדום</td><td>&lt; 80%</td><td>מתחת ליעד</td></tr>
+                </table>
+            </div>
+
+            <!-- Section 5 -->
+            <div class="spec-section" id="sec5">
+                <h2>5. דשבורד הזמנות (Orders)</h2>
+
+                <h3>5.1 תיאור כללי</h3>
+                <p>דשבורד הזמנות מציג ניתוח קצב כניסת הזמנות בהשוואה לשנה קודמת.</p>
+
+                <div class="doc-note">
+                    <strong>הבדל מ-Sales:</strong> להזמנות אין תקציב — רק השוואה לשנה שעברה.
+                </div>
+
+                <blockquote>
+                    "אם רוצים לגדול 5%, צריך לראות שקצב כניסת ההזמנות הוא 5% מעל שנה שעברה." — אלעד
+                </blockquote>
+
+                <h3>5.2 טבלת הזמנות</h3>
+                <table class="spec-table">
+                    <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
+                    <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
+                    <tr><td>2</td><td>Current Week</td><td>הזמנות השבוע</td><td><code>SUM(ORDERS.TOTAL)</code></td></tr>
+                    <tr><td>3</td><td>MTD Orders</td><td>הזמנות מתחילת החודש</td><td><code>SUM(ORDERS.TOTAL)</code></td></tr>
+                    <tr><td>4</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>ORDERS WHERE YEAR-1</code></td></tr>
+                    <tr><td>5</td><td>MTD % vs LY</td><td>אחוז משנה שעברה</td><td>עמודה 3 / עמודה 4</td></tr>
+                </table>
+
+                <h3>5.3 Orders by Due Date (חו"ל בלבד)</h3>
+                <div class="doc-note">
+                    <strong>תצוגה מיוחדת:</strong> רלוונטי רק לסגמנט חו"ל. בשאר הסגמנטים = נכנס היום יוצא מחר.
+                </div>
+
+                <table class="spec-table">
+                    <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
+                    <tr><td>1</td><td>Due Date</td><td>תאריך אספקה צפוי</td><td><code>ORDERS.DUEDATE</code></td></tr>
+                    <tr><td>2</td><td>Open Orders</td><td>סכום הזמנות פתוחות</td><td><code>SUM WHERE STATUS='Open'</code></td></tr>
+                    <tr><td>3</td><td>Distributor</td><td>מפיץ</td><td><code>AGENTS.AGENTNAME</code></td></tr>
+                </table>
+
+                <div class="doc-question">
+                    <strong>שאלה #2 לראובן:</strong> איך מזהים הזמנה פתוחה vs סגורה בפריוריטי? שדה ORDSTATUS? ערכים?
+                </div>
+            </div>
+
+            <!-- Section 6 -->
+            <div class="spec-section" id="sec6">
+                <h2>6. מקורות נתונים</h2>
+
+                <h3>6.1 מערכת מקור</h3>
+                <p><strong>מערכת:</strong> Priority ERP<br>
+                <strong>גישה:</strong> Priority API (REST)<br>
+                <strong>הרשאות:</strong> Read-only בלבד</p>
+
+                <h3>6.2 טבלאות נדרשות</h3>
+                <table class="spec-table">
+                    <tr><th>טבלה</th><th>שימוש</th><th>גישה</th></tr>
+                    <tr><td><code>DOCUMENTS</code></td><td>תעודות משלוח — מכירות</td><td class="missing">לבדוק</td></tr>
+                    <tr><td><code>ORDERS</code></td><td>נתוני הזמנות</td><td class="missing">לבדוק</td></tr>
+                    <tr><td><code>CUSTOMERS</code></td><td>לקוחות — מיפוי לסגמנט</td><td class="missing">לבדוק</td></tr>
+                    <tr><td><code>AGENTS</code></td><td>סוכנים / מפיצים</td><td class="missing">לבדוק</td></tr>
+                    <tr><td><code>FAMILY</code></td><td>משפחות מוצרים</td><td class="missing">לבדוק</td></tr>
+                    <tr><td><code>???</code></td><td>טבלת תקציב</td><td class="missing">שם הטבלה?</td></tr>
+                </table>
+
+                <div class="doc-question">
+                    <strong>שאלה #3 לראובן:</strong> מקור נתוני מכירות — תעודות משלוח או חשבוניות? האם שונה בין שוטף לסגור?
+                </div>
+            </div>
+
+            <!-- Section 7 -->
+            <div class="spec-section" id="sec7">
+                <h2>7. דרישות טכניות</h2>
+
+                <h3>7.1 גישה לנתונים</h3>
+                <table class="spec-table">
+                    <tr><th>שיטה</th><th>יתרונות</th><th>חסרונות</th><th>החלטה</th></tr>
+                    <tr><td>SQL ישיר</td><td>פשוט</td><td>לא מאובטח, Priority לא ממליצה</td><td style="background:#ffebee;">לא</td></tr>
+                    <tr><td>API</td><td>הרשאות per table, audit, מבוקר</td><td>קצת יותר מורכב</td><td style="background:#e8f5e9;">כן</td></tr>
+                </table>
+
+                <h3>7.2 דרישות תצוגה</h3>
+                <ul class="spec-list">
+                    <li>מספרים באלפים (לא 997,000 אלא 997K)</li>
+                    <li>Default view: רבעון נוכחי, כל הסגמנטים</li>
+                    <li>ויזואליקה: קווים/פאי/גרפים — אפשר לשנות אחר כך</li>
+                </ul>
+
+                <h3>7.3 חברות</h3>
+                <table class="spec-table">
+                    <tr><th>חברה</th><th>הערות</th></tr>
+                    <tr><td>להבות</td><td>—</td></tr>
+                    <tr><td>פיירטק</td><td>—</td></tr>
+                    <tr><td>מאוחד</td><td>ברירת מחדל</td></tr>
+                </table>
+            </div>
+
+            <!-- Section 8 -->
+            <div class="spec-section" id="sec8">
+                <h2>8. שאלות פתוחות</h2>
+
+                <table class="spec-table">
+                    <tr><th>#</th><th>שאלה</th><th>אחראי</th><th>סטטוס</th></tr>
+                    <tr><td>1</td><td>מיפוי סגמנטים — איך מזהים בפריוריטי?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>2</td><td>סטטוס הזמנה — פתוח/סגור בפריוריטי</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>3</td><td>מקור נתונים — ת. משלוח או חשבוניות?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>4</td><td>טבלת תקציב — שם ומבנה</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>5</td><td>פז ומירי — ביחד או בנפרד?</td><td>אלעד</td><td class="missing">פתוח</td></tr>
+                    <tr><td>6</td><td>גישת API לטבלאות</td><td>יורי</td><td class="missing">פתוח</td></tr>
+                </table>
+            </div>
+
+            <!-- Section 9 -->
+            <div class="spec-section" id="sec9">
+                <h2>9. אישורים</h2>
+
+                <div class="doc-signatures">
+                    <table>
+                        <tr class="role">
+                            <td>מנכ"ל</td>
+                            <td>סמנכ"ל כספים</td>
+                            <td>IT</td>
+                        </tr>
+                        <tr>
+                            <td>אלעד</td>
+                            <td>ראובן</td>
+                            <td>יורי כץ</td>
+                        </tr>
+                        <tr>
+                            <td style="height:50px;">חתימה: _______</td>
+                            <td>חתימה: _______</td>
+                            <td>חתימה: ✓</td>
+                        </tr>
+                        <tr>
+                            <td>תאריך: _______</td>
+                            <td>תאריך: _______</td>
+                            <td>תאריך: 04/02/2026</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Appendix -->
+            <div class="spec-section">
+                <h2>נספח א': תהליך העבודה המוסכם</h2>
+
+                <ol class="spec-list">
+                    <li><strong>Elad</strong> — מכין mockup דומה ל-Orders dashboard</li>
+                    <li><strong>Yuri</strong> — מכין draft ויזואלי + מיפוי נתונים (לכל שדה: מאיזו טבלה)</li>
+                    <li><strong>הגדרת acceptance criteria</strong> — מה בודקים ב-Beta test</li>
+                    <li><strong>פגישה עם אליק</strong> — להציג את האפיון המדויק</li>
+                    <li><strong>אליק</strong> — נותן הצעת מחיר ובונה</li>
+                    <li><strong>בדיקות</strong> — מוודאים כל נתון מול פריוריטי</li>
+                </ol>
+
+                <blockquote>
+                    "אנחנו חייבים להגיע למצב שברגע שאליק סיים, אנחנו בודקים ואומרים 'כן, זה מתאים'.
+                    כמה שאנחנו נדייק עכשיו, יהיה לנו פחות הרפתקאות אחר כך." — יורי
+                </blockquote>
+
+                <blockquote>
+                    "נכון. לא רוצים מצב של 'לא הבנתי, לא התכוונתי, זה לא בסקופ'." — אלעד
+                </blockquote>
+            </div>
+
+            <div class="doc-footer">
+                מסמך מס' LHV-BI-SPEC-001 | גרסה 2.0 | עמוד 1 מתוך 1 | סודי — לשימוש פנימי בלבד
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
