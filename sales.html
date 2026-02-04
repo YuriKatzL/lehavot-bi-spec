@@ -509,6 +509,166 @@
             display: block;
         }
 
+        /* ===== Charts Section ===== */
+        .charts-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .chart-container h3 {
+            font-size: 14px;
+            color: var(--lehavot-gray-800);
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .pie-chart-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .pie-chart {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #E91E63 0deg 11deg,      /* מירי 3% */
+                #2196F3 11deg 187deg,    /* אילן 49% */
+                #FF9800 187deg 288deg,   /* דודו 28% */
+                #4CAF50 288deg 360deg    /* חו"ל 20% */
+            );
+        }
+
+        .pie-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.miri { background: #E91E63; }
+        .dot.ilan { background: #2196F3; }
+        .dot.dodo { background: #FF9800; }
+        .dot.chul { background: #4CAF50; }
+
+        .bar-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .bar-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bar-label {
+            width: 50px;
+            font-size: 12px;
+            text-align: left;
+            color: var(--lehavot-gray-700);
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 24px;
+            background: var(--lehavot-gray-200);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        .bar-fill.good { background: #4CAF50; }
+        .bar-fill.warning { background: #FF9800; }
+        .bar-fill.bad { background: #f44336; }
+
+        .bar-value {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--lehavot-gray-700);
+        }
+
+        .bar-benchmark {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding-right: 62px;
+        }
+
+        .bar-benchmark .line {
+            flex: 1;
+            height: 2px;
+            background: var(--lehavot-red);
+            opacity: 0.5;
+        }
+
+        .bar-benchmark .text {
+            font-size: 10px;
+            color: var(--lehavot-gray-500);
+        }
+
+        /* ===== View Toggle ===== */
+        .view-toggle-bar {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .view-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--lehavot-gray-300);
+            background: white;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn:hover {
+            background: var(--lehavot-gray-100);
+        }
+
+        .view-btn.active {
+            background: var(--lehavot-red);
+            color: white;
+            border-color: var(--lehavot-red);
+        }
+
         /* ===== Questions Panel ===== */
         .questions-panel {
             background: #FFF8E1;
@@ -758,8 +918,14 @@
                     </div>
                 </div>
 
+                <!-- View Toggle -->
+                <div class="view-toggle-bar">
+                    <button class="view-btn active" onclick="showView('table')">📋 Table</button>
+                    <button class="view-btn" onclick="showView('charts')">📊 Charts</button>
+                </div>
+
                 <!-- Data Table -->
-                <div class="data-table-section">
+                <div id="table-view" class="data-table-section">
                     <div class="table-header">Revenue Overview</div>
                     <div class="table-tabs">
                         <div class="table-tab active">חודשי</div>
@@ -882,6 +1048,59 @@
                     </table>
                 </div>
 
+                <!-- Charts Section (hidden by default) -->
+                <div id="charts-view" class="charts-section" style="display: none;">
+                    <div class="chart-container">
+                        <h3>התפלגות מכירות לפי סגמנט</h3>
+                        <div class="pie-chart-wrapper">
+                            <div class="pie-chart"></div>
+                            <div class="pie-legend">
+                                <div class="legend-item"><span class="dot miri"></span> מירי — 3%</div>
+                                <div class="legend-item"><span class="dot ilan"></span> אילן — 49%</div>
+                                <div class="legend-item"><span class="dot dodo"></span> דודו — 28%</div>
+                                <div class="legend-item"><span class="dot chul"></span> חו"ל — 20%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <h3>MTD % מתקציב לפי סגמנט</h3>
+                        <div class="bar-chart">
+                            <div class="bar-row">
+                                <span class="bar-label">מירי</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill bad" style="width: 5%;"></div>
+                                    <span class="bar-value">5%</span>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">אילן</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill warning" style="width: 80%;"></div>
+                                    <span class="bar-value">80%</span>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">דודו</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill good" style="width: 100%;"></div>
+                                    <span class="bar-value">102%</span>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <span class="bar-label">חו"ל</span>
+                                <div class="bar-track">
+                                    <div class="bar-fill warning" style="width: 83%;"></div>
+                                    <span class="bar-value">83%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bar-benchmark">
+                            <span class="line"></span>
+                            <span class="text">100% = יעד</span>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Questions Panel -->
                 <div class="questions-panel">
                     <h3>⚠️ שאלות פתוחות לראובן</h3>
@@ -906,5 +1125,24 @@
             </div>
         </main>
     </div>
+    <script>
+        function showView(view) {
+            const tableView = document.getElementById('table-view');
+            const chartsView = document.getElementById('charts-view');
+            const buttons = document.querySelectorAll('.view-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            if (view === 'table') {
+                tableView.style.display = 'block';
+                chartsView.style.display = 'none';
+                buttons[0].classList.add('active');
+            } else {
+                tableView.style.display = 'none';
+                chartsView.style.display = 'grid';
+                buttons[1].classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
