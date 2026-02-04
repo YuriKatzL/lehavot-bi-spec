@@ -685,7 +685,7 @@
             top: 16px;
             left: 16px;
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: linear-gradient(135deg, #6B46C1, #805AD5);
             color: white;
             border: none;
@@ -703,66 +703,167 @@
         }
 
         .spec-toggle.active {
-            background: linear-gradient(135deg, #553C9A, #6B46C1);
+            background: var(--orders-blue);
+            box-shadow: 0 4px 12px rgba(21, 101, 192, 0.4);
         }
 
-        /* ===== Spec Panel ===== */
-        .spec-panel {
+        /* ===== Full Page Spec Document ===== */
+        .spec-document {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 450px;
-            height: 100vh;
-            background: white;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
-            z-index: 999;
-            overflow-y: auto;
-            padding: 70px 24px 24px;
+            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 40px;
         }
 
-        .spec-panel.visible {
+        .spec-document.visible {
             display: block;
         }
 
-        .spec-panel h2 {
-            color: #6B46C1;
+        .spec-doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .spec-doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--orders-blue);
+        }
+
+        .spec-doc-header h1 {
+            font-size: 28px;
+            color: var(--lehavot-gray-900);
+            margin-bottom: 8px;
+        }
+
+        .spec-doc-header .subtitle {
             font-size: 18px;
-            margin-bottom: 8px;
+            color: var(--lehavot-gray-600);
+            margin-bottom: 20px;
+        }
+
+        .spec-doc-header .meta {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            font-size: 13px;
+            color: var(--lehavot-gray-500);
+        }
+
+        .spec-section {
+            margin-bottom: 40px;
+        }
+
+        .spec-section h2 {
+            font-size: 18px;
+            color: white;
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #1565C0, #1976D2);
+            border-radius: 6px;
+        }
+
+        .spec-section h3 {
+            font-size: 15px;
+            color: var(--lehavot-gray-800);
+            margin: 24px 0 12px;
             padding-bottom: 8px;
-            border-bottom: 2px solid #6B46C1;
+            border-bottom: 2px solid var(--lehavot-gray-200);
         }
 
-        .spec-panel h3 {
-            color: var(--lehavot-gray-800);
+        .spec-section p {
             font-size: 14px;
-            margin: 20px 0 12px;
-            padding: 8px 12px;
+            line-height: 1.7;
+            color: var(--lehavot-gray-700);
+            margin-bottom: 12px;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .spec-table th {
             background: var(--lehavot-gray-100);
-            border-radius: 6px;
-        }
-
-        .spec-item {
             padding: 12px;
-            margin-bottom: 8px;
-            background: #FAFAFA;
-            border-radius: 6px;
-            border-right: 3px solid var(--lehavot-gray-300);
-        }
-
-        .spec-item.has-source {
-            border-right-color: #4CAF50;
-        }
-
-        .spec-item.needs-info {
-            border-right-color: #F57C00;
-            background: #FFF8E1;
-        }
-
-        .spec-item .field-name {
+            text-align: right;
             font-weight: 600;
-            color: var(--lehavot-gray-800);
-            margin-bottom: 4px;
+            border: 1px solid var(--lehavot-gray-300);
+        }
+
+        .spec-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--lehavot-gray-300);
+            vertical-align: top;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .spec-table code {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+        }
+
+        .spec-table .missing {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .spec-alert {
+            padding: 16px 20px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .spec-alert.warning {
+            background: #fff3e0;
+            border-right: 4px solid #ff9800;
+        }
+
+        .spec-alert.info {
+            background: #e3f2fd;
+            border-right: 4px solid #2196f3;
+        }
+
+        .spec-alert.success {
+            background: #e8f5e9;
+            border-right: 4px solid #4caf50;
+        }
+
+        .spec-list {
+            margin: 12px 0;
+            padding-right: 24px;
+        }
+
+        .spec-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .spec-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--lehavot-gray-200);
+            text-align: center;
+            font-size: 12px;
+            color: var(--lehavot-gray-500);
         }
 
         .spec-item .field-source {
@@ -860,139 +961,309 @@
 </head>
 <body>
     <!-- Spec Toggle Button -->
-    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט</button>
+    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט טכני</button>
 
-    <!-- Spec Panel -->
-    <div class="spec-panel" id="spec-panel">
-        <h2>מפרט טכני — Orders Dashboard</h2>
+    <!-- Full Page Spec Document -->
+    <div class="spec-document" id="spec-document">
+        <div class="spec-doc-container">
+            <div class="spec-doc-header">
+                <h1>מפרט טכני — Orders Dashboard</h1>
+                <div class="subtitle">דשבורד הזמנות — Order Entry Tracking</div>
+                <div class="meta">
+                    <span>📅 תאריך: פברואר 2026</span>
+                    <span>👤 מחבר: יורי כץ</span>
+                    <span>📌 גרסה: 2.0</span>
+                </div>
+            </div>
 
-        <div class="spec-legend">
-            <span><div class="dot-green"></div> יש מקור בפריוריטי</span>
-            <span><div class="dot-orange"></div> חסר מידע</span>
-        </div>
+            <div class="spec-section">
+                <h2>1. סקירה כללית</h2>
+                <p>דשבורד זה מציג ניתוח קצב כניסת הזמנות בהשוואה לשנה קודמת. הדשבורד מיועד לחיזוי האם החברה תעמוד ביעדי הצמיחה.</p>
 
-        <h3>ℹ️ הבדל מ-Sales Dashboard</h3>
+                <div class="spec-alert info">
+                    <strong>הבדל מ-Sales Dashboard:</strong> להזמנות אין תקציב — רק השוואה לשנה שעברה.<br>
+                    <strong>מטרה:</strong> "אם רוצים לגדול 5%, צריך לראות שקצב ההזמנות 5% מעל שנה שעברה."
+                </div>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">אין השוואה לתקציב</div>
-            <div class="field-source">Only vs Last Year</div>
-            <div class="field-desc">להזמנות אין תקציב — רק השוואה לשנה שעברה</div>
-        </div>
+            <div class="spec-section">
+                <h2>2. סגמנטים עסקיים (Business Units)</h2>
+                <p>אותם סגמנטים כמו ב-Sales Dashboard:</p>
 
-        <div class="spec-item has-source">
-            <div class="field-name">מטרה</div>
-            <div class="field-source">קצב כניסת הזמנות</div>
-            <div class="field-desc">"אם רוצים לגדול 5%, צריך לראות שקצב ההזמנות 5% מעל שנה שעברה"</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>סגמנט</th>
+                            <th>תתי-סגמנטים</th>
+                            <th>מיפוי בפריוריטי</th>
+                            <th>הערות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>מירי</strong></td>
+                            <td>כולל פז</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>אילן</strong></td>
+                            <td>—</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>דודו</strong></td>
+                            <td>אוטובוסים, מנדפים/מטבחים, כלים חקלאיים, שירות</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>חו"ל</strong></td>
+                            <td>לפי מפיץ</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>⭐ Orders by Due Date — רק לסגמנט זה</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <h3>🔍 Filters — סינונים</h3>
+            <div class="spec-section">
+                <h2>3. פילטרים (Filters)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Year / Quarter / Period</div>
-            <div class="field-source">ORDERS.CURDATE</div>
-            <div class="field-desc">תאריך הזמנה</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>פילטר</th>
+                            <th>סוג</th>
+                            <th>ברירת מחדל</th>
+                            <th>מקור בפריוריטי</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>שנה (Year)</td>
+                            <td>Multi-select</td>
+                            <td>שנה נוכחית</td>
+                            <td><code>YEAR(ORDERS.CURDATE)</code></td>
+                        </tr>
+                        <tr>
+                            <td>רבעון (Quarter)</td>
+                            <td>Multi-select</td>
+                            <td>רבעון נוכחי</td>
+                            <td><code>DATEPART(Q, ORDERS.CURDATE)</code></td>
+                        </tr>
+                        <tr>
+                            <td>תקופה (Period)</td>
+                            <td>Date Range</td>
+                            <td>חודש נוכחי</td>
+                            <td><code>ORDERS.CURDATE BETWEEN</code></td>
+                        </tr>
+                        <tr>
+                            <td>סגמנט מכירות</td>
+                            <td>Multi-select</td>
+                            <td>הכל</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                        </tr>
+                        <tr>
+                            <td>מפיץ (Distributor)</td>
+                            <td>Multi-select</td>
+                            <td>הכל</td>
+                            <td><code>AGENTS.AGENTCODE</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">סגמנט מכירות (BU)</div>
-            <div class="field-missing">❓ צריך מיפוי מראובן</div>
-            <div class="field-desc">אותו מיפוי כמו Sales</div>
-        </div>
+            <div class="spec-section">
+                <h2>4. כרטיסי סיכום (Summary Cards)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">מפיץ (Distributor)</div>
-            <div class="field-source">CUSTOMERS.AGENT / AGENTS.AGENTCODE</div>
-            <div class="field-desc">רלוונטי בעיקר לחו"ל</div>
-        </div>
+                <div class="spec-alert success">
+                    <strong>שימו לב:</strong> אין השוואה לתקציב — רק % משנה שעברה.
+                </div>
 
-        <h3>📊 Summary Cards — כרטיסי סיכום</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>מדד</th>
+                            <th>חישוב</th>
+                            <th>מקור</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>% Time Elapsed</td>
+                            <td>יום נוכחי / ימים בחודש × 100</td>
+                            <td><code>DAY(GETDATE()) / DAYSINTHEMONTH</code></td>
+                        </tr>
+                        <tr>
+                            <td>% from Last Year</td>
+                            <td>(הזמנות MTD - אשתקד) / אשתקד × 100</td>
+                            <td><code>ORDERS WHERE YEAR-1</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">MTD Orders</div>
-            <div class="field-source">SUM(ORDERS.TOTAL) WHERE CURDATE >= MonthStart</div>
-            <div class="field-desc">סה"כ הזמנות מתחילת החודש</div>
-        </div>
+            <div class="spec-section">
+                <h2>5. טבלת הזמנות (Orders Table)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">MTD Last Year</div>
-            <div class="field-source">SUM(ORDERS.TOTAL) WHERE CURDATE = SamePeriodLastYear</div>
-            <div class="field-desc">אותה תקופה שנה שעברה</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>עמודה</th>
+                            <th>תיאור</th>
+                            <th>מקור / חישוב</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BU (סגמנט)</td>
+                            <td>יחידה עסקית</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                        </tr>
+                        <tr>
+                            <td>Current Week</td>
+                            <td>הזמנות השבוע הנוכחי</td>
+                            <td><code>SUM(ORDERS.TOTAL) WHERE CURDATE IN CurrentWeek</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD Orders</td>
+                            <td>הזמנות מתחילת החודש</td>
+                            <td><code>SUM(ORDERS.TOTAL) WHERE CURDATE >= MonthStart</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD Last Year</td>
+                            <td>אותה תקופה שנה שעברה</td>
+                            <td><code>ORDERS WHERE YEAR(CURDATE) = YEAR-1</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD % vs LY</td>
+                            <td>שינוי באחוזים</td>
+                            <td><code>(MTD - MTD_LY) / MTD_LY × 100</code></td>
+                        </tr>
+                        <tr>
+                            <td>QTD / YTD</td>
+                            <td>צבירה רבעונית / שנתית</td>
+                            <td>אותה לוגיקה לתקופות ארוכות יותר</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">% from Last Year</div>
-            <div class="field-source">(MTD_Orders - MTD_LastYear) / MTD_LastYear * 100</div>
-            <div class="field-desc">אחוז שינוי משנה שעברה (+ או -)</div>
-        </div>
+            <div class="spec-section">
+                <h2>6. Orders by Due Date (חו"ל בלבד)</h2>
 
-        <h3>📋 Orders Table — טבלת הזמנות</h3>
+                <div class="spec-alert info">
+                    <strong>תצוגה מיוחדת:</strong> רלוונטי רק לסגמנט חו"ל.<br>
+                    בשאר הסגמנטים הזמנות יוצאות מיד (אין backlog משמעותי).
+                </div>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">BU (Business Unit)</div>
-            <div class="field-missing">❓ מיפוי סגמנטים נדרש</div>
-            <div class="field-desc">מירי, אילן, דודו (תתי-סגמנטים), חו"ל</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>עמודה</th>
+                            <th>תיאור</th>
+                            <th>מקור</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Due Date</td>
+                            <td>תאריך אספקה צפוי</td>
+                            <td><code>ORDERS.DUEDATE</code></td>
+                        </tr>
+                        <tr>
+                            <td>Open Orders</td>
+                            <td>סכום הזמנות פתוחות</td>
+                            <td><code>SUM(ORDERS.TOTAL) WHERE STATUS = 'Open'</code></td>
+                        </tr>
+                        <tr>
+                            <td>Distributor</td>
+                            <td>מפיץ (עופר, ירון וכו')</td>
+                            <td><code>AGENTS.AGENTNAME</code></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Current Week Orders</div>
-            <div class="field-source">SUM(ORDERS.TOTAL) WHERE CURDATE IN CurrentWeek</div>
-            <div class="field-desc">הזמנות השבוע הנוכחי</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>⚠️ נדרש מראובן:</strong> איך מזהים הזמנה פתוחה vs סגורה בפריוריטי?
+                </div>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">QTD / YTD</div>
-            <div class="field-source">SUM(ORDERS.TOTAL) WHERE period</div>
-            <div class="field-desc">צבירה רבעונית / שנתית</div>
-        </div>
+            <div class="spec-section">
+                <h2>7. גרפים (Charts)</h2>
 
-        <h3>📅 Orders by Due Date — חו"ל בלבד</h3>
+                <h3>7.1 Pie Chart — התפלגות הזמנות</h3>
+                <ul class="spec-list">
+                    <li><strong>סוג:</strong> עוגה (Pie)</li>
+                    <li><strong>נתונים:</strong> אחוז הזמנות לכל סגמנט</li>
+                    <li><strong>מקור:</strong> <code>GROUP BY Segment, SUM(ORDERS.TOTAL)</code></li>
+                </ul>
 
-        <div class="spec-item has-source">
-            <div class="field-name">תצוגה מיוחדת</div>
-            <div class="field-source">ORDERS.DUEDATE</div>
-            <div class="field-desc">הזמנות פתוחות לפי תאריך אספקה צפוי</div>
-        </div>
+                <h3>7.2 Bar Chart — % משנה שעברה</h3>
+                <ul class="spec-list">
+                    <li><strong>סוג:</strong> עמודות אופקיות</li>
+                    <li><strong>נתונים:</strong> שינוי באחוזים מול שנה שעברה</li>
+                    <li><strong>קו ייחוס:</strong> 0% = ללא שינוי</li>
+                    <li><strong>צבעים:</strong> ירוק = צמיחה חיובית, אדום = ירידה</li>
+                </ul>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">רלוונטיות</div>
-            <div class="field-source">רק לסגמנט חו"ל</div>
-            <div class="field-desc">בשאר הסגמנטים הזמנות יוצאות מיד (אין backlog)</div>
-        </div>
+            <div class="spec-section">
+                <h2>8. שאלות פתוחות</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Open Orders</div>
-            <div class="field-source">ORDERS WHERE STATUS = 'Open' AND Segment = 'Export'</div>
-            <div class="field-desc">הזמנות פתוחות שטרם נשלחו</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>1. מיפוי סגמנטים:</strong><br>
+                    אותו מיפוי כמו Sales Dashboard.
+                </div>
 
-        <h3>📈 Charts — גרפים</h3>
+                <div class="spec-alert warning">
+                    <strong>2. סטטוס הזמנה:</strong><br>
+                    איך מזהים הזמנה פתוחה vs סגורה בפריוריטי?<br>
+                    שדה ORDSTATUS? ערכים אפשריים?
+                </div>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Pie Chart — התפלגות</div>
-            <div class="field-source">GROUP BY Segment, SUM(TOTAL)</div>
-            <div class="field-desc">אחוז הזמנות לכל סגמנט</div>
-        </div>
+            <div class="spec-section">
+                <h2>9. טבלאות נדרשות מפריוריטי (API)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Bar Chart — % משנה שעברה</div>
-            <div class="field-source">(Current - LastYear) / LastYear per Segment</div>
-            <div class="field-desc">שינוי באחוזים מול שנה שעברה</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>טבלה</th>
+                            <th>שימוש</th>
+                            <th>גישה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>ORDERS</code></td>
+                            <td>נתוני הזמנות</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>CUSTOMERS</code></td>
+                            <td>לקוחות — מיפוי לסגמנט</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>AGENTS</code></td>
+                            <td>סוכנים/מפיצים</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <h3>⚠️ שאלות פתוחות</h3>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">1. מיפוי סגמנטים</div>
-            <div class="field-missing">❓ אותו מיפוי כמו Sales</div>
-        </div>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">2. סטטוס הזמנה</div>
-            <div class="field-missing">❓ איך מזהים הזמנה פתוחה vs סגורה?</div>
+            <div class="spec-footer">
+                <p><strong>Lehavot BI Specification</strong> | גרסה 2.0 | פברואר 2026</p>
+                <p>מסמך זה מיועד לקבלן BI (אליק) ולצוות הפרויקט</p>
+            </div>
         </div>
     </div>
 
-    <div class="app-container">
+    <div class="app-container" id="dashboard-view">
 
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -1433,10 +1704,23 @@
         }
 
         function toggleSpec() {
-            const panel = document.getElementById('spec-panel');
+            const specDoc = document.getElementById('spec-document');
+            const dashboard = document.getElementById('dashboard-view');
             const btn = document.querySelector('.spec-toggle');
-            panel.classList.toggle('visible');
-            btn.classList.toggle('active');
+
+            if (specDoc.classList.contains('visible')) {
+                // Show dashboard
+                specDoc.classList.remove('visible');
+                dashboard.style.display = 'flex';
+                btn.classList.remove('active');
+                btn.textContent = '📋 מפרט טכני';
+            } else {
+                // Show spec
+                specDoc.classList.add('visible');
+                dashboard.style.display = 'none';
+                btn.classList.add('active');
+                btn.textContent = '📊 חזרה לדשבורד';
+            }
         }
     </script>
 </body>

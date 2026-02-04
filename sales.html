@@ -675,7 +675,7 @@
             top: 16px;
             left: 16px;
             z-index: 1000;
-            padding: 10px 20px;
+            padding: 12px 24px;
             background: linear-gradient(135deg, #6B46C1, #805AD5);
             color: white;
             border: none;
@@ -693,111 +693,174 @@
         }
 
         .spec-toggle.active {
-            background: linear-gradient(135deg, #553C9A, #6B46C1);
+            background: var(--lehavot-red);
+            box-shadow: 0 4px 12px rgba(215, 25, 32, 0.4);
         }
 
-        /* ===== Spec Panel ===== */
-        .spec-panel {
+        /* ===== Full Page Spec Document ===== */
+        .spec-document {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 450px;
-            height: 100vh;
-            background: white;
-            box-shadow: 4px 0 24px rgba(0,0,0,0.15);
-            z-index: 999;
-            overflow-y: auto;
-            padding: 70px 24px 24px;
+            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 40px;
         }
 
-        .spec-panel.visible {
+        .spec-document.visible {
             display: block;
         }
 
-        .spec-panel h2 {
-            color: #6B46C1;
+        .spec-doc-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 60px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        .spec-doc-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid var(--lehavot-red);
+        }
+
+        .spec-doc-header h1 {
+            font-size: 28px;
+            color: var(--lehavot-gray-900);
+            margin-bottom: 8px;
+        }
+
+        .spec-doc-header .subtitle {
             font-size: 18px;
-            margin-bottom: 8px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #6B46C1;
-        }
-
-        .spec-panel h3 {
-            color: var(--lehavot-gray-800);
-            font-size: 14px;
-            margin: 20px 0 12px;
-            padding: 8px 12px;
-            background: var(--lehavot-gray-100);
-            border-radius: 6px;
-        }
-
-        .spec-item {
-            padding: 12px;
-            margin-bottom: 8px;
-            background: #FAFAFA;
-            border-radius: 6px;
-            border-right: 3px solid var(--lehavot-gray-300);
-        }
-
-        .spec-item.has-source {
-            border-right-color: #4CAF50;
-        }
-
-        .spec-item.needs-info {
-            border-right-color: #F57C00;
-            background: #FFF8E1;
-        }
-
-        .spec-item .field-name {
-            font-weight: 600;
-            color: var(--lehavot-gray-800);
-            margin-bottom: 4px;
-        }
-
-        .spec-item .field-source {
-            font-size: 12px;
-            color: #4CAF50;
-            font-family: 'Consolas', monospace;
-        }
-
-        .spec-item .field-missing {
-            font-size: 12px;
-            color: #F57C00;
-            font-weight: 500;
-        }
-
-        .spec-item .field-desc {
-            font-size: 11px;
             color: var(--lehavot-gray-600);
-            margin-top: 4px;
+            margin-bottom: 20px;
         }
 
-        .spec-legend {
+        .spec-doc-header .meta {
             display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-            font-size: 11px;
+            justify-content: center;
+            gap: 32px;
+            font-size: 13px;
+            color: var(--lehavot-gray-500);
         }
 
-        .spec-legend span {
+        .spec-doc-header .meta span {
             display: flex;
             align-items: center;
             gap: 6px;
         }
 
-        .spec-legend .dot-green {
-            width: 10px;
-            height: 10px;
-            background: #4CAF50;
-            border-radius: 2px;
+        .spec-section {
+            margin-bottom: 40px;
         }
 
-        .spec-legend .dot-orange {
-            width: 10px;
-            height: 10px;
-            background: #F57C00;
-            border-radius: 2px;
+        .spec-section h2 {
+            font-size: 18px;
+            color: var(--lehavot-gray-900);
+            margin-bottom: 16px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #6B46C1, #805AD5);
+            color: white;
+            border-radius: 6px;
+        }
+
+        .spec-section h3 {
+            font-size: 15px;
+            color: var(--lehavot-gray-800);
+            margin: 24px 0 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--lehavot-gray-200);
+        }
+
+        .spec-section p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--lehavot-gray-700);
+            margin-bottom: 12px;
+        }
+
+        .spec-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .spec-table th {
+            background: var(--lehavot-gray-100);
+            padding: 12px;
+            text-align: right;
+            font-weight: 600;
+            border: 1px solid var(--lehavot-gray-300);
+        }
+
+        .spec-table td {
+            padding: 10px 12px;
+            border: 1px solid var(--lehavot-gray-300);
+            vertical-align: top;
+        }
+
+        .spec-table tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .spec-table code {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Consolas', monospace;
+            font-size: 12px;
+        }
+
+        .spec-table .missing {
+            background: #fff3e0;
+            color: #e65100;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .spec-alert {
+            padding: 16px 20px;
+            border-radius: 6px;
+            margin: 16px 0;
+            font-size: 13px;
+        }
+
+        .spec-alert.warning {
+            background: #fff3e0;
+            border-right: 4px solid #ff9800;
+        }
+
+        .spec-alert.info {
+            background: #e3f2fd;
+            border-right: 4px solid #2196f3;
+        }
+
+        .spec-alert.success {
+            background: #e8f5e9;
+            border-right: 4px solid #4caf50;
+        }
+
+        .spec-list {
+            margin: 12px 0;
+            padding-right: 24px;
+        }
+
+        .spec-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .spec-footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--lehavot-gray-200);
+            text-align: center;
+            font-size: 12px;
+            color: var(--lehavot-gray-500);
         }
 
         /* ===== Questions Panel ===== */
@@ -849,171 +912,346 @@
 </head>
 <body>
     <!-- Spec Toggle Button -->
-    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט</button>
+    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט טכני</button>
 
-    <!-- Spec Panel -->
-    <div class="spec-panel" id="spec-panel">
-        <h2>מפרט טכני — Sales Dashboard</h2>
+    <!-- Full Page Spec Document -->
+    <div class="spec-document" id="spec-document">
+        <div class="spec-doc-container">
+            <div class="spec-doc-header">
+                <h1>מפרט טכני — Sales Dashboard</h1>
+                <div class="subtitle">דשבורד מכירות — Revenue Analysis</div>
+                <div class="meta">
+                    <span>📅 תאריך: פברואר 2026</span>
+                    <span>👤 מחבר: יורי כץ</span>
+                    <span>📌 גרסה: 2.0</span>
+                </div>
+            </div>
 
-        <div class="spec-legend">
-            <span><div class="dot-green"></div> יש מקור בפריוריטי</span>
-            <span><div class="dot-orange"></div> חסר מידע</span>
-        </div>
+            <div class="spec-section">
+                <h2>1. סקירה כללית</h2>
+                <p>דשבורד זה מציג ניתוח מכירות בזמן אמת, הכולל השוואה לתקציב ולשנה קודמת. הדשבורד מיועד להנהלה ולמנהלי מכירות לצורך מעקב אחר ביצועים ואיתור חריגות.</p>
 
-        <h3>🔍 Filters — סינונים</h3>
+                <div class="spec-alert info">
+                    <strong>מקור נתונים:</strong> Priority ERP דרך API (לא SQL ישיר). גישה Read-only עם הרשאות per-table.
+                </div>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Year / Quarter / Period</div>
-            <div class="field-source">DOCUMENTS.CURDATE</div>
-            <div class="field-desc">תאריך תעודת משלוח — מחשבים שנה/רבעון/חודש</div>
-        </div>
+            <div class="spec-section">
+                <h2>2. סגמנטים עסקיים (Business Units)</h2>
+                <p>הדשבורד מחולק לסגמנטים הבאים:</p>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">סגמנט מכירות (BU)</div>
-            <div class="field-missing">❓ צריך מיפוי מראובן</div>
-            <div class="field-desc">לפי דוח 740: סוכן + לקוח + משפחה = סגמנט. צריך פירוט מדויק.</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>סגמנט</th>
+                            <th>תתי-סגמנטים</th>
+                            <th>מיפוי בפריוריטי</th>
+                            <th>הערות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>מירי</strong></td>
+                            <td>כולל פז</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>פז מקבלת עמלות נפרדות</td>
+                        </tr>
+                        <tr>
+                            <td><strong>אילן</strong></td>
+                            <td>—</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>דודו</strong></td>
+                            <td>אוטובוסים, מנדפים/מטבחים, כלים חקלאיים, שירות</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>תתי-סגמנטים מוצגים בנפרד</td>
+                        </tr>
+                        <tr>
+                            <td><strong>חו"ל</strong></td>
+                            <td>לפי מפיץ (עופר, ירון וכו')</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                            <td>Orders by Due Date — רלוונטי רק לחו"ל</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <div class="spec-item has-source">
-            <div class="field-name">מפיץ (Distributor)</div>
-            <div class="field-source">CUSTOMERS.AGENT / AGENTS.AGENTCODE</div>
-            <div class="field-desc">רלוונטי בעיקר לחו"ל</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>⚠️ נדרש מראובן:</strong> מיפוי מדויק — איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה? (סוכן? לקוח? משפחת מוצרים?)
+                </div>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">משפחת מוצרים</div>
-            <div class="field-source">PART.FAMILYNAME / FAMILY</div>
-            <div class="field-desc">משפחות מוצרים מפריוריטי</div>
-        </div>
+            <div class="spec-section">
+                <h2>3. פילטרים (Filters)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">חברה (Company)</div>
-            <div class="field-source">ENVIRONMENT / DNAME</div>
-            <div class="field-desc">להבות / פיירטק / מאוחד</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>פילטר</th>
+                            <th>סוג</th>
+                            <th>ברירת מחדל</th>
+                            <th>מקור בפריוריטי</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>שנה (Year)</td>
+                            <td>Multi-select</td>
+                            <td>שנה נוכחית</td>
+                            <td><code>YEAR(DOCUMENTS.CURDATE)</code></td>
+                        </tr>
+                        <tr>
+                            <td>רבעון (Quarter)</td>
+                            <td>Multi-select</td>
+                            <td>רבעון נוכחי</td>
+                            <td><code>DATEPART(Q, DOCUMENTS.CURDATE)</code></td>
+                        </tr>
+                        <tr>
+                            <td>תקופה (Period)</td>
+                            <td>Date Range</td>
+                            <td>חודש נוכחי</td>
+                            <td><code>DOCUMENTS.CURDATE BETWEEN</code></td>
+                        </tr>
+                        <tr>
+                            <td>סגמנט מכירות</td>
+                            <td>Multi-select</td>
+                            <td>הכל</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                        </tr>
+                        <tr>
+                            <td>מפיץ (Distributor)</td>
+                            <td>Multi-select</td>
+                            <td>הכל</td>
+                            <td><code>AGENTS.AGENTCODE</code></td>
+                        </tr>
+                        <tr>
+                            <td>משפחת מוצרים</td>
+                            <td>Multi-select</td>
+                            <td>הכל</td>
+                            <td><code>FAMILY.FAMILYNAME</code></td>
+                        </tr>
+                        <tr>
+                            <td>חברה (Company)</td>
+                            <td>Single-select</td>
+                            <td>מאוחד</td>
+                            <td><code>ENVIRONMENT / DNAME</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <h3>📊 Summary Cards — כרטיסי סיכום</h3>
+            <div class="spec-section">
+                <h2>4. כרטיסי סיכום (Summary Cards)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Week Number</div>
-            <div class="field-source">DATEPART(WEEK, GETDATE())</div>
-            <div class="field-desc">מספר שבוע נוכחי בשנה</div>
-        </div>
+                <h3>4.1 MTD Analysis (Month-to-Date)</h3>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>מדד</th>
+                            <th>חישוב</th>
+                            <th>מקור</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>% Time Elapsed</td>
+                            <td>יום נוכחי / ימים בחודש × 100</td>
+                            <td><code>DAY(GETDATE()) / DAYSINTHEMONTH</code></td>
+                        </tr>
+                        <tr>
+                            <td>% from Budget</td>
+                            <td>מכירות MTD / תקציב MTD × 100</td>
+                            <td><span class="missing">❓ טבלת תקציב</span></td>
+                        </tr>
+                        <tr>
+                            <td>% from Last Year</td>
+                            <td>מכירות MTD / מכירות אשתקד × 100</td>
+                            <td><code>DOCUMENTS WHERE YEAR-1</code></td>
+                        </tr>
+                    </tbody>
+                </table>
 
-        <div class="spec-item has-source">
-            <div class="field-name">MTD Sales</div>
-            <div class="field-source">SUM(DOCUMENTS.TOTAL) WHERE CURDATE >= MonthStart</div>
-            <div class="field-desc">סה"כ תעודות משלוח מתחילת החודש</div>
-        </div>
+                <h3>4.2 QTD & YTD Analysis</h3>
+                <p>אותה לוגיקה כמו MTD, אבל לתקופות רבעון ושנה.</p>
+            </div>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">MTD Budget</div>
-            <div class="field-missing">❓ איפה טבלת תקציב? מבנה?</div>
-            <div class="field-desc">תקציב חודשי לפי סגמנט — צריך לדעת שם טבלה ומבנה</div>
-        </div>
+            <div class="spec-section">
+                <h2>5. טבלת מכירות (Revenue Table)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">MTD Last Year</div>
-            <div class="field-source">SUM(DOCUMENTS.TOTAL) WHERE CURDATE = SamePeriodLastYear</div>
-            <div class="field-desc">אותה תקופה שנה שעברה</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>עמודה</th>
+                            <th>תיאור</th>
+                            <th>מקור / חישוב</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>BU (סגמנט)</td>
+                            <td>יחידה עסקית</td>
+                            <td><span class="missing">❓ צריך מיפוי</span></td>
+                        </tr>
+                        <tr>
+                            <td>MTD Sales</td>
+                            <td>מכירות מתחילת החודש</td>
+                            <td><code>SUM(DOCUMENTS.TOTAL) WHERE CURDATE >= MonthStart</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD Budget</td>
+                            <td>תקציב חודשי (יחסי)</td>
+                            <td><span class="missing">❓ טבלת תקציב</span></td>
+                        </tr>
+                        <tr>
+                            <td>Full Month Budget</td>
+                            <td>תקציב מלא לחודש</td>
+                            <td><span class="missing">❓ טבלת תקציב</span></td>
+                        </tr>
+                        <tr>
+                            <td>MTD % from Budget</td>
+                            <td>אחוז ביצוע מתקציב</td>
+                            <td><code>MTD_Sales / MTD_Budget × 100</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD Last Year</td>
+                            <td>אותה תקופה שנה שעברה</td>
+                            <td><code>DOCUMENTS WHERE YEAR(CURDATE) = YEAR-1</code></td>
+                        </tr>
+                        <tr>
+                            <td>MTD % from LY</td>
+                            <td>אחוז משנה שעברה</td>
+                            <td><code>MTD_Sales / MTD_LY × 100</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">% Time Elapsed</div>
-            <div class="field-source">DAY(TODAY) / DAYSINTHEMONTH * 100</div>
-            <div class="field-desc">אחוז הזמן שעבר מתחילת החודש/רבעון/שנה</div>
-        </div>
+            <div class="spec-section">
+                <h2>6. גרפים (Charts)</h2>
 
-        <h3>📋 Revenue Table — טבלת מכירות</h3>
+                <h3>6.1 Pie Chart — התפלגות מכירות</h3>
+                <ul class="spec-list">
+                    <li><strong>סוג:</strong> עוגה (Pie)</li>
+                    <li><strong>נתונים:</strong> אחוז מכירות לכל סגמנט</li>
+                    <li><strong>מקור:</strong> <code>GROUP BY Segment, SUM(DOCUMENTS.TOTAL)</code></li>
+                </ul>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">BU (Business Unit)</div>
-            <div class="field-missing">❓ מיפוי סגמנטים נדרש</div>
-            <div class="field-desc">מירי, אילן, דודו (תתי-סגמנטים), חו"ל</div>
-        </div>
+                <h3>6.2 Bar Chart — % מתקציב</h3>
+                <ul class="spec-list">
+                    <li><strong>סוג:</strong> עמודות אופקיות</li>
+                    <li><strong>נתונים:</strong> אחוז ביצוע מתקציב לכל סגמנט</li>
+                    <li><strong>קו ייחוס:</strong> 100% = יעד</li>
+                </ul>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Current Week Sales</div>
-            <div class="field-source">SUM(DOCUMENTS.TOTAL) WHERE CURDATE IN CurrentWeek</div>
-            <div class="field-desc">מכירות השבוע הנוכחי</div>
-        </div>
+            <div class="spec-section">
+                <h2>7. קידוד צבעים (Color Coding)</h2>
 
-        <div class="spec-item needs-info">
-            <div class="field-name">Full Month Budget</div>
-            <div class="field-missing">❓ טבלת תקציב</div>
-            <div class="field-desc">תקציב מלא לחודש</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>צבע</th>
+                            <th>תנאי</th>
+                            <th>משמעות</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="background:#e8f5e9;color:#2e7d32;">🟢 ירוק</td>
+                            <td>>= 100%</td>
+                            <td>עמידה ביעד או מעל</td>
+                        </tr>
+                        <tr>
+                            <td style="background:#fff3e0;color:#e65100;">🟡 כתום</td>
+                            <td>80% - 99%</td>
+                            <td>קרוב ליעד, דורש תשומת לב</td>
+                        </tr>
+                        <tr>
+                            <td style="background:#ffebee;color:#c62828;">🔴 אדום</td>
+                            <td>< 80%</td>
+                            <td>מתחת ליעד, דורש טיפול</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">% from Budget</div>
-            <div class="field-source">MTD_Sales / MTD_Budget * 100</div>
-            <div class="field-desc">חישוב: מכירות / תקציב</div>
-        </div>
+            <div class="spec-section">
+                <h2>8. שאלות פתוחות לראובן</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">% from Last Year</div>
-            <div class="field-source">MTD_Sales / MTD_LastYear * 100</div>
-            <div class="field-desc">חישוב: מכירות / שנה שעברה</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>1. מיפוי סגמנטים:</strong><br>
+                    איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה?<br>
+                    דוח 740 יודע לסנן — מה הלוגיקה? (סוכן + לקוח + משפחה?)
+                </div>
 
-        <h3>📈 Charts — גרפים</h3>
+                <div class="spec-alert warning">
+                    <strong>2. טבלת תקציב:</strong><br>
+                    איפה נמצא התקציב בפריוריטי?<br>
+                    שם הטבלה? מבנה (חודשי/רבעוני/שנתי)? לפי סגמנט?
+                </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Pie Chart — התפלגות</div>
-            <div class="field-source">GROUP BY Segment, SUM(TOTAL)</div>
-            <div class="field-desc">אחוז מכירות לכל סגמנט</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>3. מקור נתונים:</strong><br>
+                    תעודות משלוח או חשבוניות?<br>
+                    בשוטף = תעודות משלוח? אחרי סגירת חודש = חשבוניות?
+                </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">Bar Chart — % מתקציב</div>
-            <div class="field-source">MTD_Sales / MTD_Budget per Segment</div>
-            <div class="field-desc">השוואת ביצוע מול תקציב לכל סגמנט</div>
-        </div>
+                <div class="spec-alert warning">
+                    <strong>4. פז ומירי:</strong><br>
+                    להציג ביחד (סגמנט אחד) או בנפרד (שני סגמנטים)?
+                </div>
+            </div>
 
-        <h3>🎨 Color Coding — צבעים</h3>
+            <div class="spec-section">
+                <h2>9. טבלאות נדרשות מפריוריטי (API)</h2>
 
-        <div class="spec-item has-source">
-            <div class="field-name">ירוק (Good)</div>
-            <div class="field-source">>= 100%</div>
-            <div class="field-desc">עמידה ביעד או מעל</div>
-        </div>
+                <table class="spec-table">
+                    <thead>
+                        <tr>
+                            <th>טבלה</th>
+                            <th>שימוש</th>
+                            <th>גישה</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>DOCUMENTS</code></td>
+                            <td>תעודות משלוח — נתוני מכירות</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>CUSTOMERS</code></td>
+                            <td>לקוחות — מיפוי לסגמנט</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>AGENTS</code></td>
+                            <td>סוכנים — מיפוי לסגמנט</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>FAMILY</code></td>
+                            <td>משפחות מוצרים</td>
+                            <td><span class="missing">❓ לבדוק</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>BUDGET (?)</code></td>
+                            <td>תקציב</td>
+                            <td><span class="missing">❓ שם הטבלה?</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div class="spec-item has-source">
-            <div class="field-name">כתום (Warning)</div>
-            <div class="field-source">80% - 99%</div>
-            <div class="field-desc">קרוב ליעד</div>
-        </div>
-
-        <div class="spec-item has-source">
-            <div class="field-name">אדום (Bad)</div>
-            <div class="field-source">< 80%</div>
-            <div class="field-desc">מתחת ליעד</div>
-        </div>
-
-        <h3>⚠️ שאלות פתוחות</h3>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">1. מיפוי סגמנטים</div>
-            <div class="field-missing">❓ איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה?</div>
-        </div>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">2. טבלת תקציב</div>
-            <div class="field-missing">❓ שם הטבלה, מבנה, לפי סגמנט?</div>
-        </div>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">3. מקור נתונים</div>
-            <div class="field-missing">❓ תעודות משלוח או חשבוניות?</div>
-        </div>
-
-        <div class="spec-item needs-info">
-            <div class="field-name">4. פז ומירי</div>
-            <div class="field-missing">❓ להציג ביחד או בנפרד?</div>
+            <div class="spec-footer">
+                <p><strong>Lehavot BI Specification</strong> | גרסה 2.0 | פברואר 2026</p>
+                <p>מסמך זה מיועד לקבלן BI (אליק) ולצוות הפרויקט</p>
+            </div>
         </div>
     </div>
 
-    <div class="app-container">
+    <div class="app-container" id="dashboard-view">
 
         <!-- Sidebar -->
         <aside class="sidebar">
@@ -1441,10 +1679,23 @@
         }
 
         function toggleSpec() {
-            const panel = document.getElementById('spec-panel');
+            const specDoc = document.getElementById('spec-document');
+            const dashboard = document.getElementById('dashboard-view');
             const btn = document.querySelector('.spec-toggle');
-            panel.classList.toggle('visible');
-            btn.classList.toggle('active');
+
+            if (specDoc.classList.contains('visible')) {
+                // Show dashboard
+                specDoc.classList.remove('visible');
+                dashboard.style.display = 'flex';
+                btn.classList.remove('active');
+                btn.textContent = '📋 מפרט טכני';
+            } else {
+                // Show spec
+                specDoc.classList.add('visible');
+                dashboard.style.display = 'none';
+                btn.classList.add('active');
+                btn.textContent = '📊 חזרה לדשבורד';
+            }
         }
     </script>
 </body>
