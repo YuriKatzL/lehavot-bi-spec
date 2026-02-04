@@ -10,7 +10,6 @@
         :root {
             --lehavot-red: #D71920;
             --lehavot-red-dark: #B5151B;
-            --lehavot-red-light: #E84850;
             --lehavot-yellow: #FFD900;
             --lehavot-gray-100: #F5F5F5;
             --lehavot-gray-200: #EEEEEE;
@@ -21,6 +20,7 @@
             --lehavot-gray-700: #616161;
             --lehavot-gray-800: #424242;
             --lehavot-gray-900: #212121;
+            --sidebar-width: 220px;
         }
 
         * {
@@ -37,92 +37,156 @@
             line-height: 1.5;
         }
 
-        /* ===== Header ===== */
-        .header {
+        /* ===== Layout ===== */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: var(--sidebar-width);
             background: var(--lehavot-gray-900);
             color: white;
-            padding: 0 24px;
-            height: 64px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-logo .brand-accent {
+            color: var(--lehavot-yellow);
+        }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            padding: 8px 16px;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border-right: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(215, 25, 32, 0.15);
+            color: white;
+            border-right-color: var(--lehavot-red);
+        }
+
+        .nav-item .icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Top Bar ===== */
+        .top-bar {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--lehavot-gray-300);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header-brand {
+        .page-title {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .header-brand h1 {
-            font-size: 18px;
+        .page-title h1 {
+            font-size: 20px;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            color: var(--lehavot-gray-900);
         }
 
-        .header-brand .brand-accent {
-            color: var(--lehavot-yellow);
-        }
-
-        .header-brand .brand-separator {
-            color: rgba(255,255,255,0.35);
-            margin: 0 8px;
-        }
-
-        .header-brand .brand-module {
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .header .period {
-            background: rgba(255,255,255,0.1);
+        .period-badge {
+            background: var(--lehavot-gray-100);
             padding: 8px 16px;
             border-radius: 4px;
             font-size: 13px;
-            font-weight: 500;
-        }
-
-        /* ===== Navigation Tabs ===== */
-        .nav-tabs {
-            background: var(--lehavot-gray-800);
-            padding: 0 24px;
-            display: flex;
-            gap: 4px;
-        }
-
-        .nav-tabs a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            padding: 14px 20px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border-bottom: 3px solid transparent;
-        }
-
-        .nav-tabs a.active {
-            color: white;
-            background: var(--lehavot-gray-100);
-            border-bottom: 3px solid var(--lehavot-red);
-            border-radius: 4px 4px 0 0;
-        }
-
-        .nav-tabs a:hover:not(.active) {
-            color: white;
-            background: rgba(255,255,255,0.1);
+            color: var(--lehavot-gray-700);
         }
 
         /* ===== Filters Bar ===== */
         .filters-bar {
             background: white;
             padding: 16px 24px;
+            border-bottom: 2px solid var(--lehavot-red);
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
-            border-bottom: 1px solid var(--lehavot-gray-300);
             align-items: flex-end;
         }
 
@@ -143,19 +207,18 @@
 
         .filter-group select, .filter-group input {
             padding: 10px 14px;
-            border: 1px solid var(--lehavot-gray-300);
+            border: 2px solid var(--lehavot-gray-300);
             border-radius: 4px;
             font-size: 13px;
             font-family: inherit;
-            min-width: 130px;
+            min-width: 120px;
             background: white;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .filter-group select:focus, .filter-group input:focus {
             outline: none;
             border-color: var(--lehavot-red);
-            box-shadow: 0 0 0 3px rgba(215, 25, 32, 0.1);
         }
 
         .has-question {
@@ -169,110 +232,115 @@
             left: -8px;
             background: #F57C00;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             cursor: help;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* ===== Main Content ===== */
-        .main-content {
+        /* ===== Content Area ===== */
+        .content-area {
+            flex: 1;
             padding: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
+            overflow-y: auto;
         }
 
         /* ===== Summary Section ===== */
-        .summary-section {
-            background: var(--lehavot-red);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px 8px 0 0;
+        .summary-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: stretch;
         }
 
-        .summary-section h2 {
-            font-size: 16px;
-            font-weight: 600;
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .summary-info {
+        .view-card {
             display: flex;
-            gap: 32px;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-width: 140px;
         }
 
-        .summary-info > div small {
-            display: block;
-            font-size: 11px;
-            opacity: 0.8;
-            margin-bottom: 2px;
-        }
-
-        .summary-info > div strong {
-            font-size: 16px;
+        .view-card label {
+            font-size: 12px;
+            color: var(--lehavot-gray-600);
+            margin-bottom: 8px;
         }
 
         .view-toggle {
             display: flex;
-            gap: 4px;
-            background: rgba(0,0,0,0.2);
+            background: var(--lehavot-gray-200);
+            border-radius: 20px;
             padding: 4px;
-            border-radius: 6px;
         }
 
         .view-toggle button {
             padding: 8px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 600;
             font-family: inherit;
             font-size: 13px;
             transition: all 0.2s;
+            background: transparent;
+            color: var(--lehavot-gray-600);
         }
 
         .view-toggle button.active {
-            background: white;
-            color: var(--lehavot-red);
-        }
-
-        .view-toggle button:not(.active) {
-            background: transparent;
+            background: var(--lehavot-red);
             color: white;
         }
 
-        .view-toggle button:not(.active):hover {
-            background: rgba(255,255,255,0.1);
+        .week-card {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .week-card .label {
+            font-size: 11px;
+            color: var(--lehavot-gray-500);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .week-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--lehavot-gray-900);
+        }
+
+        .week-card .sub {
+            font-size: 12px;
+            color: var(--lehavot-gray-600);
+            margin-top: 4px;
         }
 
         /* ===== Analysis Boxes ===== */
-        .analysis-boxes {
+        .analysis-row {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            background: white;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 20px;
             margin-bottom: 24px;
         }
 
         .analysis-box {
-            text-align: center;
-            padding: 24px;
-            border-left: 1px solid var(--lehavot-gray-200);
-        }
-
-        .analysis-box:first-child {
-            border-left: none;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .analysis-box h3 {
@@ -280,26 +348,32 @@
             margin-bottom: 16px;
             font-size: 14px;
             font-weight: 600;
+            text-align: center;
         }
 
-        .analysis-box .metrics {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .metric {
+        .metric-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: var(--lehavot-gray-100);
-            border-radius: 4px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--lehavot-gray-200);
             font-size: 13px;
         }
 
-        .metric.good { background: #E8F5E9; color: #2E7D32; }
-        .metric.bad { background: #FFEBEE; color: #C62828; }
-        .metric.warning { background: #FFF8E1; color: #F57C00; }
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+
+        .metric-row .label {
+            color: var(--lehavot-gray-600);
+        }
+
+        .metric-row .value {
+            font-weight: 600;
+        }
+
+        .metric-row .value.good { color: #2E7D32; }
+        .metric-row .value.bad { color: #C62828; }
+        .metric-row .value.warning { color: #F57C00; }
 
         /* ===== Data Table ===== */
         .data-table-section {
@@ -311,11 +385,37 @@
         }
 
         .table-header {
-            background: var(--lehavot-gray-900);
+            background: var(--lehavot-red);
             color: white;
-            padding: 14px 24px;
+            padding: 14px 20px;
             font-weight: 600;
             font-size: 14px;
+        }
+
+        .table-tabs {
+            display: flex;
+            background: var(--lehavot-gray-100);
+            border-bottom: 1px solid var(--lehavot-gray-300);
+        }
+
+        .table-tab {
+            padding: 12px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--lehavot-gray-600);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .table-tab:hover {
+            color: var(--lehavot-gray-900);
+        }
+
+        .table-tab.active {
+            color: var(--lehavot-red);
+            border-bottom-color: var(--lehavot-red);
+            background: white;
         }
 
         table {
@@ -325,12 +425,12 @@
 
         th {
             background: var(--lehavot-gray-100);
-            padding: 14px 12px;
+            padding: 12px 10px;
             text-align: center;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-bottom: 2px solid var(--lehavot-gray-300);
             color: var(--lehavot-gray-700);
         }
@@ -340,7 +440,7 @@
         }
 
         td {
-            padding: 14px 12px;
+            padding: 12px 10px;
             text-align: center;
             border-bottom: 1px solid var(--lehavot-gray-200);
             font-size: 13px;
@@ -353,7 +453,7 @@
         .segment-cell {
             text-align: right;
             font-weight: 600;
-            padding-right: 20px;
+            padding-right: 16px;
             color: var(--lehavot-gray-800);
         }
 
@@ -364,10 +464,10 @@
         .number { font-family: 'Consolas', 'Monaco', monospace; }
 
         .data-source {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--lehavot-gray-500);
             display: block;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .missing {
@@ -380,601 +480,375 @@
             font-weight: 600;
         }
 
-        tr.total-row:hover {
-            background: var(--lehavot-gray-200);
-        }
-
-        /* ===== Info Cards ===== */
-        .info-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-right: 4px solid var(--lehavot-red);
-        }
-
-        .info-card h3 {
-            color: var(--lehavot-red);
-            margin-bottom: 12px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .info-card p {
-            color: var(--lehavot-gray-700);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
         /* ===== Questions Panel ===== */
         .questions-panel {
             background: #FFF8E1;
             border: 2px solid #F57C00;
             border-radius: 8px;
-            padding: 24px;
+            padding: 20px;
             margin-bottom: 24px;
         }
 
-        .questions-panel h2 {
+        .questions-panel h3 {
             color: #E65100;
             margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 16px;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .question-item {
             background: white;
-            padding: 16px;
+            padding: 12px 16px;
             border-radius: 6px;
-            margin-bottom: 12px;
-            border-right: 4px solid #F57C00;
+            margin-bottom: 10px;
+            border-right: 3px solid #F57C00;
+            font-size: 13px;
         }
 
         .question-item:last-child {
             margin-bottom: 0;
         }
 
-        .question-item h4 {
+        .question-item strong {
             color: #E65100;
-            margin-bottom: 8px;
-            font-size: 13px;
-        }
-
-        .question-item p {
-            color: var(--lehavot-gray-600);
-            font-size: 13px;
-        }
-
-        /* ===== Legend ===== */
-        .legend {
-            display: flex;
-            gap: 24px;
-            padding: 16px 24px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--lehavot-gray-700);
-        }
-
-        .legend-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-        }
-
-        .legend-color.green { background: #E8F5E9; border: 2px solid #2E7D32; }
-        .legend-color.yellow { background: #FFF8E1; border: 2px solid #F57C00; }
-        .legend-color.red { background: #FFEBEE; border: 2px solid #C62828; }
-
-        /* ===== Calculation Table ===== */
-        .calc-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .calc-section h3 {
-            color: var(--lehavot-gray-900);
-            margin-bottom: 16px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .calc-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .calc-table th, .calc-table td {
-            padding: 12px;
-            text-align: right;
-            border-bottom: 1px solid var(--lehavot-gray-200);
-            font-size: 13px;
-        }
-
-        .calc-table th {
-            background: var(--lehavot-gray-100);
-            font-weight: 600;
-            text-transform: none;
-            letter-spacing: 0;
-        }
-
-        .calc-table code {
-            background: var(--lehavot-gray-100);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Consolas', monospace;
-            font-size: 12px;
         }
 
         /* ===== Footer ===== */
         .footer {
             text-align: center;
-            padding: 24px;
-            color: var(--lehavot-gray-600);
-            font-size: 12px;
+            padding: 20px;
+            color: var(--lehavot-gray-500);
+            font-size: 11px;
         }
 
-        .footer p {
-            margin: 4px 0;
-        }
-
-        .footer .warning-text {
+        .footer .warning {
             color: #F57C00;
             font-weight: 600;
-            margin-top: 12px;
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .analysis-boxes {
-                grid-template-columns: 1fr;
-            }
-            .analysis-box {
-                border-left: none;
-                border-top: 1px solid var(--lehavot-gray-200);
-            }
-            .analysis-box:first-child {
-                border-top: none;
-            }
-            .filters-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .summary-section {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
+    <div class="app-container">
 
-    <!-- Header -->
-    <div class="header">
-        <div class="header-brand">
-            <h1><span class="brand-accent">Org</span>Wise</h1>
-            <span class="brand-separator">|</span>
-            <span class="brand-module">BI Dashboard</span>
-        </div>
-        <div class="period">
-            תקופה: 01/01/2026 - 31/01/2026
-        </div>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <h1><span class="brand-accent">Org</span>Wise</h1>
+                </div>
+                <div class="sidebar-subtitle">BI Dashboard</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboards</div>
+                    <a href="#" class="nav-item active">
+                        <span class="icon">📊</span>
+                        Dashboard - Revenue
+                    </a>
+                    <a href="MOCKUP_ORDERS.html" class="nav-item">
+                        <span class="icon">📦</span>
+                        Dashboard - Orders
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📋</span>
+                        Sales Report
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📋</span>
+                        Orders Report
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📈</span>
+                        Yearly Comparison
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="icon">🎯</span>
+                        Budget Analysis
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                Lehavot BI v2.0<br>
+                יורי כץ — IT
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>מכירות — Sales Dashboard for week 5</h1>
+                </div>
+                <div class="period-badge">
+                    01/01/2026 - 31/01/2026
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>Year</label>
+                    <select>
+                        <option>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Quarter</label>
+                    <select>
+                        <option>All</option>
+                        <option>Q1</option>
+                        <option>Q2</option>
+                        <option>Q3</option>
+                        <option>Q4</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Period</label>
+                    <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
+                </div>
+
+                <div class="filter-group" style="position: relative;">
+                    <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
+                    <label>סגמנט מכירות</label>
+                    <select class="has-question">
+                        <option>הכל</option>
+                        <option>שרותי מיגון - אילן</option>
+                        <option>שאבי ביתי - מירי</option>
+                        <option>שרותי מגפים - דודו</option>
+                        <option>שרותי אוטובוסים - דודו</option>
+                        <option>שרותי כלים חקלאים - דודו</option>
+                        <option>מכירות חו"ל</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>מפיץ</label>
+                    <select>
+                        <option>All</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>מוצר/מק"ט</label>
+                    <select>
+                        <option>All</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Company</label>
+                    <select>
+                        <option>מאוחד</option>
+                        <option>להבות</option>
+                        <option>פיירטק</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Summary Row -->
+                <div class="summary-row">
+                    <div class="summary-card view-card">
+                        <label>View</label>
+                        <div class="view-toggle">
+                            <button class="active">₪</button>
+                            <button>QNT</button>
+                        </div>
+                    </div>
+
+                    <div class="summary-card week-card">
+                        <div class="label">Week Number</div>
+                        <div class="value">5</div>
+                        <div class="sub">Ended on 31/01/2026</div>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>MTD Revenue Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">MTD % Time Elapsed</span>
+                            <span class="value">100%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">MTD % from Budget</span>
+                            <span class="value warning">82%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">MTD % from Last Year</span>
+                            <span class="value good">152%</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>QTD Revenue Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">QTD % Time Elapsed</span>
+                            <span class="value">34%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">QTD % from Budget</span>
+                            <span class="value warning">82%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">QTD % from Last Year</span>
+                            <span class="value good">152%</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>YTD Revenue Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">YTD % Time Elapsed</span>
+                            <span class="value">8%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">YTD % from Budget</span>
+                            <span class="value warning">27%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">YTD % from Last Year</span>
+                            <span class="value good">152%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="data-table-section">
+                    <div class="table-header">Revenue Overview</div>
+                    <div class="table-tabs">
+                        <div class="table-tab active">חודשי</div>
+                        <div class="table-tab">רבעוני</div>
+                        <div class="table-tab">שנתי</div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="has-question">
+                                    BU
+                                    <span class="data-source missing">❓ מיפוי</span>
+                                </th>
+                                <th>MTD Sales</th>
+                                <th class="has-question">
+                                    MTD Budget
+                                    <span class="data-source missing">❓</span>
+                                </th>
+                                <th class="has-question">
+                                    Full Month Budget
+                                    <span class="data-source missing">❓</span>
+                                </th>
+                                <th>MTD % from Budget</th>
+                                <th>MTD Last Year</th>
+                                <th>MTD % from Last Year</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="segment-cell">שרותי מיגון - אילן</td>
+                                <td class="number">$3,066,609</td>
+                                <td class="number">$3,817,760</td>
+                                <td class="number">$3,817,760</td>
+                                <td class="warning">80%</td>
+                                <td class="number">$2,214,997</td>
+                                <td class="good">138%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">שאבי ביתי - מירי</td>
+                                <td class="number">$17,366</td>
+                                <td class="number">$362,799</td>
+                                <td class="number">$362,799</td>
+                                <td class="bad">5%</td>
+                                <td class="number">$148,789</td>
+                                <td class="bad">12%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">שרותי מגפים - דודו</td>
+                                <td class="number">$804,461</td>
+                                <td class="number">$735,045</td>
+                                <td class="number">$735,045</td>
+                                <td class="good">109%</td>
+                                <td class="number">$307,533</td>
+                                <td class="good">262%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">שרותי אוטובוסים - דודו</td>
+                                <td class="number">$409,314</td>
+                                <td class="number">$409,314</td>
+                                <td class="number">$409,314</td>
+                                <td class="good">100%</td>
+                                <td class="number">$350,000</td>
+                                <td class="good">117%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">שרותי כלים חקלאים - דודו</td>
+                                <td class="number">$285,000</td>
+                                <td class="number">$320,000</td>
+                                <td class="number">$320,000</td>
+                                <td class="warning">89%</td>
+                                <td class="number">$250,000</td>
+                                <td class="good">114%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">מכירות חו"ל</td>
+                                <td class="number">$1,359,657</td>
+                                <td class="number">$1,633,629</td>
+                                <td class="number">$1,633,629</td>
+                                <td class="warning">83%</td>
+                                <td class="number">$627,423</td>
+                                <td class="good">217%</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td class="segment-cell">Total</td>
+                                <td class="number">$5,941,407</td>
+                                <td class="number">$7,278,547</td>
+                                <td class="number">$7,278,547</td>
+                                <td class="warning">82%</td>
+                                <td class="number">$3,898,742</td>
+                                <td class="good">152%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Questions Panel -->
+                <div class="questions-panel">
+                    <h3>⚠️ שאלות פתוחות לראובן</h3>
+                    <div class="question-item">
+                        <strong>1. מיפוי סגמנטים:</strong> איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה? (סוכן? לקוח? משפחה?)
+                    </div>
+                    <div class="question-item">
+                        <strong>2. טבלת תקציב:</strong> איפה נמצא התקציב בפריוריטי? שם הטבלה, מבנה, לפי סגמנט?
+                    </div>
+                    <div class="question-item">
+                        <strong>3. מקור נתונים:</strong> תעודות משלוח או חשבוניות?
+                    </div>
+                    <div class="question-item">
+                        <strong>4. פז ומירי:</strong> להציג ביחד או בנפרד?
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <p><strong>OrgWise BI</strong> — Specification v2 | נוצר: 04/02/2026 | יורי כץ</p>
+                    <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <!-- Navigation -->
-    <div class="nav-tabs">
-        <a href="#" class="active">📊 מכירות (Sales)</a>
-        <a href="MOCKUP_ORDERS.html">📦 הזמנות (Orders)</a>
-    </div>
-
-    <!-- Filters -->
-    <div class="filters-bar">
-        <div class="filter-group">
-            <label>שנה</label>
-            <select>
-                <option>2026</option>
-                <option>2025</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>רבעון</label>
-            <select>
-                <option>Q1</option>
-                <option>Q2</option>
-                <option>Q3</option>
-                <option>Q4</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>תקופה</label>
-            <input type="text" value="01/01 - 31/01" style="width: 140px;">
-        </div>
-
-        <div class="filter-group">
-            <label>חברה</label>
-            <select>
-                <option>מאוחד</option>
-                <option>להבות</option>
-                <option>פיירטק</option>
-            </select>
-        </div>
-
-        <div class="filter-group" style="position: relative;">
-            <span class="question-badge" title="שאלה: איך מזהים סגמנט בפריוריטי?">?</span>
-            <label>סגמנט</label>
-            <select class="has-question">
-                <option>הכל</option>
-                <option>מירי</option>
-                <option>אילן</option>
-                <option>דודו</option>
-                <option>חו"ל</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>משפחת מוצרים</label>
-            <select>
-                <option>הכל</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="main-content">
-
-        <!-- Legend -->
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color green"></div>
-                <span>≥100% מהתקציב</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color yellow"></div>
-                <span>80-99% מהתקציב</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color red"></div>
-                <span>&lt;80% מהתקציב</span>
-            </div>
-        </div>
-
-        <!-- Summary Section -->
-        <div class="summary-section">
-            <h2>Sales Dashboard — מכירות</h2>
-            <div class="summary-info">
-                <div>
-                    <small>שבוע מספר</small>
-                    <strong>5</strong>
-                </div>
-                <div>
-                    <small>סיום תקופה</small>
-                    <strong>31/01/2026</strong>
-                </div>
-                <div class="view-toggle">
-                    <button class="active">₪</button>
-                    <button>כמות</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analysis Boxes -->
-        <div class="analysis-boxes">
-            <div class="analysis-box">
-                <h3>MTD Revenue Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>100%</span>
-                    </div>
-                    <div class="metric warning">
-                        <span>% from Budget</span>
-                        <span>92%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>108%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="analysis-box">
-                <h3>QTD Revenue Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>34%</span>
-                    </div>
-                    <div class="metric warning">
-                        <span>% from Budget</span>
-                        <span>88%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>105%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="analysis-box">
-                <h3>YTD Revenue Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>8%</span>
-                    </div>
-                    <div class="metric warning">
-                        <span>% from Budget</span>
-                        <span>88%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>105%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Data Table -->
-        <div class="data-table-section">
-            <div class="table-header">Revenue Overview — סקירת מכירות</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="has-question">
-                            סגמנט
-                            <span class="data-source missing">❓ צריך מיפוי</span>
-                        </th>
-                        <th>
-                            Current Week
-                            <span class="data-source">DOCUMENTS</span>
-                        </th>
-                        <th>
-                            Weekly Benchmark
-                            <span class="data-source">BUDGET / weeks</span>
-                        </th>
-                        <th>
-                            MTD Sales
-                            <span class="data-source">DOCUMENTS</span>
-                        </th>
-                        <th class="has-question">
-                            MTD Budget
-                            <span class="data-source missing">❓ טבלת תקציב</span>
-                        </th>
-                        <th>MTD %</th>
-                        <th>
-                            MTD Last Year
-                            <span class="data-source">DOCUMENTS 2025</span>
-                        </th>
-                        <th>MTD % vs LY</th>
-                        <th>
-                            QTD Sales
-                            <span class="data-source">DOCUMENTS</span>
-                        </th>
-                        <th class="has-question">
-                            QTD Budget
-                            <span class="data-source missing">❓ טבלת תקציב</span>
-                        </th>
-                        <th>QTD %</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="segment-cell">מירי</td>
-                        <td class="number">187K</td>
-                        <td class="number">200K</td>
-                        <td class="number">850K</td>
-                        <td class="number">900K</td>
-                        <td class="warning">94%</td>
-                        <td class="number">780K</td>
-                        <td class="good">+9%</td>
-                        <td class="number">850K</td>
-                        <td class="number">2,700K</td>
-                        <td class="bad">31%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">אילן</td>
-                        <td class="number">156K</td>
-                        <td class="number">175K</td>
-                        <td class="number">720K</td>
-                        <td class="number">750K</td>
-                        <td class="warning">96%</td>
-                        <td class="number">690K</td>
-                        <td class="good">+4%</td>
-                        <td class="number">720K</td>
-                        <td class="number">2,250K</td>
-                        <td class="bad">32%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - אוטובוסים</td>
-                        <td class="number">312K</td>
-                        <td class="number">300K</td>
-                        <td class="number">1,350K</td>
-                        <td class="number">1,300K</td>
-                        <td class="good">104%</td>
-                        <td class="number">1,200K</td>
-                        <td class="good">+13%</td>
-                        <td class="number">1,350K</td>
-                        <td class="number">3,900K</td>
-                        <td class="bad">35%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - מנדפים</td>
-                        <td class="number">98K</td>
-                        <td class="number">125K</td>
-                        <td class="number">520K</td>
-                        <td class="number">600K</td>
-                        <td class="bad">87%</td>
-                        <td class="number">480K</td>
-                        <td class="good">+8%</td>
-                        <td class="number">520K</td>
-                        <td class="number">1,800K</td>
-                        <td class="bad">29%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - חקלאי</td>
-                        <td class="number">67K</td>
-                        <td class="number">75K</td>
-                        <td class="number">310K</td>
-                        <td class="number">350K</td>
-                        <td class="warning">89%</td>
-                        <td class="number">290K</td>
-                        <td class="good">+7%</td>
-                        <td class="number">310K</td>
-                        <td class="number">1,050K</td>
-                        <td class="bad">30%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">חו"ל</td>
-                        <td class="number">423K</td>
-                        <td class="number">400K</td>
-                        <td class="number">1,780K</td>
-                        <td class="number">1,700K</td>
-                        <td class="good">105%</td>
-                        <td class="number">1,550K</td>
-                        <td class="good">+15%</td>
-                        <td class="number">1,780K</td>
-                        <td class="number">5,100K</td>
-                        <td class="bad">35%</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td class="segment-cell">סה"כ</td>
-                        <td class="number">1,243K</td>
-                        <td class="number">1,275K</td>
-                        <td class="number">5,530K</td>
-                        <td class="number">5,600K</td>
-                        <td class="warning">99%</td>
-                        <td class="number">4,990K</td>
-                        <td class="good">+11%</td>
-                        <td class="number">5,530K</td>
-                        <td class="number">16,800K</td>
-                        <td class="bad">33%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Questions Panel -->
-        <div class="questions-panel">
-            <h2>⚠️ שאלות פתוחות לראובן</h2>
-
-            <div class="question-item">
-                <h4>1. מיפוי סגמנטים</h4>
-                <p>איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה? (סוכן? לקוח? משפחת מוצרים?)</p>
-            </div>
-
-            <div class="question-item">
-                <h4>2. טבלת תקציב</h4>
-                <p>איפה נמצא התקציב בפריוריטי? שם הטבלה/מסך, מבנה (חודשי/רבעוני), לפי סגמנט?</p>
-            </div>
-
-            <div class="question-item">
-                <h4>3. מקור נתונים</h4>
-                <p>תעודות משלוח או חשבוניות? האם משתנה בין שוטף לסגור?</p>
-            </div>
-
-            <div class="question-item">
-                <h4>4. פז ומירי</h4>
-                <p>להציג ביחד (סגמנט אחד) או בנפרד (שני סגמנטים)?</p>
-            </div>
-        </div>
-
-        <!-- Calculation Logic -->
-        <div class="calc-section">
-            <h3>📐 לוגיקת חישובים</h3>
-            <table class="calc-table">
-                <tr>
-                    <th style="width: 25%;">Metric</th>
-                    <th style="width: 45%;">חישוב</th>
-                    <th style="width: 30%;">דוגמה</th>
-                </tr>
-                <tr>
-                    <td><strong>MTD Sales</strong></td>
-                    <td>סכום מכירות מתחילת החודש עד היום</td>
-                    <td><code>01/01-31/01 = 5,530K</code></td>
-                </tr>
-                <tr>
-                    <td><strong>MTD Budget</strong></td>
-                    <td>תקציב חודשי × (ימים שעברו / ימים בחודש)</td>
-                    <td><code>5,600K × (31/31) = 5,600K</code></td>
-                </tr>
-                <tr>
-                    <td><strong>MTD %</strong></td>
-                    <td>MTD Sales / MTD Budget × 100</td>
-                    <td><code>5,530/5,600 = 99%</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Weekly Benchmark</strong></td>
-                    <td>תקציב חודשי / מספר שבועות בחודש</td>
-                    <td><code>5,600K / 4.4 = 1,275K</code></td>
-                </tr>
-                <tr>
-                    <td><strong>% vs Last Year</strong></td>
-                    <td>(מכירות השנה / מכירות אשתקד) - 1</td>
-                    <td><code>(5,530/4,990)-1 = +11%</code></td>
-                </tr>
-            </table>
-        </div>
-
-        <!-- Data Sources -->
-        <div class="calc-section">
-            <h3>📊 מקורות נתונים</h3>
-            <table class="calc-table">
-                <tr>
-                    <th>נתון</th>
-                    <th>מקור בפריוריטי</th>
-                    <th>סטטוס</th>
-                </tr>
-                <tr>
-                    <td>מכירות (תעודות משלוח)</td>
-                    <td>DOCUMENTS</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr>
-                    <td>לקוחות</td>
-                    <td>CUSTOMERS</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr>
-                    <td>סוכנים</td>
-                    <td>AGENTS</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr style="background: #FFF8E1;">
-                    <td>תקציב</td>
-                    <td style="color: #E65100; font-weight: 600;">❓ צריך לשאול את ראובן</td>
-                    <td style="color: #F57C00;">⚠️ לא ידוע</td>
-                </tr>
-                <tr style="background: #FFF8E1;">
-                    <td>מיפוי סגמנטים</td>
-                    <td style="color: #E65100; font-weight: 600;">❓ צריך לשאול את ראובן</td>
-                    <td style="color: #F57C00;">⚠️ לא ידוע</td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-    <div class="footer">
-        <p><strong>OrgWise</strong> — BI Dashboard Specification v2</p>
-        <p>Sales Dashboard | נוצר: 04/02/2026 | יורי כץ — IT Manager</p>
-        <p class="warning-text">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
-    </div>
-
 </body>
 </html>

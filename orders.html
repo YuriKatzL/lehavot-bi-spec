@@ -10,7 +10,6 @@
         :root {
             --lehavot-red: #D71920;
             --lehavot-red-dark: #B5151B;
-            --lehavot-red-light: #E84850;
             --lehavot-yellow: #FFD900;
             --lehavot-gray-100: #F5F5F5;
             --lehavot-gray-200: #EEEEEE;
@@ -21,8 +20,8 @@
             --lehavot-gray-700: #616161;
             --lehavot-gray-800: #424242;
             --lehavot-gray-900: #212121;
-            --orders-accent: #1565C0;
-            --orders-accent-dark: #0D47A1;
+            --sidebar-width: 220px;
+            --orders-blue: #1565C0;
         }
 
         * {
@@ -39,92 +38,156 @@
             line-height: 1.5;
         }
 
-        /* ===== Header ===== */
-        .header {
+        /* ===== Layout ===== */
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: var(--sidebar-width);
             background: var(--lehavot-gray-900);
             color: white;
-            padding: 0 24px;
-            height: 64px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo h1 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .sidebar-logo .brand-accent {
+            color: var(--lehavot-yellow);
+        }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            padding: 16px 0;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-section-title {
+            padding: 8px 16px;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border-right: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(21, 101, 192, 0.2);
+            color: white;
+            border-right-color: var(--orders-blue);
+        }
+
+        .nav-item .icon {
+            font-size: 16px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            margin-right: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== Top Bar ===== */
+        .top-bar {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--lehavot-gray-300);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header-brand {
+        .page-title {
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .header-brand h1 {
-            font-size: 18px;
+        .page-title h1 {
+            font-size: 20px;
             font-weight: 600;
-            letter-spacing: 0.3px;
+            color: var(--lehavot-gray-900);
         }
 
-        .header-brand .brand-accent {
-            color: var(--lehavot-yellow);
-        }
-
-        .header-brand .brand-separator {
-            color: rgba(255,255,255,0.35);
-            margin: 0 8px;
-        }
-
-        .header-brand .brand-module {
-            font-size: 11px;
-            font-weight: 600;
-            color: rgba(255,255,255,0.6);
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-        }
-
-        .header .period {
-            background: rgba(255,255,255,0.1);
+        .period-badge {
+            background: var(--lehavot-gray-100);
             padding: 8px 16px;
             border-radius: 4px;
             font-size: 13px;
-            font-weight: 500;
-        }
-
-        /* ===== Navigation Tabs ===== */
-        .nav-tabs {
-            background: var(--lehavot-gray-800);
-            padding: 0 24px;
-            display: flex;
-            gap: 4px;
-        }
-
-        .nav-tabs a {
-            color: rgba(255,255,255,0.7);
-            text-decoration: none;
-            padding: 14px 20px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: all 0.2s ease;
-            border-bottom: 3px solid transparent;
-        }
-
-        .nav-tabs a.active {
-            color: white;
-            background: var(--lehavot-gray-100);
-            border-bottom: 3px solid var(--orders-accent);
-            border-radius: 4px 4px 0 0;
-        }
-
-        .nav-tabs a:hover:not(.active) {
-            color: white;
-            background: rgba(255,255,255,0.1);
+            color: var(--lehavot-gray-700);
         }
 
         /* ===== Filters Bar ===== */
         .filters-bar {
             background: white;
             padding: 16px 24px;
+            border-bottom: 2px solid var(--orders-blue);
             display: flex;
-            gap: 20px;
+            gap: 16px;
             flex-wrap: wrap;
-            border-bottom: 1px solid var(--lehavot-gray-300);
             align-items: flex-end;
         }
 
@@ -145,19 +208,18 @@
 
         .filter-group select, .filter-group input {
             padding: 10px 14px;
-            border: 1px solid var(--lehavot-gray-300);
+            border: 2px solid var(--lehavot-gray-300);
             border-radius: 4px;
             font-size: 13px;
             font-family: inherit;
-            min-width: 130px;
+            min-width: 120px;
             background: white;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: border-color 0.2s;
         }
 
         .filter-group select:focus, .filter-group input:focus {
             outline: none;
-            border-color: var(--orders-accent);
-            box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.1);
+            border-color: var(--orders-blue);
         }
 
         .has-question {
@@ -171,203 +233,184 @@
             left: -8px;
             background: #F57C00;
             color: white;
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             cursor: help;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
-        /* ===== Main Content ===== */
-        .main-content {
+        /* ===== Content Area ===== */
+        .content-area {
+            flex: 1;
             padding: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
+            overflow-y: auto;
         }
 
-        /* ===== Info Card ===== */
-        .info-card {
-            background: white;
-            border-radius: 8px;
-            padding: 20px 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            border-right: 4px solid var(--orders-accent);
-        }
-
-        .info-card h3 {
-            color: var(--orders-accent);
-            margin-bottom: 12px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .info-card p {
-            color: var(--lehavot-gray-700);
-            font-size: 13px;
-            line-height: 1.6;
-        }
-
-        .info-card .highlight {
+        /* ===== Info Banner ===== */
+        .info-banner {
             background: #E3F2FD;
-            padding: 12px 16px;
-            border-radius: 6px;
-            margin-top: 12px;
-            font-weight: 500;
-            color: var(--orders-accent-dark);
+            border: 1px solid var(--orders-blue);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-banner .icon {
+            font-size: 24px;
+        }
+
+        .info-banner h3 {
+            color: var(--orders-blue);
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .info-banner p {
+            font-size: 13px;
+            color: var(--lehavot-gray-700);
+            margin-bottom: 8px;
+        }
+
+        .info-banner .highlight {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #0D47A1;
         }
 
         /* ===== Summary Section ===== */
-        .summary-section {
-            background: var(--orders-accent);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px 8px 0 0;
+        .summary-row {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            gap: 24px;
+            margin-bottom: 24px;
+            align-items: stretch;
         }
 
-        .summary-section h2 {
-            font-size: 16px;
-            font-weight: 600;
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
-        .summary-info {
+        .view-card {
             display: flex;
-            gap: 32px;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            min-width: 140px;
         }
 
-        .summary-info > div small {
-            display: block;
-            font-size: 11px;
-            opacity: 0.8;
-            margin-bottom: 2px;
-        }
-
-        .summary-info > div strong {
-            font-size: 16px;
+        .view-card label {
+            font-size: 12px;
+            color: var(--lehavot-gray-600);
+            margin-bottom: 8px;
         }
 
         .view-toggle {
             display: flex;
-            gap: 4px;
-            background: rgba(0,0,0,0.2);
+            background: var(--lehavot-gray-200);
+            border-radius: 20px;
             padding: 4px;
-            border-radius: 6px;
         }
 
         .view-toggle button {
             padding: 8px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 16px;
             cursor: pointer;
             font-weight: 600;
             font-family: inherit;
             font-size: 13px;
             transition: all 0.2s;
+            background: transparent;
+            color: var(--lehavot-gray-600);
         }
 
         .view-toggle button.active {
-            background: white;
-            color: var(--orders-accent);
-        }
-
-        .view-toggle button:not(.active) {
-            background: transparent;
+            background: var(--orders-blue);
             color: white;
         }
 
-        .view-toggle button:not(.active):hover {
-            background: rgba(255,255,255,0.1);
+        .week-card {
+            text-align: center;
+            min-width: 120px;
+        }
+
+        .week-card .label {
+            font-size: 11px;
+            color: var(--lehavot-gray-500);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .week-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--lehavot-gray-900);
+        }
+
+        .week-card .sub {
+            font-size: 12px;
+            color: var(--lehavot-gray-600);
+            margin-top: 4px;
         }
 
         /* ===== Analysis Boxes ===== */
-        .analysis-boxes {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0;
-            background: white;
-            border-radius: 0 0 8px 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            margin-bottom: 24px;
-        }
-
         .analysis-box {
-            text-align: center;
-            padding: 24px;
-            border-left: 1px solid var(--lehavot-gray-200);
-        }
-
-        .analysis-box:first-child {
-            border-left: none;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
 
         .analysis-box h3 {
-            color: var(--orders-accent);
+            color: var(--orders-blue);
             margin-bottom: 16px;
             font-size: 14px;
             font-weight: 600;
+            text-align: center;
         }
 
-        .analysis-box .metrics {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .metric {
+        .metric-row {
             display: flex;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: var(--lehavot-gray-100);
-            border-radius: 4px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--lehavot-gray-200);
             font-size: 13px;
         }
 
-        .metric.good { background: #E8F5E9; color: #2E7D32; }
-        .metric.bad { background: #FFEBEE; color: #C62828; }
+        .metric-row:last-child {
+            border-bottom: none;
+        }
 
-        .note-text {
+        .metric-row .label {
+            color: var(--lehavot-gray-600);
+        }
+
+        .metric-row .value {
+            font-weight: 600;
+        }
+
+        .metric-row .value.good { color: #2E7D32; }
+        .metric-row .value.bad { color: #C62828; }
+
+        .metric-note {
+            text-align: center;
             font-size: 11px;
             color: var(--lehavot-gray-500);
             margin-top: 12px;
             font-style: italic;
         }
-
-        /* ===== Legend ===== */
-        .legend {
-            display: flex;
-            gap: 24px;
-            padding: 16px 24px;
-            background: white;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--lehavot-gray-700);
-        }
-
-        .legend-color {
-            width: 24px;
-            height: 24px;
-            border-radius: 4px;
-        }
-
-        .legend-color.green { background: #E8F5E9; border: 2px solid #2E7D32; }
-        .legend-color.red { background: #FFEBEE; border: 2px solid #C62828; }
 
         /* ===== Data Table ===== */
         .data-table-section {
@@ -379,9 +422,9 @@
         }
 
         .table-header {
-            background: var(--lehavot-gray-900);
+            background: var(--orders-blue);
             color: white;
-            padding: 14px 24px;
+            padding: 14px 20px;
             font-weight: 600;
             font-size: 14px;
         }
@@ -393,12 +436,12 @@
 
         th {
             background: var(--lehavot-gray-100);
-            padding: 14px 12px;
+            padding: 12px 10px;
             text-align: center;
             font-size: 11px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 0.3px;
             border-bottom: 2px solid var(--lehavot-gray-300);
             color: var(--lehavot-gray-700);
         }
@@ -408,7 +451,7 @@
         }
 
         td {
-            padding: 14px 12px;
+            padding: 12px 10px;
             text-align: center;
             border-bottom: 1px solid var(--lehavot-gray-200);
             font-size: 13px;
@@ -421,7 +464,7 @@
         .segment-cell {
             text-align: right;
             font-weight: 600;
-            padding-right: 20px;
+            padding-right: 16px;
             color: var(--lehavot-gray-800);
         }
 
@@ -431,10 +474,10 @@
         .number { font-family: 'Consolas', 'Monaco', monospace; }
 
         .data-source {
-            font-size: 10px;
+            font-size: 9px;
             color: var(--lehavot-gray-500);
             display: block;
-            margin-top: 4px;
+            margin-top: 2px;
         }
 
         .missing {
@@ -447,22 +490,18 @@
             font-weight: 600;
         }
 
-        tr.total-row:hover {
-            background: var(--lehavot-gray-200);
-        }
-
         /* ===== Special Section ===== */
         .special-section {
             background: #FFF3E0;
             border: 2px solid #FF9800;
             border-radius: 8px;
-            padding: 24px;
+            padding: 20px;
             margin-bottom: 24px;
         }
 
         .special-section h3 {
             color: #E65100;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-size: 14px;
             font-weight: 600;
         }
@@ -480,504 +519,358 @@
         }
 
         .special-section .note {
-            margin-top: 16px;
-            font-size: 12px;
+            margin-top: 12px;
+            font-size: 11px;
             color: var(--lehavot-gray-500);
-        }
-
-        /* ===== Calculation Table ===== */
-        .calc-section {
-            background: white;
-            border-radius: 8px;
-            padding: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-
-        .calc-section h3 {
-            color: var(--lehavot-gray-900);
-            margin-bottom: 16px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .calc-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .calc-table th, .calc-table td {
-            padding: 12px;
-            text-align: right;
-            border-bottom: 1px solid var(--lehavot-gray-200);
-            font-size: 13px;
-        }
-
-        .calc-table th {
-            background: var(--lehavot-gray-100);
-            font-weight: 600;
-            text-transform: none;
-            letter-spacing: 0;
-        }
-
-        .calc-table code {
-            background: var(--lehavot-gray-100);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Consolas', monospace;
-            font-size: 12px;
-        }
-
-        .info-highlight {
-            background: #E3F2FD;
-            border: 1px solid var(--orders-accent);
-            border-radius: 6px;
-            padding: 16px;
-            margin-top: 16px;
-        }
-
-        .info-highlight strong {
-            color: var(--orders-accent-dark);
         }
 
         /* ===== Footer ===== */
         .footer {
             text-align: center;
-            padding: 24px;
-            color: var(--lehavot-gray-600);
-            font-size: 12px;
+            padding: 20px;
+            color: var(--lehavot-gray-500);
+            font-size: 11px;
         }
 
-        .footer p {
-            margin: 4px 0;
-        }
-
-        .footer .warning-text {
+        .footer .warning {
             color: #F57C00;
             font-weight: 600;
-            margin-top: 12px;
-        }
-
-        /* ===== Responsive ===== */
-        @media (max-width: 768px) {
-            .analysis-boxes {
-                grid-template-columns: 1fr;
-            }
-            .analysis-box {
-                border-left: none;
-                border-top: 1px solid var(--lehavot-gray-200);
-            }
-            .analysis-box:first-child {
-                border-top: none;
-            }
-            .filters-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .summary-section {
-                flex-direction: column;
-                gap: 16px;
-                text-align: center;
-            }
         }
     </style>
 </head>
 <body>
+    <div class="app-container">
 
-    <!-- Header -->
-    <div class="header">
-        <div class="header-brand">
-            <h1><span class="brand-accent">Org</span>Wise</h1>
-            <span class="brand-separator">|</span>
-            <span class="brand-module">BI Dashboard</span>
-        </div>
-        <div class="period">
-            תקופה: 01/01/2026 - 31/01/2026
-        </div>
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <h1><span class="brand-accent">Org</span>Wise</h1>
+                </div>
+                <div class="sidebar-subtitle">BI Dashboard</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboards</div>
+                    <a href="MOCKUP_INTERACTIVE.html" class="nav-item">
+                        <span class="icon">📊</span>
+                        Dashboard - Revenue
+                    </a>
+                    <a href="#" class="nav-item active">
+                        <span class="icon">📦</span>
+                        Dashboard - Orders
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Reports</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📋</span>
+                        Sales Report
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📋</span>
+                        Orders Report
+                    </a>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📅</span>
+                        Orders by Due Date
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📈</span>
+                        Yearly Comparison
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                Lehavot BI v2.0<br>
+                יורי כץ — IT
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>הזמנות — Orders Dashboard for week 5</h1>
+                </div>
+                <div class="period-badge">
+                    01/01/2026 - 31/01/2026
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>Year</label>
+                    <select>
+                        <option>2026</option>
+                        <option>2025</option>
+                        <option>2024</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Quarter</label>
+                    <select>
+                        <option>All</option>
+                        <option>Q1</option>
+                        <option>Q2</option>
+                        <option>Q3</option>
+                        <option>Q4</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Period</label>
+                    <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
+                </div>
+
+                <div class="filter-group" style="position: relative;">
+                    <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
+                    <label>סגמנט מכירות</label>
+                    <select class="has-question">
+                        <option>הכל</option>
+                        <option>שרותי מיגון - אילן</option>
+                        <option>שאבי ביתי - מירי</option>
+                        <option>שרותי מגפים - דודו</option>
+                        <option>שרותי אוטובוסים - דודו</option>
+                        <option>שרותי כלים חקלאים - דודו</option>
+                        <option>מכירות חו"ל</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>מפיץ</label>
+                    <select>
+                        <option>All</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Company</label>
+                    <select>
+                        <option>מאוחד</option>
+                        <option>להבות</option>
+                        <option>פיירטק</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Info Banner -->
+                <div class="info-banner">
+                    <span class="icon">📦</span>
+                    <div>
+                        <h3>מטרת דשבורד ההזמנות</h3>
+                        <p>לעקוב אחרי קצב כניסת הזמנות — האם אנחנו בקצב שיאפשר להגיע ליעדי הצמיחה?</p>
+                        <div class="highlight">💡 אם היעד לגדול 5%, צריך לראות הזמנות 5%+ מעל שנה שעברה</div>
+                        <p style="margin-top: 8px; margin-bottom: 0;"><strong>הבדל מ-Sales:</strong> אין תקציב — רק השוואה לשנה שעברה</p>
+                    </div>
+                </div>
+
+                <!-- Summary Row -->
+                <div class="summary-row">
+                    <div class="summary-card view-card">
+                        <label>View</label>
+                        <div class="view-toggle">
+                            <button class="active">₪</button>
+                            <button>QNT</button>
+                        </div>
+                    </div>
+
+                    <div class="summary-card week-card">
+                        <div class="label">Week Number</div>
+                        <div class="value">5</div>
+                        <div class="sub">Ended on 31/01/2026</div>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>MTD Orders Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">MTD % Time Elapsed</span>
+                            <span class="value">100%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">MTD % from Last Year</span>
+                            <span class="value good">+12%</span>
+                        </div>
+                        <p class="metric-note">אין תקציב — רק vs LY</p>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>QTD Orders Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">QTD % Time Elapsed</span>
+                            <span class="value">34%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">QTD % from Last Year</span>
+                            <span class="value good">+8%</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card analysis-box" style="flex: 1;">
+                        <h3>YTD Orders Analysis</h3>
+                        <div class="metric-row">
+                            <span class="label">YTD % Time Elapsed</span>
+                            <span class="value">8%</span>
+                        </div>
+                        <div class="metric-row">
+                            <span class="label">YTD % from Last Year</span>
+                            <span class="value good">+8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Data Table -->
+                <div class="data-table-section">
+                    <div class="table-header">Orders Overview — סקירת הזמנות</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th class="has-question">
+                                    BU
+                                    <span class="data-source missing">❓ מיפוי</span>
+                                </th>
+                                <th>Current Week</th>
+                                <th>MTD Orders</th>
+                                <th>MTD Last Year</th>
+                                <th>MTD % vs LY</th>
+                                <th>QTD Orders</th>
+                                <th>QTD Last Year</th>
+                                <th>QTD % vs LY</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="segment-cell">מירי</td>
+                                <td class="number">198K</td>
+                                <td class="number">920K</td>
+                                <td class="number">850K</td>
+                                <td class="good">+8%</td>
+                                <td class="number">920K</td>
+                                <td class="number">850K</td>
+                                <td class="good">+8%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">אילן</td>
+                                <td class="number">145K</td>
+                                <td class="number">710K</td>
+                                <td class="number">680K</td>
+                                <td class="good">+4%</td>
+                                <td class="number">710K</td>
+                                <td class="number">680K</td>
+                                <td class="good">+4%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">דודו - אוטובוסים</td>
+                                <td class="number">287K</td>
+                                <td class="number">1,280K</td>
+                                <td class="number">1,150K</td>
+                                <td class="good">+11%</td>
+                                <td class="number">1,280K</td>
+                                <td class="number">1,150K</td>
+                                <td class="good">+11%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">דודו - מנדפים</td>
+                                <td class="number">134K</td>
+                                <td class="number">650K</td>
+                                <td class="number">620K</td>
+                                <td class="good">+5%</td>
+                                <td class="number">650K</td>
+                                <td class="number">620K</td>
+                                <td class="good">+5%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">דודו - חקלאי</td>
+                                <td class="number">76K</td>
+                                <td class="number">380K</td>
+                                <td class="number">410K</td>
+                                <td class="bad">-7%</td>
+                                <td class="number">380K</td>
+                                <td class="number">410K</td>
+                                <td class="bad">-7%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">חו"ל</td>
+                                <td class="number">356K</td>
+                                <td class="number">1,650K</td>
+                                <td class="number">1,420K</td>
+                                <td class="good">+16%</td>
+                                <td class="number">1,650K</td>
+                                <td class="number">1,420K</td>
+                                <td class="good">+16%</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td class="segment-cell">Total</td>
+                                <td class="number">1,196K</td>
+                                <td class="number">5,590K</td>
+                                <td class="number">5,130K</td>
+                                <td class="good">+9%</td>
+                                <td class="number">5,590K</td>
+                                <td class="number">5,130K</td>
+                                <td class="good">+9%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Orders by Due Date -->
+                <div class="special-section">
+                    <h3>📅 Orders by Due Date — הזמנות לפי תאריך אספקה (חו"ל בלבד)</h3>
+                    <p>תצוגה מיוחדת לסגמנט חו"ל — הזמנות פתוחות לפי תאריך אספקה צפוי</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Due Date</th>
+                                <th>Open Orders</th>
+                                <th>Distributor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Feb 2026</td>
+                                <td class="number">420K</td>
+                                <td>עופר, ירון</td>
+                            </tr>
+                            <tr>
+                                <td>Mar 2026</td>
+                                <td class="number">380K</td>
+                                <td>עופר</td>
+                            </tr>
+                            <tr>
+                                <td>Q2 2026</td>
+                                <td class="number">890K</td>
+                                <td>Mixed</td>
+                            </tr>
+                            <tr class="total-row">
+                                <td>סה"כ פתוח</td>
+                                <td class="number">1,690K</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p class="note">מקור: ORDERS.DUEDATE | רלוונטי רק לחו"ל (בשאר הסגמנטים הזמנות יוצאות מיד)</p>
+                </div>
+
+                <div class="footer">
+                    <p><strong>OrgWise BI</strong> — Specification v2 | נוצר: 04/02/2026 | יורי כץ</p>
+                    <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
+                </div>
+            </div>
+        </main>
     </div>
-
-    <!-- Navigation -->
-    <div class="nav-tabs">
-        <a href="MOCKUP_INTERACTIVE.html">📊 מכירות (Sales)</a>
-        <a href="#" class="active">📦 הזמנות (Orders)</a>
-    </div>
-
-    <!-- Filters -->
-    <div class="filters-bar">
-        <div class="filter-group">
-            <label>שנה</label>
-            <select>
-                <option>2026</option>
-                <option>2025</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>רבעון</label>
-            <select>
-                <option>Q1</option>
-                <option>Q2</option>
-                <option>Q3</option>
-                <option>Q4</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>תקופה</label>
-            <input type="text" value="01/01 - 31/01" style="width: 140px;">
-        </div>
-
-        <div class="filter-group">
-            <label>חברה</label>
-            <select>
-                <option>מאוחד</option>
-                <option>להבות</option>
-                <option>פיירטק</option>
-            </select>
-        </div>
-
-        <div class="filter-group" style="position: relative;">
-            <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
-            <label>סגמנט</label>
-            <select class="has-question">
-                <option>הכל</option>
-                <option>מירי</option>
-                <option>אילן</option>
-                <option>דודו</option>
-                <option>חו"ל</option>
-            </select>
-        </div>
-
-        <div class="filter-group">
-            <label>משפחת מוצרים</label>
-            <select>
-                <option>הכל</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="main-content">
-
-        <!-- Info Card -->
-        <div class="info-card">
-            <h3>📦 מטרת דשבורד ההזמנות</h3>
-            <p>
-                <strong>לעקוב אחרי קצב כניסת הזמנות</strong> — האם אנחנו בקצב שיאפשר לנו להגיע ליעדי הצמיחה?
-            </p>
-            <div class="highlight">
-                💡 לדוגמה: אם היעד לגדול ב-5%, צריך לראות שקצב כניסת ההזמנות הוא לפחות 5% מעל שנה שעברה.
-            </div>
-            <p style="margin-top: 12px;">
-                <strong>הבדל מדשבורד מכירות:</strong> אין השוואה לתקציב — רק השוואה לשנה שעברה.
-            </p>
-        </div>
-
-        <!-- Legend -->
-        <div class="legend">
-            <div class="legend-item">
-                <div class="legend-color green"></div>
-                <span>מעל שנה שעברה (צמיחה)</span>
-            </div>
-            <div class="legend-item">
-                <div class="legend-color red"></div>
-                <span>מתחת לשנה שעברה (ירידה)</span>
-            </div>
-        </div>
-
-        <!-- Summary Section -->
-        <div class="summary-section">
-            <h2>Orders Dashboard — הזמנות</h2>
-            <div class="summary-info">
-                <div>
-                    <small>שבוע מספר</small>
-                    <strong>5</strong>
-                </div>
-                <div>
-                    <small>סיום תקופה</small>
-                    <strong>31/01/2026</strong>
-                </div>
-                <div class="view-toggle">
-                    <button class="active">₪</button>
-                    <button>כמות</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analysis Boxes -->
-        <div class="analysis-boxes">
-            <div class="analysis-box">
-                <h3>MTD Orders Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>100%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>+12%</span>
-                    </div>
-                </div>
-                <p class="note-text">אין השוואה לתקציב — רק vs LY</p>
-            </div>
-
-            <div class="analysis-box">
-                <h3>QTD Orders Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>34%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>+8%</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="analysis-box">
-                <h3>YTD Orders Analysis</h3>
-                <div class="metrics">
-                    <div class="metric">
-                        <span>% Time Elapsed</span>
-                        <span>8%</span>
-                    </div>
-                    <div class="metric good">
-                        <span>% from Last Year</span>
-                        <span>+8%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Data Table -->
-        <div class="data-table-section">
-            <div class="table-header">Orders Overview — סקירת הזמנות</div>
-            <table>
-                <thead>
-                    <tr>
-                        <th class="has-question">
-                            סגמנט
-                            <span class="data-source missing">❓ מיפוי</span>
-                        </th>
-                        <th>
-                            Current Week
-                            <span class="data-source">ORDERS</span>
-                        </th>
-                        <th>
-                            MTD Orders
-                            <span class="data-source">ORDERS</span>
-                        </th>
-                        <th>
-                            MTD Last Year
-                            <span class="data-source">ORDERS 2025</span>
-                        </th>
-                        <th>MTD % vs LY</th>
-                        <th>
-                            QTD Orders
-                            <span class="data-source">ORDERS</span>
-                        </th>
-                        <th>
-                            QTD Last Year
-                            <span class="data-source">ORDERS 2025</span>
-                        </th>
-                        <th>QTD % vs LY</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="segment-cell">מירי</td>
-                        <td class="number">198K</td>
-                        <td class="number">920K</td>
-                        <td class="number">850K</td>
-                        <td class="good">+8%</td>
-                        <td class="number">920K</td>
-                        <td class="number">850K</td>
-                        <td class="good">+8%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">אילן</td>
-                        <td class="number">145K</td>
-                        <td class="number">710K</td>
-                        <td class="number">680K</td>
-                        <td class="good">+4%</td>
-                        <td class="number">710K</td>
-                        <td class="number">680K</td>
-                        <td class="good">+4%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - אוטובוסים</td>
-                        <td class="number">287K</td>
-                        <td class="number">1,280K</td>
-                        <td class="number">1,150K</td>
-                        <td class="good">+11%</td>
-                        <td class="number">1,280K</td>
-                        <td class="number">1,150K</td>
-                        <td class="good">+11%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - מנדפים</td>
-                        <td class="number">134K</td>
-                        <td class="number">650K</td>
-                        <td class="number">620K</td>
-                        <td class="good">+5%</td>
-                        <td class="number">650K</td>
-                        <td class="number">620K</td>
-                        <td class="good">+5%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">דודו - חקלאי</td>
-                        <td class="number">76K</td>
-                        <td class="number">380K</td>
-                        <td class="number">410K</td>
-                        <td class="bad">-7%</td>
-                        <td class="number">380K</td>
-                        <td class="number">410K</td>
-                        <td class="bad">-7%</td>
-                    </tr>
-                    <tr>
-                        <td class="segment-cell">חו"ל</td>
-                        <td class="number">356K</td>
-                        <td class="number">1,650K</td>
-                        <td class="number">1,420K</td>
-                        <td class="good">+16%</td>
-                        <td class="number">1,650K</td>
-                        <td class="number">1,420K</td>
-                        <td class="good">+16%</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td class="segment-cell">סה"כ</td>
-                        <td class="number">1,196K</td>
-                        <td class="number">5,590K</td>
-                        <td class="number">5,130K</td>
-                        <td class="good">+9%</td>
-                        <td class="number">5,590K</td>
-                        <td class="number">5,130K</td>
-                        <td class="good">+9%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-        <!-- Special Section: Orders by Due Date -->
-        <div class="special-section">
-            <h3>📅 Orders by Due Date — הזמנות לפי תאריך אספקה (חו"ל בלבד)</h3>
-            <p>
-                תצוגה מיוחדת לסגמנט חו"ל — מראה הזמנות פתוחות לפי תאריך אספקה צפוי.
-                עוזר לחזות את ההכנסות העתידיות.
-            </p>
-
-            <table>
-                <thead>
-                    <tr>
-                        <th>Due Date</th>
-                        <th>Open Orders</th>
-                        <th>Distributor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Feb 2026</td>
-                        <td class="number">420K</td>
-                        <td>עופר, ירון</td>
-                    </tr>
-                    <tr>
-                        <td>Mar 2026</td>
-                        <td class="number">380K</td>
-                        <td>עופר</td>
-                    </tr>
-                    <tr>
-                        <td>Q2 2026</td>
-                        <td class="number">890K</td>
-                        <td>Mixed</td>
-                    </tr>
-                    <tr class="total-row">
-                        <td>סה"כ פתוח</td>
-                        <td class="number">1,690K</td>
-                        <td>—</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <p class="note">
-                מקור: ORDERS.DUEDATE | רלוונטי רק לחו"ל כי בשאר הסגמנטים הזמנות יוצאות מיד
-            </p>
-        </div>
-
-        <!-- Calculation Logic -->
-        <div class="calc-section">
-            <h3>📐 לוגיקת חישובים — Orders</h3>
-            <table class="calc-table">
-                <tr>
-                    <th style="width: 25%;">Metric</th>
-                    <th style="width: 45%;">לוגיקה</th>
-                    <th style="width: 30%;">דוגמה</th>
-                </tr>
-                <tr>
-                    <td><strong>MTD Orders</strong></td>
-                    <td>סכום הזמנות (₪) מתחילת החודש</td>
-                    <td><code>01/01-31/01 = 5,590K</code></td>
-                </tr>
-                <tr>
-                    <td><strong>MTD Last Year</strong></td>
-                    <td>אותה תקופה בדיוק, שנה אחורה</td>
-                    <td><code>01/01/25-31/01/25</code></td>
-                </tr>
-                <tr>
-                    <td><strong>MTD % vs LY</strong></td>
-                    <td>(הזמנות השנה / הזמנות אשתקד) - 1</td>
-                    <td><code>(5,590/5,130)-1 = +9%</code></td>
-                </tr>
-                <tr>
-                    <td><strong>Orders by Due Date</strong></td>
-                    <td>הזמנות פתוחות grouped by DUEDATE</td>
-                    <td><code>ORDERS where STATUS='open'</code></td>
-                </tr>
-            </table>
-
-            <div class="info-highlight">
-                <strong>💡 הבדל מדשבורד מכירות:</strong> אין תקציב להזמנות — המדד היחיד הוא השוואה לשנה שעברה.
-            </div>
-        </div>
-
-        <!-- Data Sources -->
-        <div class="calc-section">
-            <h3>📊 מקורות נתונים — Orders Dashboard</h3>
-            <table class="calc-table">
-                <tr>
-                    <th>נתון</th>
-                    <th>מקור בפריוריטי</th>
-                    <th>סטטוס</th>
-                </tr>
-                <tr>
-                    <td>הזמנות (Orders)</td>
-                    <td>ORDERS</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr>
-                    <td>תאריך אספקה</td>
-                    <td>ORDERS.DUEDATE</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr>
-                    <td>סטטוס הזמנה</td>
-                    <td>ORDERS.STATUS</td>
-                    <td style="color: #2E7D32;">✅ יש גישה</td>
-                </tr>
-                <tr style="background: #FFF8E1;">
-                    <td>מיפוי סגמנטים</td>
-                    <td style="color: #E65100; font-weight: 600;">❓ צריך לשאול את ראובן</td>
-                    <td style="color: #F57C00;">⚠️</td>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-    <div class="footer">
-        <p><strong>OrgWise</strong> — BI Dashboard Specification v2</p>
-        <p>Orders Dashboard | נוצר: 04/02/2026 | יורי כץ — IT Manager</p>
-        <p class="warning-text">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
-    </div>
-
 </body>
 </html>
