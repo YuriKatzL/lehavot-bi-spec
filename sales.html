@@ -480,6 +480,35 @@
             font-weight: 600;
         }
 
+        tr.segment-parent {
+            background: var(--lehavot-gray-200);
+            font-weight: 600;
+        }
+
+        tr.segment-parent td.segment-cell {
+            font-weight: 700;
+            color: var(--lehavot-gray-900);
+        }
+
+        tr.sub-segment td.segment-cell {
+            padding-right: 32px;
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--lehavot-gray-700);
+        }
+
+        tr.sub-segment td.segment-cell::before {
+            content: "└ ";
+            color: var(--lehavot-gray-400);
+        }
+
+        .segment-note {
+            font-size: 10px;
+            color: var(--lehavot-gray-500);
+            font-weight: 400;
+            display: block;
+        }
+
         /* ===== Questions Panel ===== */
         .questions-panel {
             background: #FFF8E1;
@@ -759,17 +788,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- מירי + פז -->
                             <tr>
-                                <td class="segment-cell">שרותי מיגון - אילן</td>
-                                <td class="number">$3,066,609</td>
-                                <td class="number">$3,817,760</td>
-                                <td class="number">$3,817,760</td>
-                                <td class="warning">80%</td>
-                                <td class="number">$2,214,997</td>
-                                <td class="good">138%</td>
-                            </tr>
-                            <tr>
-                                <td class="segment-cell">שאבי ביתי - מירי</td>
+                                <td class="segment-cell">
+                                    מירי
+                                    <span class="segment-note">כולל פז (עמלות נפרדות)</span>
+                                </td>
                                 <td class="number">$17,366</td>
                                 <td class="number">$362,799</td>
                                 <td class="number">$362,799</td>
@@ -777,17 +801,29 @@
                                 <td class="number">$148,789</td>
                                 <td class="bad">12%</td>
                             </tr>
+                            <!-- אילן -->
                             <tr>
-                                <td class="segment-cell">שרותי מגפים - דודו</td>
-                                <td class="number">$804,461</td>
-                                <td class="number">$735,045</td>
-                                <td class="number">$735,045</td>
-                                <td class="good">109%</td>
-                                <td class="number">$307,533</td>
-                                <td class="good">262%</td>
+                                <td class="segment-cell">אילן</td>
+                                <td class="number">$3,066,609</td>
+                                <td class="number">$3,817,760</td>
+                                <td class="number">$3,817,760</td>
+                                <td class="warning">80%</td>
+                                <td class="number">$2,214,997</td>
+                                <td class="good">138%</td>
                             </tr>
-                            <tr>
-                                <td class="segment-cell">שרותי אוטובוסים - דודו</td>
+                            <!-- דודו - Parent -->
+                            <tr class="segment-parent">
+                                <td class="segment-cell">דודו (סה"כ)</td>
+                                <td class="number">$1,748,775</td>
+                                <td class="number">$1,714,359</td>
+                                <td class="number">$1,714,359</td>
+                                <td class="good">102%</td>
+                                <td class="number">$1,057,533</td>
+                                <td class="good">165%</td>
+                            </tr>
+                            <!-- דודו - Sub-segments -->
+                            <tr class="sub-segment">
+                                <td class="segment-cell">אוטובוסים</td>
                                 <td class="number">$409,314</td>
                                 <td class="number">$409,314</td>
                                 <td class="number">$409,314</td>
@@ -795,8 +831,17 @@
                                 <td class="number">$350,000</td>
                                 <td class="good">117%</td>
                             </tr>
-                            <tr>
-                                <td class="segment-cell">שרותי כלים חקלאים - דודו</td>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">מנדפים / מטבחים</td>
+                                <td class="number">$804,461</td>
+                                <td class="number">$735,045</td>
+                                <td class="number">$735,045</td>
+                                <td class="good">109%</td>
+                                <td class="number">$307,533</td>
+                                <td class="good">262%</td>
+                            </tr>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">כלים חקלאיים</td>
                                 <td class="number">$285,000</td>
                                 <td class="number">$320,000</td>
                                 <td class="number">$320,000</td>
@@ -804,8 +849,18 @@
                                 <td class="number">$250,000</td>
                                 <td class="good">114%</td>
                             </tr>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">שירות</td>
+                                <td class="number">$250,000</td>
+                                <td class="number">$250,000</td>
+                                <td class="number">$250,000</td>
+                                <td class="good">100%</td>
+                                <td class="number">$150,000</td>
+                                <td class="good">167%</td>
+                            </tr>
+                            <!-- חו"ל -->
                             <tr>
-                                <td class="segment-cell">מכירות חו"ל</td>
+                                <td class="segment-cell">חו"ל</td>
                                 <td class="number">$1,359,657</td>
                                 <td class="number">$1,633,629</td>
                                 <td class="number">$1,633,629</td>
@@ -813,14 +868,15 @@
                                 <td class="number">$627,423</td>
                                 <td class="good">217%</td>
                             </tr>
+                            <!-- Total -->
                             <tr class="total-row">
-                                <td class="segment-cell">Total</td>
-                                <td class="number">$5,941,407</td>
-                                <td class="number">$7,278,547</td>
-                                <td class="number">$7,278,547</td>
+                                <td class="segment-cell">סה"כ</td>
+                                <td class="number">$6,192,407</td>
+                                <td class="number">$7,528,547</td>
+                                <td class="number">$7,528,547</td>
                                 <td class="warning">82%</td>
-                                <td class="number">$3,898,742</td>
-                                <td class="good">152%</td>
+                                <td class="number">$4,048,742</td>
+                                <td class="good">153%</td>
                             </tr>
                         </tbody>
                     </table>

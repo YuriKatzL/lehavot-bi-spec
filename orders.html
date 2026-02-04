@@ -490,6 +490,35 @@
             font-weight: 600;
         }
 
+        tr.segment-parent {
+            background: var(--lehavot-gray-200);
+            font-weight: 600;
+        }
+
+        tr.segment-parent td.segment-cell {
+            font-weight: 700;
+            color: var(--lehavot-gray-900);
+        }
+
+        tr.sub-segment td.segment-cell {
+            padding-right: 32px;
+            font-weight: 400;
+            font-size: 12px;
+            color: var(--lehavot-gray-700);
+        }
+
+        tr.sub-segment td.segment-cell::before {
+            content: "└ ";
+            color: var(--lehavot-gray-400);
+        }
+
+        .segment-note {
+            font-size: 10px;
+            color: var(--lehavot-gray-500);
+            font-weight: 400;
+            display: block;
+        }
+
         /* ===== Special Section ===== */
         .special-section {
             background: #FFF3E0;
@@ -753,8 +782,12 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <!-- מירי + פז -->
                             <tr>
-                                <td class="segment-cell">מירי</td>
+                                <td class="segment-cell">
+                                    מירי
+                                    <span class="segment-note">כולל פז</span>
+                                </td>
                                 <td class="number">198K</td>
                                 <td class="number">920K</td>
                                 <td class="number">850K</td>
@@ -763,6 +796,7 @@
                                 <td class="number">850K</td>
                                 <td class="good">+8%</td>
                             </tr>
+                            <!-- אילן -->
                             <tr>
                                 <td class="segment-cell">אילן</td>
                                 <td class="number">145K</td>
@@ -773,8 +807,20 @@
                                 <td class="number">680K</td>
                                 <td class="good">+4%</td>
                             </tr>
-                            <tr>
-                                <td class="segment-cell">דודו - אוטובוסים</td>
+                            <!-- דודו - Parent -->
+                            <tr class="segment-parent">
+                                <td class="segment-cell">דודו (סה"כ)</td>
+                                <td class="number">567K</td>
+                                <td class="number">2,510K</td>
+                                <td class="number">2,380K</td>
+                                <td class="good">+5%</td>
+                                <td class="number">2,510K</td>
+                                <td class="number">2,380K</td>
+                                <td class="good">+5%</td>
+                            </tr>
+                            <!-- דודו - Sub-segments -->
+                            <tr class="sub-segment">
+                                <td class="segment-cell">אוטובוסים</td>
                                 <td class="number">287K</td>
                                 <td class="number">1,280K</td>
                                 <td class="number">1,150K</td>
@@ -783,8 +829,8 @@
                                 <td class="number">1,150K</td>
                                 <td class="good">+11%</td>
                             </tr>
-                            <tr>
-                                <td class="segment-cell">דודו - מנדפים</td>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">מנדפים / מטבחים</td>
                                 <td class="number">134K</td>
                                 <td class="number">650K</td>
                                 <td class="number">620K</td>
@@ -793,8 +839,8 @@
                                 <td class="number">620K</td>
                                 <td class="good">+5%</td>
                             </tr>
-                            <tr>
-                                <td class="segment-cell">דודו - חקלאי</td>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">כלים חקלאיים</td>
                                 <td class="number">76K</td>
                                 <td class="number">380K</td>
                                 <td class="number">410K</td>
@@ -803,6 +849,17 @@
                                 <td class="number">410K</td>
                                 <td class="bad">-7%</td>
                             </tr>
+                            <tr class="sub-segment">
+                                <td class="segment-cell">שירות</td>
+                                <td class="number">70K</td>
+                                <td class="number">200K</td>
+                                <td class="number">200K</td>
+                                <td class="good">0%</td>
+                                <td class="number">200K</td>
+                                <td class="number">200K</td>
+                                <td class="good">0%</td>
+                            </tr>
+                            <!-- חו"ל -->
                             <tr>
                                 <td class="segment-cell">חו"ל</td>
                                 <td class="number">356K</td>
@@ -813,14 +870,15 @@
                                 <td class="number">1,420K</td>
                                 <td class="good">+16%</td>
                             </tr>
+                            <!-- Total -->
                             <tr class="total-row">
-                                <td class="segment-cell">Total</td>
-                                <td class="number">1,196K</td>
-                                <td class="number">5,590K</td>
-                                <td class="number">5,130K</td>
+                                <td class="segment-cell">סה"כ</td>
+                                <td class="number">1,266K</td>
+                                <td class="number">5,790K</td>
+                                <td class="number">5,330K</td>
                                 <td class="good">+9%</td>
-                                <td class="number">5,590K</td>
-                                <td class="number">5,130K</td>
+                                <td class="number">5,790K</td>
+                                <td class="number">5,330K</td>
                                 <td class="good">+9%</td>
                             </tr>
                         </tbody>
