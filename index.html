@@ -158,46 +158,19 @@
         <div id="error" class="error"></div>
     </div>
 
-    <!-- Main Content (hidden) -->
-    <div class="container" id="main-content" style="display:none;">
-        <div class="logo"><span class="accent">Org</span>Wise BI</div>
-        <div class="subtitle">Dashboard Specification Review — Feb 2026</div>
-
-        <div class="cards" style="direction: ltr;">
-            <a href="sales.html" class="card sales">
-                <div class="card-icon">📊</div>
-                <div class="card-title">Sales Dashboard</div>
-                <div class="card-desc">מכירות — Revenue Analysis</div>
-            </a>
-
-            <a href="orders.html" class="card orders">
-                <div class="card-icon">📦</div>
-                <div class="card-title">Orders Dashboard</div>
-                <div class="card-desc">הזמנות — Order Tracking</div>
-            </a>
-        </div>
-
-        <div class="footer">
-            <p class="warning">⚠️ Draft Specification — For Internal Review Only</p>
-            <p>יורי כץ | Elad & Reuven Review</p>
-        </div>
-    </div>
-
     <script>
         const PASS = 'lehavot2026';
 
         // Check if already logged in
         if (sessionStorage.getItem('bi-auth') === 'true') {
-            document.getElementById('login-screen').style.display = 'none';
-            document.getElementById('main-content').style.display = 'block';
+            window.location.href = 'sales.html';
         }
 
         function checkPassword() {
             const input = document.getElementById('password').value;
             if (input === PASS) {
                 sessionStorage.setItem('bi-auth', 'true');
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('main-content').style.display = 'block';
+                window.location.href = 'sales.html';
             } else {
                 document.getElementById('error').textContent = 'Wrong password';
                 document.getElementById('password').value = '';
