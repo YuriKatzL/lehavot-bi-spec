@@ -609,7 +609,7 @@
                         <table class="spec-table">
                             <tr><th>מדד</th><th>תיאור</th><th>נוסחה</th><th>מקור</th></tr>
                             <tr><td>% Time Elapsed</td><td>אחוז הזמן שעבר</td><td>יום / ימים בתקופה × 100</td><td><code>DAY(GETDATE())</code></td></tr>
-                            <tr><td>% from Budget</td><td>אחוז מתקציב</td><td>מכירות / תקציב × 100</td><td class="missing">טבלת תקציב</td></tr>
+                            <tr><td>% from Budget</td><td>אחוז מתקציב</td><td>מכירות / תקציב × 100</td><td class="missing">Excel או מסך?</td></tr>
                             <tr><td>% from LY</td><td>אחוז משנה שעברה</td><td>מכירות / אשתקד × 100</td><td><code>DOCUMENTS</code></td></tr>
                         </table>
 
@@ -619,8 +619,8 @@
                             <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
                             <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
                             <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
-                            <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי</td><td class="missing">טבלת תקציב</td></tr>
-                            <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">טבלת תקציב</td></tr>
+                            <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי</td><td class="missing">Excel או מסך?</td></tr>
+                            <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">Excel או מסך?</td></tr>
                             <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>עמודה 3 / עמודה 4</td></tr>
                             <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>DOCUMENTS WHERE YEAR-1</code></td></tr>
                             <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>עמודה 3 / עמודה 7</td></tr>
@@ -695,7 +695,7 @@
                             <tr><td><code>CUSTOMERS</code></td><td>לקוחות — מיפוי לסגמנט</td><td class="missing">לבדוק</td></tr>
                             <tr><td><code>AGENTS</code></td><td>סוכנים / מפיצים</td><td class="missing">לבדוק</td></tr>
                             <tr><td><code>FAMILY</code></td><td>משפחות מוצרים</td><td class="missing">לבדוק</td></tr>
-                            <tr><td><code>???</code></td><td>מסך תקציב</td><td class="missing">שם המסך?</td></tr>
+                            <tr><td><code>Excel / ???</code></td><td>נתוני תקציב</td><td class="missing">Excel או מסך?</td></tr>
                         </table>
 
                         <div class="doc-question">
@@ -739,7 +739,7 @@
                             <tr><td>1</td><td>מיפוי סגמנטים — איזה שדה/מסך בפריוריטי?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
                             <tr><td>2</td><td>סטטוס הזמנה — איזה שדה במסך ORDERS?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
                             <tr><td>3</td><td>מסך מקור למכירות — DOCUMENTS_D / INVOICES / אחר?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
-                            <tr><td>4</td><td>מסך תקציב — שם ומבנה</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                            <tr><td>4</td><td>מקור תקציב — Excel או מסך בפריוריטי?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
                             <tr><td>5</td><td>פז ומירי — ביחד או בנפרד?</td><td>אלעד</td><td class="missing">פתוח</td></tr>
                             <tr><td>6</td><td>הגדרת OData access למסכים</td><td>יורי</td><td class="missing">פתוח</td></tr>
                         </table>
