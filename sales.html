@@ -963,11 +963,8 @@
     </style>
 </head>
 <body>
-    <!-- Spec Toggle Button -->
-    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט טכני</button>
-
-    <!-- Enterprise Spec Document -->
-    <div class="spec-document" id="spec-document">
+    <!-- Enterprise Spec Document - HIDDEN (see spec.html instead) -->
+    <div class="spec-document" id="spec-document" style="display:none !important;">
         <div class="spec-doc-container">
 
             <!-- Document Header -->
@@ -1169,25 +1166,25 @@
                         <th>מדד</th>
                         <th>תיאור</th>
                         <th>נוסחה</th>
-                        <th>מקור</th>
+                        <th>מקור (מסך.שדה)</th>
                     </tr>
                     <tr>
                         <td>% Time Elapsed</td>
                         <td>אחוז הזמן שעבר בתקופה</td>
                         <td>יום נוכחי / ימים בתקופה × 100</td>
-                        <td><code>DAY(GETDATE())</code></td>
+                        <td>חישוב Power BI</td>
                     </tr>
                     <tr>
                         <td>% from Budget</td>
                         <td>אחוז ביצוע מתקציב</td>
                         <td>מכירות בפועל / תקציב × 100</td>
-                        <td class="missing">טבלת תקציב — נדרש</td>
+                        <td class="missing">Excel או מסך?</td>
                     </tr>
                     <tr>
                         <td>% from LY</td>
                         <td>אחוז משנה שעברה</td>
                         <td>מכירות השנה / מכירות אשתקד × 100</td>
-                        <td><code>DOCUMENTS</code></td>
+                        <td><code>DOCUMENTS.QPRICE</code></td>
                     </tr>
                 </table>
 
@@ -1201,16 +1198,16 @@
                         <th>#</th>
                         <th>עמודה</th>
                         <th>תיאור</th>
-                        <th>מקור / נוסחה</th>
+                        <th>מקור (מסך.שדה)</th>
                     </tr>
-                    <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
-                    <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
-                    <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
-                    <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי לתקופה</td><td class="missing">טבלת תקציב</td></tr>
-                    <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">טבלת תקציב</td></tr>
-                    <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>חישוב: עמודה 3 / עמודה 4</td></tr>
-                    <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>DOCUMENTS WHERE YEAR-1</code></td></tr>
-                    <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>חישוב: עמודה 3 / עמודה 7</td></tr>
+                    <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">CUSTOMERS.CTYPE או לוגיקה אחרת</td></tr>
+                    <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td><code>DOCUMENTS.QPRICE / TOTPRICE</code></td></tr>
+                    <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td><code>DOCUMENTS.QPRICE / TOTPRICE</code></td></tr>
+                    <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי לתקופה</td><td class="missing">Excel או מסך?</td></tr>
+                    <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">Excel או מסך?</td></tr>
+                    <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>חישוב Power BI</td></tr>
+                    <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>DOCUMENTS.QPRICE</code> (פילטר שנה קודמת)</td></tr>
+                    <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>חישוב Power BI</td></tr>
                 </table>
 
                 <h3>4.4 קידוד צבעים</h3>
@@ -1244,16 +1241,17 @@
                 <h2>5. מקורות נתונים</h2>
 
                 <h3>5.1 מערכת מקור</h3>
-                <p>Priority ERP — גישה דרך Priority API (REST). גישת Read-only בלבד.</p>
+                <p>Priority ERP — גישה דרך <strong>Priority OData</strong>. גישת Read-only בלבד.</p>
 
-                <h3>5.2 טבלאות נדרשות</h3>
+                <h3>5.2 מסכים נדרשים (OData Entities)</h3>
+                <p><em>הערה: Priority OData עובד עם מסכים (forms), לא טבלאות ישירות.</em></p>
                 <table class="spec-table">
-                    <tr><th>טבלה</th><th>שימוש</th><th>גישה</th></tr>
-                    <tr><td><code>DOCUMENTS</code></td><td>תעודות משלוח — נתוני מכירות</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>CUSTOMERS</code></td><td>לקוחות — מיפוי לסגמנט</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>AGENTS</code></td><td>סוכנים — מיפוי לסגמנט</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>FAMILY</code></td><td>משפחות מוצרים</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>???</code></td><td>תקציב</td><td class="missing">שם הטבלה?</td></tr>
+                    <tr><th>מסך</th><th>שדות עיקריים</th><th>שימוש</th></tr>
+                    <tr><td><code>DOCUMENTS</code></td><td>CURDATE, QPRICE, TOTPRICE, CUSTNAME, AGENTNAME</td><td>נתוני מכירות</td></tr>
+                    <tr><td><code>CUSTOMERS</code></td><td>CUSTNAME, CUSTDES, CTYPE</td><td>מיפוי לסגמנט</td></tr>
+                    <tr><td><code>AGENTS</code></td><td>AGENTCODE, AGENTNAME</td><td>סוכנים / מפיצים</td></tr>
+                    <tr><td><code>FAMILY</code></td><td>FAMILYNAME</td><td>משפחות מוצרים</td></tr>
+                    <tr><td><code>Excel / ???</code></td><td>—</td><td class="missing">תקציב — Excel או מסך?</td></tr>
                 </table>
 
                 <div class="doc-question">
@@ -1712,13 +1710,13 @@
                 <div class="questions-panel">
                     <h3>⚠️ שאלות פתוחות לראובן</h3>
                     <div class="question-item">
-                        <strong>1. מיפוי סגמנטים:</strong> איך מזהים בפריוריטי לאיזה סגמנט שייכת מכירה? (סוכן? לקוח? משפחה?)
+                        <strong>1. מיפוי סגמנטים:</strong> באיזה מסך ושדה מזהים סגמנט? (CUSTOMERS.CTYPE או לוגיקה של דוח 740?)
                     </div>
                     <div class="question-item">
-                        <strong>2. טבלת תקציב:</strong> איפה נמצא התקציב בפריוריטי? שם הטבלה, מבנה, לפי סגמנט?
+                        <strong>2. מקור תקציב:</strong> Excel או מסך בפריוריטי? מבנה?
                     </div>
                     <div class="question-item">
-                        <strong>3. מקור נתונים:</strong> תעודות משלוח או חשבוניות?
+                        <strong>3. מסך מכירות:</strong> DOCUMENTS (תעודות משלוח) או INVOICES (חשבוניות)?
                     </div>
                     <div class="question-item">
                         <strong>4. פז ומירי:</strong> להציג ביחד או בנפרד?
