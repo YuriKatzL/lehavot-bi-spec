@@ -607,23 +607,23 @@
 
                         <h3>4.3 כרטיסי סיכום</h3>
                         <table class="spec-table">
-                            <tr><th>מדד</th><th>תיאור</th><th>נוסחה</th><th>מקור</th></tr>
-                            <tr><td>% Time Elapsed</td><td>אחוז הזמן שעבר</td><td>יום / ימים בתקופה × 100</td><td><code>DAY(GETDATE())</code></td></tr>
+                            <tr><th>מדד</th><th>תיאור</th><th>נוסחה</th><th>מקור (מסך.שדה)</th></tr>
+                            <tr><td>% Time Elapsed</td><td>אחוז הזמן שעבר</td><td>יום / ימים בתקופה × 100</td><td>חישוב Power BI</td></tr>
                             <tr><td>% from Budget</td><td>אחוז מתקציב</td><td>מכירות / תקציב × 100</td><td class="missing">Excel או מסך?</td></tr>
-                            <tr><td>% from LY</td><td>אחוז משנה שעברה</td><td>מכירות / אשתקד × 100</td><td><code>DOCUMENTS</code></td></tr>
+                            <tr><td>% from LY</td><td>אחוז משנה שעברה</td><td>מכירות / אשתקד × 100</td><td class="missing">מסך תעודות</td></tr>
                         </table>
 
                         <h3>4.4 טבלת מכירות</h3>
                         <table class="spec-table">
-                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
-                            <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
-                            <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
-                            <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td><code>SUM(DOCUMENTS.TOTAL)</code></td></tr>
+                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור (מסך.שדה)</th></tr>
+                            <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי מסך</td></tr>
+                            <tr><td>2</td><td>Current Week</td><td>מכירות השבוע</td><td class="missing">מסך תעודות — שדה סכום</td></tr>
+                            <tr><td>3</td><td>MTD Sales</td><td>מכירות מתחילת החודש</td><td class="missing">מסך תעודות — שדה סכום</td></tr>
                             <tr><td>4</td><td>MTD Budget</td><td>תקציב יחסי</td><td class="missing">Excel או מסך?</td></tr>
                             <tr><td>5</td><td>Full Month Budget</td><td>תקציב מלא לחודש</td><td class="missing">Excel או מסך?</td></tr>
-                            <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>עמודה 3 / עמודה 4</td></tr>
-                            <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>DOCUMENTS WHERE YEAR-1</code></td></tr>
-                            <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>עמודה 3 / עמודה 7</td></tr>
+                            <tr><td>6</td><td>MTD % from Budget</td><td>אחוז ביצוע</td><td>חישוב: עמודה 3 / עמודה 4</td></tr>
+                            <tr><td>7</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td class="missing">מסך תעודות — שנה קודמת</td></tr>
+                            <tr><td>8</td><td>MTD % from LY</td><td>אחוז משנה שעברה</td><td>חישוב: עמודה 3 / עמודה 7</td></tr>
                         </table>
 
                         <h3>4.5 קידוד צבעים</h3>
@@ -652,12 +652,12 @@
 
                         <h3>5.2 טבלת הזמנות</h3>
                         <table class="spec-table">
-                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
-                            <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי</td></tr>
-                            <tr><td>2</td><td>Current Week</td><td>הזמנות השבוע</td><td><code>SUM(ORDERS.TOTAL)</code></td></tr>
-                            <tr><td>3</td><td>MTD Orders</td><td>הזמנות מתחילת החודש</td><td><code>SUM(ORDERS.TOTAL)</code></td></tr>
-                            <tr><td>4</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td><code>ORDERS WHERE YEAR-1</code></td></tr>
-                            <tr><td>5</td><td>MTD % vs LY</td><td>אחוז משנה שעברה</td><td>עמודה 3 / עמודה 4</td></tr>
+                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור (מסך.שדה)</th></tr>
+                            <tr><td>1</td><td>BU</td><td>סגמנט עסקי</td><td class="missing">נדרש מיפוי מסך</td></tr>
+                            <tr><td>2</td><td>Current Week</td><td>הזמנות השבוע</td><td class="missing">מסך הזמנות — שדה סכום</td></tr>
+                            <tr><td>3</td><td>MTD Orders</td><td>הזמנות מתחילת החודש</td><td class="missing">מסך הזמנות — שדה סכום</td></tr>
+                            <tr><td>4</td><td>MTD Last Year</td><td>אותה תקופה אשתקד</td><td class="missing">מסך הזמנות — שנה קודמת</td></tr>
+                            <tr><td>5</td><td>MTD % vs LY</td><td>אחוז משנה שעברה</td><td>חישוב: עמודה 3 / עמודה 4</td></tr>
                         </table>
 
                         <h3>5.3 Orders by Due Date (חו"ל בלבד)</h3>
@@ -666,14 +666,14 @@
                         </div>
 
                         <table class="spec-table">
-                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור</th></tr>
-                            <tr><td>1</td><td>Due Date</td><td>תאריך אספקה צפוי</td><td><code>ORDERS.DUEDATE</code></td></tr>
-                            <tr><td>2</td><td>Open Orders</td><td>סכום הזמנות פתוחות</td><td><code>SUM WHERE STATUS='Open'</code></td></tr>
-                            <tr><td>3</td><td>Distributor</td><td>מפיץ</td><td><code>AGENTS.AGENTNAME</code></td></tr>
+                            <tr><th>#</th><th>עמודה</th><th>תיאור</th><th>מקור (מסך.שדה)</th></tr>
+                            <tr><td>1</td><td>Due Date</td><td>תאריך אספקה צפוי</td><td class="missing">מסך הזמנות — שדה תאריך אספקה</td></tr>
+                            <tr><td>2</td><td>Open Orders</td><td>סכום הזמנות פתוחות</td><td class="missing">מסך הזמנות — פילטר לפי סטטוס</td></tr>
+                            <tr><td>3</td><td>Distributor</td><td>מפיץ</td><td class="missing">מסך סוכנים — שם סוכן</td></tr>
                         </table>
 
                         <div class="doc-question">
-                            <strong>שאלה #2 לראובן:</strong> איך מזהים הזמנה פתוחה vs סגורה בפריוריטי? שדה ORDSTATUS? ערכים?
+                            <strong>שאלה #2 לראובן:</strong> במסך הזמנות — איזה שדה מציין סטטוס פתוח/סגור?
                         </div>
                     </div>
 
