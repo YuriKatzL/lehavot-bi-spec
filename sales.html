@@ -1393,7 +1393,7 @@
             <!-- Filters Bar -->
             <div class="filters-bar">
                 <div class="filter-group">
-                    <label>Year</label>
+                    <label>Year <span class="data-source">DOCUMENTS.CURDATE</span></label>
                     <select>
                         <option>2026</option>
                         <option>2025</option>
@@ -1402,7 +1402,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Quarter</label>
+                    <label>Quarter <span class="data-source">DOCUMENTS.CURDATE</span></label>
                     <select>
                         <option>All</option>
                         <option>Q1</option>
@@ -1413,40 +1413,38 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Period</label>
+                    <label>Period <span class="data-source">DOCUMENTS.CURDATE</span></label>
                     <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
                 </div>
 
                 <div class="filter-group" style="position: relative;">
                     <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
-                    <label>סגמנט מכירות</label>
+                    <label>סגמנט <span class="data-source missing">❓ CTYPE?</span></label>
                     <select class="has-question">
                         <option>הכל</option>
-                        <option>שרותי מיגון - אילן</option>
-                        <option>שאבי ביתי - מירי</option>
-                        <option>שרותי מגפים - דודו</option>
-                        <option>שרותי אוטובוסים - דודו</option>
-                        <option>שרותי כלים חקלאים - דודו</option>
-                        <option>מכירות חו"ל</option>
+                        <option>אילן</option>
+                        <option>מירי</option>
+                        <option>דודו</option>
+                        <option>חו"ל</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label>מפיץ</label>
+                    <label>מפיץ <span class="data-source">AGENTS.AGENTNAME</span></label>
                     <select>
                         <option>All</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label>מוצר/מק"ט</label>
+                    <label>משפחה <span class="data-source">FAMILY.FAMILYNAME</span></label>
                     <select>
                         <option>All</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label>Company</label>
+                    <label>Company <span class="data-source">ENVIRONMENT</span></label>
                     <select>
                         <option>מאוחד</option>
                         <option>להבות</option>
@@ -1542,20 +1540,32 @@
                             <tr>
                                 <th class="has-question">
                                     BU
-                                    <span class="data-source missing">❓ מיפוי</span>
+                                    <span class="data-source missing">❓ CUSTOMERS.CTYPE?</span>
                                 </th>
-                                <th>MTD Sales</th>
+                                <th>
+                                    MTD Sales
+                                    <span class="data-source">DOCUMENTS.QPRICE</span>
+                                </th>
                                 <th class="has-question">
                                     MTD Budget
-                                    <span class="data-source missing">❓</span>
+                                    <span class="data-source missing">❓ Excel?</span>
                                 </th>
                                 <th class="has-question">
                                     Full Month Budget
-                                    <span class="data-source missing">❓</span>
+                                    <span class="data-source missing">❓ Excel?</span>
                                 </th>
-                                <th>MTD % from Budget</th>
-                                <th>MTD Last Year</th>
-                                <th>MTD % from Last Year</th>
+                                <th>
+                                    MTD % from Budget
+                                    <span class="data-source">חישוב</span>
+                                </th>
+                                <th>
+                                    MTD Last Year
+                                    <span class="data-source">DOCUMENTS.QPRICE (Y-1)</span>
+                                </th>
+                                <th>
+                                    MTD % from Last Year
+                                    <span class="data-source">חישוב</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
