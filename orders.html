@@ -959,6 +959,39 @@
             color: var(--lehavot-gray-500);
         }
 
+        /* ===== Questions Panel ===== */
+        .questions-panel {
+            background: #FFF8E1;
+            border: 2px solid #F57C00;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .questions-panel h3 {
+            color: #E65100;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .question-item {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-right: 3px solid #F57C00;
+            font-size: 13px;
+        }
+
+        .question-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-item strong {
+            color: #E65100;
+        }
+
         /* ===== Footer ===== */
         .footer {
             text-align: center;
@@ -1418,7 +1451,7 @@
             <!-- Filters Bar -->
             <div class="filters-bar">
                 <div class="filter-group">
-                    <label>Year</label>
+                    <label>Year <span class="data-source">ORDERS.CURDATE</span></label>
                     <select>
                         <option>2026</option>
                         <option>2025</option>
@@ -1427,7 +1460,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Quarter</label>
+                    <label>Quarter <span class="data-source">ORDERS.CURDATE</span></label>
                     <select>
                         <option>All</option>
                         <option>Q1</option>
@@ -1438,33 +1471,31 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Period</label>
+                    <label>Period <span class="data-source">ORDERS.CURDATE</span></label>
                     <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
                 </div>
 
                 <div class="filter-group" style="position: relative;">
                     <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
-                    <label>סגמנט מכירות</label>
+                    <label>סגמנט <span class="data-source missing">❓ CTYPE?</span></label>
                     <select class="has-question">
                         <option>הכל</option>
-                        <option>שרותי מיגון - אילן</option>
-                        <option>שאבי ביתי - מירי</option>
-                        <option>שרותי מגפים - דודו</option>
-                        <option>שרותי אוטובוסים - דודו</option>
-                        <option>שרותי כלים חקלאים - דודו</option>
-                        <option>מכירות חו"ל</option>
+                        <option>אילן</option>
+                        <option>מירי</option>
+                        <option>דודו</option>
+                        <option>חו"ל</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label>מפיץ</label>
+                    <label>מפיץ <span class="data-source">AGENTS.AGENTNAME</span></label>
                     <select>
                         <option>All</option>
                     </select>
                 </div>
 
                 <div class="filter-group">
-                    <label>Company</label>
+                    <label>Company <span class="data-source">ENVIRONMENT</span></label>
                     <select>
                         <option>מאוחד</option>
                         <option>להבות</option>
@@ -1555,15 +1586,36 @@
                             <tr>
                                 <th class="has-question">
                                     BU
-                                    <span class="data-source missing">❓ מיפוי</span>
+                                    <span class="data-source missing">❓ CUSTOMERS.CTYPE?</span>
                                 </th>
-                                <th>Current Week</th>
-                                <th>MTD Orders</th>
-                                <th>MTD Last Year</th>
-                                <th>MTD % vs LY</th>
-                                <th>QTD Orders</th>
-                                <th>QTD Last Year</th>
-                                <th>QTD % vs LY</th>
+                                <th>
+                                    Current Week
+                                    <span class="data-source">ORDERS.QPRICE</span>
+                                </th>
+                                <th>
+                                    MTD Orders
+                                    <span class="data-source">ORDERS.QPRICE</span>
+                                </th>
+                                <th>
+                                    MTD Last Year
+                                    <span class="data-source">ORDERS.QPRICE (Y-1)</span>
+                                </th>
+                                <th>
+                                    MTD % vs LY
+                                    <span class="data-source">חישוב</span>
+                                </th>
+                                <th>
+                                    QTD Orders
+                                    <span class="data-source">ORDERS.QPRICE</span>
+                                </th>
+                                <th>
+                                    QTD Last Year
+                                    <span class="data-source">ORDERS.QPRICE (Y-1)</span>
+                                </th>
+                                <th>
+                                    QTD % vs LY
+                                    <span class="data-source">חישוב</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1730,9 +1782,18 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>Due Date</th>
-                                <th>Open Orders</th>
-                                <th>Distributor</th>
+                                <th>
+                                    Due Date
+                                    <span class="data-source">ORDERS.DUEDATE</span>
+                                </th>
+                                <th class="has-question">
+                                    Open Orders
+                                    <span class="data-source missing">❓ ORDERS.CLOSED?</span>
+                                </th>
+                                <th>
+                                    Distributor
+                                    <span class="data-source">AGENTS.AGENTNAME</span>
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -1759,6 +1820,20 @@
                         </tbody>
                     </table>
                     <p class="note">מקור: ORDERS.DUEDATE | רלוונטי רק לחו"ל (בשאר הסגמנטים הזמנות יוצאות מיד)</p>
+                </div>
+
+                <!-- Questions Panel -->
+                <div class="questions-panel">
+                    <h3>⚠️ שאלות פתוחות לראובן</h3>
+                    <div class="question-item">
+                        <strong>1. מיפוי סגמנטים:</strong> באיזה מסך ושדה מזהים סגמנט? (CUSTOMERS.CTYPE או לוגיקה של דוח 740?)
+                    </div>
+                    <div class="question-item">
+                        <strong>2. סטטוס הזמנה:</strong> במסך ORDERS — שדה CLOSED או STATDES?
+                    </div>
+                    <div class="question-item">
+                        <strong>3. הגדרת OData:</strong> גישה למסך ORDERS
+                    </div>
                 </div>
 
                 <div class="footer">
