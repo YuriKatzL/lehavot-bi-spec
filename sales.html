@@ -52,7 +52,7 @@
             flex-direction: column;
             position: fixed;
             top: 0;
-            right: 0;
+            left: 0;
             bottom: 0;
             z-index: 100;
         }
@@ -113,7 +113,7 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            border-right: 3px solid transparent;
+            border-left: 3px solid transparent;
             transition: all 0.2s;
         }
 
@@ -125,7 +125,7 @@
         .nav-item.active {
             background: rgba(215, 25, 32, 0.15);
             color: white;
-            border-right-color: var(--lehavot-red);
+            border-left-color: var(--lehavot-red);
         }
 
         .nav-item .icon {
@@ -144,7 +144,7 @@
         /* ===== Main Content ===== */
         .main-content {
             flex: 1;
-            margin-right: var(--sidebar-width);
+            margin-left: var(--sidebar-width);
             display: flex;
             flex-direction: column;
         }
@@ -963,8 +963,11 @@
     </style>
 </head>
 <body>
-    <!-- Enterprise Spec Document - HIDDEN (see spec.html instead) -->
-    <div class="spec-document" id="spec-document" style="display:none !important;">
+    <!-- Spec Toggle Button -->
+    <button class="spec-toggle" onclick="toggleSpec()">📋 מפרט טכני</button>
+
+    <!-- Sales Dashboard Spec Document -->
+    <div class="spec-document" id="spec-document">
         <div class="spec-doc-container">
 
             <!-- Document Header -->
@@ -1269,11 +1272,11 @@
 
                 <table class="spec-table">
                     <tr><th>#</th><th>שאלה</th><th>אחראי</th><th>סטטוס</th></tr>
-                    <tr><td>1</td><td>מיפוי סגמנטים — איך מזהים בפריוריטי?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
-                    <tr><td>2</td><td>טבלת תקציב — שם ומבנה</td><td>ראובן</td><td class="missing">פתוח</td></tr>
-                    <tr><td>3</td><td>מקור נתונים — ת. משלוח או חשבוניות?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>1</td><td>מיפוי סגמנטים — איזה שדה/מסך? (CUSTOMERS.CTYPE או לוגיקה של דוח 740?)</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>2</td><td>מקור תקציב — Excel או מסך בפריוריטי?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>3</td><td>מסך מכירות — DOCUMENTS או INVOICES?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
                     <tr><td>4</td><td>פז ומירי — ביחד או בנפרד?</td><td>אלעד</td><td class="missing">פתוח</td></tr>
-                    <tr><td>5</td><td>גישת API לטבלאות</td><td>יורי</td><td class="missing">פתוח</td></tr>
+                    <tr><td>5</td><td>הגדרת OData access למסכים</td><td>יורי</td><td class="missing">פתוח</td></tr>
                 </table>
             </div>
 
@@ -1320,7 +1323,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <h1><span class="brand-accent">Leha</span>vot</h1>
+                    <h1 style="color: #D71920;">Lehavot</h1>
                 </div>
                 <div class="sidebar-subtitle">BI Dashboard</div>
             </div>

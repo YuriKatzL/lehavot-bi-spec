@@ -53,7 +53,7 @@
             flex-direction: column;
             position: fixed;
             top: 0;
-            right: 0;
+            left: 0;
             bottom: 0;
             z-index: 100;
         }
@@ -114,7 +114,7 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
-            border-right: 3px solid transparent;
+            border-left: 3px solid transparent;
             transition: all 0.2s;
         }
 
@@ -126,7 +126,7 @@
         .nav-item.active {
             background: rgba(21, 101, 192, 0.2);
             color: white;
-            border-right-color: var(--orders-blue);
+            border-left-color: var(--orders-blue);
         }
 
         .nav-item .icon {
@@ -145,7 +145,7 @@
         /* ===== Main Content ===== */
         .main-content {
             flex: 1;
-            margin-right: var(--sidebar-width);
+            margin-left: var(--sidebar-width);
             display: flex;
             flex-direction: column;
         }
@@ -1033,7 +1033,7 @@
                 <h2>1. מבוא ומטרות</h2>
 
                 <h3>1.1 רקע</h3>
-                <p>מסמך זה מגדיר את הדרישות הפונקציונליות לדשבורד הזמנות (Orders Dashboard) עבור חברת להבות מערכות כיבוי אש בע"מ. הדשבורד יבנה על פלטפורמת Microsoft Power BI ויתחבר למערכת Priority ERP באמצעות API.</p>
+                <p>מסמך זה מגדיר את הדרישות הפונקציונליות לדשבורד הזמנות (Orders Dashboard) עבור חברת להבות מערכות כיבוי אש בע"מ. הדשבורד יבנה על פלטפורמת Microsoft Power BI ויתחבר למערכת Priority ERP באמצעות <strong>OData</strong>.</p>
 
                 <h3>1.2 מטרות הפרויקט</h3>
                 <ul class="spec-list">
@@ -1277,14 +1277,15 @@
                 <h2>6. מקורות נתונים</h2>
 
                 <h3>6.1 מערכת מקור</h3>
-                <p>Priority ERP — גישה דרך Priority API (REST). גישת Read-only בלבד.</p>
+                <p>Priority ERP — גישה דרך <strong>Priority OData</strong>. גישת Read-only בלבד.</p>
 
-                <h3>6.2 טבלאות נדרשות</h3>
+                <h3>6.2 מסכים נדרשים (OData Entities)</h3>
+                <p><em>הערה: Priority OData עובד עם מסכים (forms), לא טבלאות ישירות.</em></p>
                 <table class="spec-table">
-                    <tr><th>טבלה</th><th>שימוש</th><th>גישה</th></tr>
-                    <tr><td><code>ORDERS</code></td><td>נתוני הזמנות — סכום, תאריך, סטטוס</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>CUSTOMERS</code></td><td>לקוחות — מיפוי לסגמנט</td><td class="missing">לבדוק</td></tr>
-                    <tr><td><code>AGENTS</code></td><td>סוכנים / מפיצים</td><td class="missing">לבדוק</td></tr>
+                    <tr><th>מסך</th><th>שדות עיקריים</th><th>שימוש</th></tr>
+                    <tr><td><code>ORDERS</code></td><td>ORDNAME, CURDATE, QPRICE, TOTPRICE, DUEDATE, CLOSED, STATDES</td><td>נתוני הזמנות</td></tr>
+                    <tr><td><code>CUSTOMERS</code></td><td>CUSTNAME, CUSTDES, CTYPE</td><td>מיפוי לסגמנט</td></tr>
+                    <tr><td><code>AGENTS</code></td><td>AGENTCODE, AGENTNAME</td><td>סוכנים / מפיצים</td></tr>
                 </table>
             </div>
 
@@ -1294,9 +1295,9 @@
 
                 <table class="spec-table">
                     <tr><th>#</th><th>שאלה</th><th>אחראי</th><th>סטטוס</th></tr>
-                    <tr><td>1</td><td>מיפוי סגמנטים — אותו כמו Sales Dashboard</td><td>ראובן</td><td class="missing">פתוח</td></tr>
-                    <tr><td>2</td><td>סטטוס הזמנה — איך מזהים פתוח/סגור?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
-                    <tr><td>3</td><td>גישת API לטבלת ORDERS</td><td>יורי</td><td class="missing">פתוח</td></tr>
+                    <tr><td>1</td><td>מיפוי סגמנטים — CUSTOMERS.CTYPE או לוגיקה של דוח 740?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>2</td><td>סטטוס הזמנה — שדה CLOSED או STATDES?</td><td>ראובן</td><td class="missing">פתוח</td></tr>
+                    <tr><td>3</td><td>הגדרת OData access למסך ORDERS</td><td>יורי</td><td class="missing">פתוח</td></tr>
                 </table>
             </div>
 
@@ -1343,7 +1344,7 @@
         <aside class="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo">
-                    <h1><span class="brand-accent">Leha</span>vot</h1>
+                    <h1 style="color: #D71920;">Lehavot</h1>
                 </div>
                 <div class="sidebar-subtitle">BI Dashboard</div>
             </div>
