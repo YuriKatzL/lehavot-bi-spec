@@ -1339,17 +1339,9 @@
                         <span class="icon">📦</span>
                         Orders (הזמנות)
                     </a>
-                </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">Reports</div>
-                    <a href="#" class="nav-item">
-                        <span class="icon">📋</span>
-                        Sales Report
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="icon">📋</span>
-                        Orders Report
+                    <a href="orders-by-due-date.html" class="nav-item">
+                        <span class="icon">📅</span>
+                        Orders by Due Date
                     </a>
                 </div>
 
@@ -1376,7 +1368,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                Lehavot BI v2.0<br>
+                Lehavot BI v2.1<br>
                 יורי כץ — IT
             </div>
         </aside>
@@ -1421,15 +1413,14 @@
                     <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
                 </div>
 
-                <div class="filter-group" style="position: relative;">
-                    <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
-                    <label>סגמנט <span class="data-source missing">❓ CTYPE?</span></label>
-                    <select class="has-question">
+                <div class="filter-group">
+                    <label>סגמנט <span class="data-source">AGENTS.AGENTNAME</span></label>
+                    <select>
                         <option>הכל</option>
-                        <option>אילן</option>
-                        <option>מירי</option>
-                        <option>דודו</option>
-                        <option>חו"ל</option>
+                        <option>שוק ביתי — מירי</option>
+                        <option>סחר מפיצים — אילן</option>
+                        <option>מערכות — דודו</option>
+                        <option>מכירות חו"ל</option>
                     </select>
                 </div>
 
@@ -1542,21 +1533,17 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="has-question">
-                                    BU
-                                    <span class="data-source missing">❓ CUSTOMERS.CTYPE?</span>
+                                <th>
+                                    סגמנט מכירות
+                                    <span class="data-source">AGENTS.AGENTNAME + PART.FAMILY</span>
                                 </th>
                                 <th>
                                     MTD Sales
-                                    <span class="data-source">DOCUMENTS.QPRICE</span>
+                                    <span class="data-source">DOCUMENTS_D.TOTPRICE</span>
                                 </th>
-                                <th class="has-question">
-                                    MTD Budget
-                                    <span class="data-source missing">❓ Excel?</span>
-                                </th>
-                                <th class="has-question">
+                                <th>
                                     Full Month Budget
-                                    <span class="data-source missing">❓ Excel?</span>
+                                    <span class="data-source">Excel (לקוח × מק"ט × חודש)</span>
                                 </th>
                                 <th>
                                     MTD % from Budget
@@ -1564,7 +1551,7 @@
                                 </th>
                                 <th>
                                     MTD Last Year
-                                    <span class="data-source">DOCUMENTS.QPRICE (Y-1)</span>
+                                    <span class="data-source">DOCUMENTS_D.TOTPRICE (Y-1)</span>
                                 </th>
                                 <th>
                                     MTD % from Last Year
@@ -1573,34 +1560,31 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- מירי + פז -->
+                            <!-- שוק ביתי — מירי -->
                             <tr>
                                 <td class="segment-cell">
-                                    מירי
+                                    שוק ביתי — מירי
                                     <span class="segment-note">כולל פז (עמלות נפרדות)</span>
                                 </td>
                                 <td class="number">$17,366</td>
-                                <td class="number">$362,799</td>
                                 <td class="number">$362,799</td>
                                 <td class="bad">5%</td>
                                 <td class="number">$148,789</td>
                                 <td class="bad">12%</td>
                             </tr>
-                            <!-- אילן -->
+                            <!-- סחר מפיצים — אילן -->
                             <tr>
-                                <td class="segment-cell">אילן</td>
+                                <td class="segment-cell">סחר מפיצים — אילן</td>
                                 <td class="number">$3,066,609</td>
-                                <td class="number">$3,817,760</td>
                                 <td class="number">$3,817,760</td>
                                 <td class="warning">80%</td>
                                 <td class="number">$2,214,997</td>
                                 <td class="good">138%</td>
                             </tr>
-                            <!-- דודו - Parent -->
+                            <!-- מערכות — דודו - Parent -->
                             <tr class="segment-parent">
-                                <td class="segment-cell">דודו (סה"כ)</td>
+                                <td class="segment-cell">מערכות — דודו (סה"כ)</td>
                                 <td class="number">$1,748,775</td>
-                                <td class="number">$1,714,359</td>
                                 <td class="number">$1,714,359</td>
                                 <td class="good">102%</td>
                                 <td class="number">$1,057,533</td>
@@ -1608,8 +1592,15 @@
                             </tr>
                             <!-- דודו - Sub-segments -->
                             <tr class="sub-segment">
+                                <td class="segment-cell">מנדפים</td>
+                                <td class="number">$804,461</td>
+                                <td class="number">$735,045</td>
+                                <td class="good">109%</td>
+                                <td class="number">$307,533</td>
+                                <td class="good">262%</td>
+                            </tr>
+                            <tr class="sub-segment">
                                 <td class="segment-cell">אוטובוסים</td>
-                                <td class="number">$409,314</td>
                                 <td class="number">$409,314</td>
                                 <td class="number">$409,314</td>
                                 <td class="good">100%</td>
@@ -1617,37 +1608,17 @@
                                 <td class="good">117%</td>
                             </tr>
                             <tr class="sub-segment">
-                                <td class="segment-cell">מנדפים / מטבחים</td>
-                                <td class="number">$804,461</td>
-                                <td class="number">$735,045</td>
-                                <td class="number">$735,045</td>
-                                <td class="good">109%</td>
-                                <td class="number">$307,533</td>
-                                <td class="good">262%</td>
-                            </tr>
-                            <tr class="sub-segment">
                                 <td class="segment-cell">כלים חקלאיים</td>
                                 <td class="number">$285,000</td>
-                                <td class="number">$320,000</td>
                                 <td class="number">$320,000</td>
                                 <td class="warning">89%</td>
                                 <td class="number">$250,000</td>
                                 <td class="good">114%</td>
                             </tr>
-                            <tr class="sub-segment">
-                                <td class="segment-cell">שירות</td>
-                                <td class="number">$250,000</td>
-                                <td class="number">$250,000</td>
-                                <td class="number">$250,000</td>
-                                <td class="good">100%</td>
-                                <td class="number">$150,000</td>
-                                <td class="good">167%</td>
-                            </tr>
-                            <!-- חו"ל -->
+                            <!-- מכירות חו"ל -->
                             <tr>
-                                <td class="segment-cell">חו"ל</td>
+                                <td class="segment-cell">מכירות חו"ל</td>
                                 <td class="number">$1,359,657</td>
-                                <td class="number">$1,633,629</td>
                                 <td class="number">$1,633,629</td>
                                 <td class="warning">83%</td>
                                 <td class="number">$627,423</td>
@@ -1657,7 +1628,6 @@
                             <tr class="total-row">
                                 <td class="segment-cell">סה"כ</td>
                                 <td class="number">$6,192,407</td>
-                                <td class="number">$7,528,547</td>
                                 <td class="number">$7,528,547</td>
                                 <td class="warning">82%</td>
                                 <td class="number">$4,048,742</td>
@@ -1674,10 +1644,10 @@
                         <div class="pie-chart-wrapper">
                             <div class="pie-chart"></div>
                             <div class="pie-legend">
-                                <div class="legend-item"><span class="dot miri"></span> מירי — 3%</div>
-                                <div class="legend-item"><span class="dot ilan"></span> אילן — 49%</div>
-                                <div class="legend-item"><span class="dot dodo"></span> דודו — 28%</div>
-                                <div class="legend-item"><span class="dot chul"></span> חו"ל — 20%</div>
+                                <div class="legend-item"><span class="dot miri"></span> שוק ביתי — מירי — 3%</div>
+                                <div class="legend-item"><span class="dot ilan"></span> סחר מפיצים — אילן — 49%</div>
+                                <div class="legend-item"><span class="dot dodo"></span> מערכות — דודו — 28%</div>
+                                <div class="legend-item"><span class="dot chul"></span> מכירות חו"ל — 20%</div>
                             </div>
                         </div>
                     </div>
@@ -1717,28 +1687,27 @@
                             <span class="line"></span>
                             <span class="text">100% = יעד</span>
                         </div>
+                        </div>
+                        <div class="bar-benchmark">
+                            <span class="line"></span>
+                            <span class="text">100% = יעד</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Questions Panel -->
                 <div class="questions-panel">
-                    <h3>⚠️ שאלות פתוחות לראובן</h3>
+                    <h3>⚠️ שאלות פתוחות</h3>
                     <div class="question-item">
-                        <strong>1. מיפוי סגמנטים:</strong> באיזה מסך ושדה מזהים סגמנט? (CUSTOMERS.CTYPE או לוגיקה של דוח 740?)
+                        <strong>Q-2: סטטוס הזמנה:</strong> איזה שדה במסך ORDERS מציין הזמנה פתוחה/סגורה? (ORDERITEMS.CLOSED = 'C'?)
                     </div>
                     <div class="question-item">
-                        <strong>2. מקור תקציב:</strong> Excel או מסך בפריוריטי? מבנה?
-                    </div>
-                    <div class="question-item">
-                        <strong>3. מסך מכירות:</strong> DOCUMENTS (תעודות משלוח) או INVOICES (חשבוניות)?
-                    </div>
-                    <div class="question-item">
-                        <strong>4. פז ומירי:</strong> להציג ביחד או בנפרד?
+                        <strong>Q-6: OData Access:</strong> הגדרת גישה ל-DOCUMENTS_D, ORDERS, CUSTOMERS, AGENTS, LOGPART, FAMILY_LOG
                     </div>
                 </div>
 
                 <div class="footer">
-                    <p><strong>Lehavot BI</strong> — Specification v2 | נוצר: 04/02/2026 | יורי כץ</p>
+                    <p><strong>Lehavot BI</strong> — Specification v2.1 | עודכן: 09/02/2026 | יורי כץ</p>
                     <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
                 </div>
             </div>

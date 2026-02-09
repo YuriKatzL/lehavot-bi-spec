@@ -1393,19 +1393,7 @@
                         <span class="icon">📦</span>
                         Orders (הזמנות)
                     </a>
-                </div>
-
-                <div class="nav-section">
-                    <div class="nav-section-title">Reports</div>
-                    <a href="#" class="nav-item">
-                        <span class="icon">📋</span>
-                        Sales Report
-                    </a>
-                    <a href="#" class="nav-item">
-                        <span class="icon">📋</span>
-                        Orders Report
-                    </a>
-                    <a href="#" class="nav-item">
+                    <a href="orders-by-due-date.html" class="nav-item">
                         <span class="icon">📅</span>
                         Orders by Due Date
                     </a>
@@ -1430,7 +1418,7 @@
             </nav>
 
             <div class="sidebar-footer">
-                Lehavot BI v2.0<br>
+                Lehavot BI v2.1<br>
                 יורי כץ — IT
             </div>
         </aside>
@@ -1475,15 +1463,14 @@
                     <input type="text" value="1/1/2026 - 31/1/2026" style="width: 160px;">
                 </div>
 
-                <div class="filter-group" style="position: relative;">
-                    <span class="question-badge" title="שאלה: איך מזהים סגמנט?">?</span>
-                    <label>סגמנט <span class="data-source missing">❓ CTYPE?</span></label>
-                    <select class="has-question">
+                <div class="filter-group">
+                    <label>סגמנט <span class="data-source">AGENTS.AGENTNAME</span></label>
+                    <select>
                         <option>הכל</option>
-                        <option>אילן</option>
-                        <option>מירי</option>
-                        <option>דודו</option>
-                        <option>חו"ל</option>
+                        <option>שוק ביתי — מירי</option>
+                        <option>סחר מפיצים — אילן</option>
+                        <option>מערכות — דודו</option>
+                        <option>מכירות חו"ל</option>
                     </select>
                 </div>
 
@@ -1584,9 +1571,9 @@
                     <table>
                         <thead>
                             <tr>
-                                <th class="has-question">
-                                    BU
-                                    <span class="data-source missing">❓ CUSTOMERS.CTYPE?</span>
+                                <th>
+                                    סגמנט מכירות
+                                    <span class="data-source">AGENTS.AGENTNAME + PART.FAMILY</span>
                                 </th>
                                 <th>
                                     Current Week
@@ -1619,10 +1606,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- מירי + פז -->
+                            <!-- שוק ביתי — מירי -->
                             <tr>
                                 <td class="segment-cell">
-                                    מירי
+                                    שוק ביתי — מירי
                                     <span class="segment-note">כולל פז</span>
                                 </td>
                                 <td class="number">198K</td>
@@ -1633,9 +1620,9 @@
                                 <td class="number">850K</td>
                                 <td class="good">+8%</td>
                             </tr>
-                            <!-- אילן -->
+                            <!-- סחר מפיצים — אילן -->
                             <tr>
-                                <td class="segment-cell">אילן</td>
+                                <td class="segment-cell">סחר מפיצים — אילן</td>
                                 <td class="number">145K</td>
                                 <td class="number">710K</td>
                                 <td class="number">680K</td>
@@ -1644,9 +1631,9 @@
                                 <td class="number">680K</td>
                                 <td class="good">+4%</td>
                             </tr>
-                            <!-- דודו - Parent -->
+                            <!-- מערכות — דודו - Parent -->
                             <tr class="segment-parent">
-                                <td class="segment-cell">דודו (סה"כ)</td>
+                                <td class="segment-cell">מערכות — דודו (סה"כ)</td>
                                 <td class="number">567K</td>
                                 <td class="number">2,510K</td>
                                 <td class="number">2,380K</td>
@@ -1696,9 +1683,9 @@
                                 <td class="number">200K</td>
                                 <td class="good">0%</td>
                             </tr>
-                            <!-- חו"ל -->
+                            <!-- מכירות חו"ל -->
                             <tr>
-                                <td class="segment-cell">חו"ל</td>
+                                <td class="segment-cell">מכירות חו"ל</td>
                                 <td class="number">356K</td>
                                 <td class="number">1,650K</td>
                                 <td class="number">1,420K</td>
@@ -1729,10 +1716,10 @@
                         <div class="pie-chart-wrapper">
                             <div class="pie-chart"></div>
                             <div class="pie-legend">
-                                <div class="legend-item"><span class="dot miri"></span> מירי — 16%</div>
-                                <div class="legend-item"><span class="dot ilan"></span> אילן — 12%</div>
-                                <div class="legend-item"><span class="dot dodo"></span> דודו — 44%</div>
-                                <div class="legend-item"><span class="dot chul"></span> חו"ל — 28%</div>
+                                <div class="legend-item"><span class="dot miri"></span> שוק ביתי — מירי — 16%</div>
+                                <div class="legend-item"><span class="dot ilan"></span> סחר מפיצים — אילן — 12%</div>
+                                <div class="legend-item"><span class="dot dodo"></span> מערכות — דודו — 44%</div>
+                                <div class="legend-item"><span class="dot chul"></span> מכירות חו"ל — 28%</div>
                             </div>
                         </div>
                     </div>
@@ -1775,69 +1762,26 @@
                     </div>
                 </div>
 
-                <!-- Orders by Due Date -->
+                <!-- Orders by Due Date — now separate dashboard -->
                 <div class="special-section">
-                    <h3>📅 Orders by Due Date — הזמנות לפי תאריך אספקה (חו"ל בלבד)</h3>
-                    <p>תצוגה מיוחדת לסגמנט חו"ל — הזמנות פתוחות לפי תאריך אספקה צפוי</p>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>
-                                    Due Date
-                                    <span class="data-source">ORDERS.DUEDATE</span>
-                                </th>
-                                <th class="has-question">
-                                    Open Orders
-                                    <span class="data-source missing">❓ ORDERS.CLOSED?</span>
-                                </th>
-                                <th>
-                                    Distributor
-                                    <span class="data-source">AGENTS.AGENTNAME</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Feb 2026</td>
-                                <td class="number">420K</td>
-                                <td>עופר, ירון</td>
-                            </tr>
-                            <tr>
-                                <td>Mar 2026</td>
-                                <td class="number">380K</td>
-                                <td>עופר</td>
-                            </tr>
-                            <tr>
-                                <td>Q2 2026</td>
-                                <td class="number">890K</td>
-                                <td>Mixed</td>
-                            </tr>
-                            <tr class="total-row">
-                                <td>סה"כ פתוח</td>
-                                <td class="number">1,690K</td>
-                                <td>—</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="note">מקור: ORDERS.DUEDATE | רלוונטי רק לחו"ל (בשאר הסגמנטים הזמנות יוצאות מיד)</p>
+                    <h3>📅 Orders by Due Date — דשבורד נפרד</h3>
+                    <p>הזמנות פתוחות לפי תאריך אספקה צפוי — הועבר לדשבורד נפרד</p>
+                    <p><a href="orders-by-due-date.html" style="color: var(--orders-blue); font-weight: 600; font-size: 15px;">עבור לדשבורד Orders by Due Date →</a></p>
                 </div>
 
                 <!-- Questions Panel -->
                 <div class="questions-panel">
-                    <h3>⚠️ שאלות פתוחות לראובן</h3>
+                    <h3>⚠️ שאלות פתוחות</h3>
                     <div class="question-item">
-                        <strong>1. מיפוי סגמנטים:</strong> באיזה מסך ושדה מזהים סגמנט? (CUSTOMERS.CTYPE או לוגיקה של דוח 740?)
+                        <strong>Q-2: סטטוס הזמנה:</strong> איזה שדה במסך ORDERS מציין הזמנה פתוחה/סגורה? (ORDERITEMS.CLOSED = 'C'?)
                     </div>
                     <div class="question-item">
-                        <strong>2. סטטוס הזמנה:</strong> במסך ORDERS — שדה CLOSED או STATDES?
-                    </div>
-                    <div class="question-item">
-                        <strong>3. הגדרת OData:</strong> גישה למסך ORDERS
+                        <strong>Q-6: OData Access:</strong> הגדרת גישה ל-DOCUMENTS_D, ORDERS, CUSTOMERS, AGENTS, LOGPART, FAMILY_LOG
                     </div>
                 </div>
 
                 <div class="footer">
-                    <p><strong>Lehavot BI</strong> — Specification v2 | נוצר: 04/02/2026 | יורי כץ</p>
+                    <p><strong>Lehavot BI</strong> — Specification v2.1 | עודכן: 09/02/2026 | יורי כץ</p>
                     <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
                 </div>
             </div>

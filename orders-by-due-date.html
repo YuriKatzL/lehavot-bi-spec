@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders by Due Date — להבות BI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --lehavot-red: #D71920;
+            --lehavot-red-dark: #B5151B;
+            --lehavot-yellow: #FFD900;
+            --lehavot-gray-100: #F5F5F5;
+            --lehavot-gray-200: #EEEEEE;
+            --lehavot-gray-300: #E0E0E0;
+            --lehavot-gray-400: #BDBDBD;
+            --lehavot-gray-500: #9E9E9E;
+            --lehavot-gray-600: #757575;
+            --lehavot-gray-700: #616161;
+            --lehavot-gray-800: #424242;
+            --lehavot-gray-900: #212121;
+            --sidebar-width: 220px;
+            --due-date-green: #2E7D32;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
+            background: var(--lehavot-gray-100);
+            color: var(--lehavot-gray-900);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .app-container { display: flex; min-height: 100vh; }
+
+        /* ===== Sidebar ===== */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--lehavot-gray-900);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            top: 0; left: 0; bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 20px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-logo h1 { font-size: 18px; font-weight: 600; }
+
+        .sidebar-subtitle {
+            font-size: 11px;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .sidebar-nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+
+        .nav-section { margin-bottom: 24px; }
+
+        .nav-section-title {
+            padding: 8px 16px;
+            font-size: 10px;
+            font-weight: 600;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            border-left: 3px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .nav-item:hover {
+            background: rgba(255,255,255,0.05);
+            color: white;
+        }
+
+        .nav-item.active {
+            background: rgba(46, 125, 50, 0.2);
+            color: white;
+            border-left-color: var(--due-date-green);
+        }
+
+        .nav-item .icon { font-size: 16px; width: 20px; text-align: center; }
+
+        .sidebar-footer {
+            padding: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px;
+            color: rgba(255,255,255,0.4);
+        }
+
+        /* ===== Main Content ===== */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 1px solid var(--lehavot-gray-300);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .page-title { display: flex; align-items: center; gap: 12px; }
+        .page-title h1 { font-size: 20px; font-weight: 600; color: var(--lehavot-gray-900); }
+
+        .period-badge {
+            background: var(--lehavot-gray-100);
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--lehavot-gray-700);
+        }
+
+        /* ===== Filters Bar ===== */
+        .filters-bar {
+            background: white;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--due-date-green);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+
+        .filter-group { display: flex; flex-direction: column; gap: 6px; }
+
+        .filter-group label {
+            font-size: 11px;
+            color: var(--lehavot-gray-600);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 10px 14px;
+            border: 2px solid var(--lehavot-gray-300);
+            border-radius: 4px;
+            font-size: 13px;
+            font-family: inherit;
+            min-width: 120px;
+            background: white;
+            transition: border-color 0.2s;
+        }
+
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: var(--due-date-green);
+        }
+
+        .data-source {
+            font-size: 9px;
+            color: var(--lehavot-gray-500);
+            display: block;
+            margin-top: 2px;
+        }
+
+        .missing { color: #F57C00; font-weight: 600; }
+
+        /* ===== Content Area ===== */
+        .content-area { flex: 1; padding: 24px; overflow-y: auto; }
+
+        /* ===== Info Banner ===== */
+        .info-banner {
+            background: #E8F5E9;
+            border: 1px solid var(--due-date-green);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .info-banner .icon { font-size: 24px; }
+        .info-banner h3 { color: var(--due-date-green); font-size: 14px; margin-bottom: 6px; }
+        .info-banner p { font-size: 13px; color: var(--lehavot-gray-700); margin-bottom: 8px; }
+
+        .info-banner .highlight {
+            background: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1B5E20;
+        }
+
+        /* ===== Summary Cards ===== */
+        .summary-row {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .summary-card {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            flex: 1;
+            text-align: center;
+        }
+
+        .summary-card .label {
+            font-size: 11px;
+            color: var(--lehavot-gray-500);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .summary-card .value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--lehavot-gray-900);
+        }
+
+        .summary-card .sub {
+            font-size: 12px;
+            color: var(--lehavot-gray-600);
+            margin-top: 4px;
+        }
+
+        /* ===== Data Table ===== */
+        .data-table-section {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        .table-header {
+            background: var(--due-date-green);
+            color: white;
+            padding: 14px 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+
+        th {
+            background: var(--lehavot-gray-100);
+            padding: 12px 10px;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            border-bottom: 2px solid var(--lehavot-gray-300);
+            color: var(--lehavot-gray-700);
+        }
+
+        td {
+            padding: 12px 10px;
+            text-align: center;
+            border-bottom: 1px solid var(--lehavot-gray-200);
+            font-size: 13px;
+        }
+
+        tr:hover { background: rgba(46, 125, 50, 0.03); }
+
+        .segment-cell {
+            text-align: right;
+            font-weight: 600;
+            padding-right: 16px;
+            color: var(--lehavot-gray-800);
+        }
+
+        .good { color: #2E7D32; font-weight: 600; }
+        .bad { color: #C62828; font-weight: 600; }
+        .warning { color: #F57C00; font-weight: 600; }
+        .number { font-family: 'Consolas', 'Monaco', monospace; }
+
+        tr.total-row { background: var(--lehavot-gray-100); font-weight: 600; }
+
+        .overdue { background: #FFEBEE; }
+        .due-soon { background: #FFF8E1; }
+
+        /* ===== Questions Panel ===== */
+        .questions-panel {
+            background: #FFF8E1;
+            border: 2px solid #F57C00;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .questions-panel h3 {
+            color: #E65100;
+            margin-bottom: 16px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .question-item {
+            background: white;
+            padding: 12px 16px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border-right: 3px solid #F57C00;
+            font-size: 13px;
+        }
+
+        .question-item:last-child { margin-bottom: 0; }
+        .question-item strong { color: #E65100; }
+
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--lehavot-gray-500);
+            font-size: 11px;
+        }
+
+        .footer .warning { color: #F57C00; font-weight: 600; }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <h1><span style="color: #D71920;">Lehavot</span> <span style="color: #FFD900;">BI</span></h1>
+                </div>
+                <div class="sidebar-subtitle">BI Dashboard</div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Dashboards</div>
+                    <a href="sales.html" class="nav-item">
+                        <span class="icon">📊</span>
+                        Revenue (מכירות)
+                    </a>
+                    <a href="orders.html" class="nav-item">
+                        <span class="icon">📦</span>
+                        Orders (הזמנות)
+                    </a>
+                    <a href="#" class="nav-item active">
+                        <span class="icon">📅</span>
+                        Orders by Due Date
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Analysis</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📈</span>
+                        Yearly Comparison
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Documentation</div>
+                    <a href="#" class="nav-item">
+                        <span class="icon">📋</span>
+                        מפרט טכני
+                    </a>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                Lehavot BI v2.1<br>
+                יורי כץ — IT
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="page-title">
+                    <h1>הזמנות לפי תאריך אספקה — Orders by Due Date</h1>
+                </div>
+                <div class="period-badge">
+                    נתונים נכונים ל: 09/02/2026
+                </div>
+            </div>
+
+            <!-- Filters Bar -->
+            <div class="filters-bar">
+                <div class="filter-group">
+                    <label>סגמנט <span class="data-source">AGENTS.AGENTNAME</span></label>
+                    <select>
+                        <option>הכל</option>
+                        <option>שוק ביתי — מירי</option>
+                        <option>סחר מפיצים — אילן</option>
+                        <option>מערכות — דודו</option>
+                        <option>מכירות חו"ל</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>מפיץ <span class="data-source">AGENTS.AGENTNAME</span></label>
+                    <select>
+                        <option>All</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Due Date Range <span class="data-source">ORDERS.DUEDATE</span></label>
+                    <input type="text" value="Feb 2026 - Dec 2026" style="width: 180px;">
+                </div>
+
+                <div class="filter-group">
+                    <label>Company <span class="data-source">ENVIRONMENT</span></label>
+                    <select>
+                        <option>מאוחד</option>
+                        <option>להבות</option>
+                        <option>פיירטק</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area">
+
+                <!-- Info Banner -->
+                <div class="info-banner">
+                    <span class="icon">📅</span>
+                    <div>
+                        <h3>מטרת הדשבורד</h3>
+                        <p>מעקב אחר הזמנות פתוחות לפי תאריך אספקה צפוי — ה-pipeline של הזמנות.</p>
+                        <div class="highlight">💡 מציג הזמנות פתוחות בלבד (ORDERITEMS.CLOSED &ne; 'C') — מקובץ לפי חודש אספקה</div>
+                    </div>
+                </div>
+
+                <!-- Summary Cards -->
+                <div class="summary-row">
+                    <div class="summary-card">
+                        <div class="label">סה"כ הזמנות פתוחות</div>
+                        <div class="value">₪4,210K</div>
+                        <div class="sub">כל הסגמנטים</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">הזמנות חודש הבא</div>
+                        <div class="value">₪1,280K</div>
+                        <div class="sub">Mar 2026</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">הזמנות באיחור</div>
+                        <div class="value" style="color: #C62828;">₪320K</div>
+                        <div class="sub">Due Date עבר</div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="label">מספר הזמנות פתוחות</div>
+                        <div class="value">47</div>
+                        <div class="sub">שורות הזמנה</div>
+                    </div>
+                </div>
+
+                <!-- Main Table: By Due Date -->
+                <div class="data-table-section">
+                    <div class="table-header">הזמנות פתוחות לפי חודש אספקה</div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    תאריך אספקה
+                                    <span class="data-source">ORDERS.DUEDATE</span>
+                                </th>
+                                <th>
+                                    סגמנט מכירות
+                                    <span class="data-source">AGENTS.AGENTNAME</span>
+                                </th>
+                                <th>
+                                    מפיץ
+                                    <span class="data-source">AGENTS.AGENTNAME</span>
+                                </th>
+                                <th>
+                                    סכום פתוח (₪)
+                                    <span class="data-source">ORDERITEMS.QPRICE</span>
+                                </th>
+                                <th>
+                                    כמות שורות
+                                    <span class="data-source">COUNT(*)</span>
+                                </th>
+                                <th>
+                                    % מסה"כ
+                                    <span class="data-source">חישוב</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Overdue -->
+                            <tr class="overdue">
+                                <td class="segment-cell bad">באיחור (לפני 09/02)</td>
+                                <td>מכירות חו"ל</td>
+                                <td>עופר</td>
+                                <td class="number bad">₪320K</td>
+                                <td>4</td>
+                                <td class="bad">8%</td>
+                            </tr>
+                            <!-- Feb 2026 -->
+                            <tr class="due-soon">
+                                <td class="segment-cell warning">Feb 2026</td>
+                                <td>מכירות חו"ל</td>
+                                <td>עופר, ירון</td>
+                                <td class="number">₪420K</td>
+                                <td>6</td>
+                                <td>10%</td>
+                            </tr>
+                            <tr class="due-soon">
+                                <td class="segment-cell warning">Feb 2026</td>
+                                <td>מערכות — דודו</td>
+                                <td>—</td>
+                                <td class="number">₪180K</td>
+                                <td>3</td>
+                                <td>4%</td>
+                            </tr>
+                            <!-- Mar 2026 -->
+                            <tr>
+                                <td class="segment-cell">Mar 2026</td>
+                                <td>מכירות חו"ל</td>
+                                <td>עופר</td>
+                                <td class="number">₪380K</td>
+                                <td>5</td>
+                                <td>9%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">Mar 2026</td>
+                                <td>סחר מפיצים — אילן</td>
+                                <td>—</td>
+                                <td class="number">₪520K</td>
+                                <td>8</td>
+                                <td>12%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">Mar 2026</td>
+                                <td>מערכות — דודו</td>
+                                <td>—</td>
+                                <td class="number">₪380K</td>
+                                <td>5</td>
+                                <td>9%</td>
+                            </tr>
+                            <!-- Q2 2026 -->
+                            <tr>
+                                <td class="segment-cell">Q2 2026</td>
+                                <td>מכירות חו"ל</td>
+                                <td>Mixed</td>
+                                <td class="number">₪890K</td>
+                                <td>8</td>
+                                <td>21%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">Q2 2026</td>
+                                <td>מערכות — דודו</td>
+                                <td>—</td>
+                                <td class="number">₪650K</td>
+                                <td>5</td>
+                                <td>15%</td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">Q2 2026</td>
+                                <td>שוק ביתי — מירי</td>
+                                <td>—</td>
+                                <td class="number">₪470K</td>
+                                <td>3</td>
+                                <td>11%</td>
+                            </tr>
+                            <!-- Total -->
+                            <tr class="total-row">
+                                <td class="segment-cell">סה"כ פתוח</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="number">₪4,210K</td>
+                                <td>47</td>
+                                <td>100%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Questions Panel -->
+                <div class="questions-panel">
+                    <h3>⚠️ שאלות פתוחות</h3>
+                    <div class="question-item">
+                        <strong>Q-2: סטטוס הזמנה:</strong> איזה שדה במסך ORDERS מציין הזמנה פתוחה/סגורה? (ORDERITEMS.CLOSED = 'C'?)
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <p><strong>Lehavot BI</strong> — Specification v2.1 | עודכן: 09/02/2026 | יורי כץ</p>
+                    <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
