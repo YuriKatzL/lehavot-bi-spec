@@ -507,123 +507,87 @@
                     </div>
                 </div>
 
-                <!-- Main Table: By Due Date -->
+                <!-- Main Table: Pivot — rows=segment, columns=due date month -->
                 <div class="data-table-section">
-                    <div class="table-header">הזמנות פתוחות לפי חודש אספקה</div>
+                    <div class="table-header">הזמנות פתוחות לפי סגמנט ותאריך אספקה</div>
                     <table>
                         <thead>
                             <tr>
                                 <th>
-                                    תאריך אספקה
-                                    <span class="data-source">ORDERS.DUEDATE</span>
-                                </th>
-                                <th>
                                     סגמנט מכירות
                                     <span class="data-source">AGENTS.AGENTNAME</span>
                                 </th>
-                                <th>
-                                    מפיץ
-                                    <span class="data-source">AGENTS.AGENTNAME</span>
+                                <th style="background:#FFEBEE;">
+                                    באיחור
+                                    <span class="data-source">DUEDATE &lt; TODAY</span>
+                                </th>
+                                <th style="background:#FFF8E1;">
+                                    Feb 2026
+                                    <span class="data-source">ORDERS.DUEDATE</span>
                                 </th>
                                 <th>
-                                    סכום פתוח (₪)
-                                    <span class="data-source">ORDERITEMS.QPRICE</span>
+                                    Mar 2026
+                                    <span class="data-source">ORDERS.DUEDATE</span>
                                 </th>
                                 <th>
-                                    כמות שורות
-                                    <span class="data-source">COUNT(*)</span>
+                                    Q2 2026
+                                    <span class="data-source">ORDERS.DUEDATE</span>
                                 </th>
                                 <th>
-                                    % מסה"כ
-                                    <span class="data-source">חישוב</span>
+                                    H2 2026
+                                    <span class="data-source">ORDERS.DUEDATE</span>
+                                </th>
+                                <th style="background:var(--lehavot-gray-200);">
+                                    סה"כ
+                                    <span class="data-source">SUM</span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Overdue -->
-                            <tr class="overdue">
-                                <td class="segment-cell bad">באיחור (לפני 09/02)</td>
-                                <td>מכירות חו"ל</td>
-                                <td>עופר</td>
-                                <td class="number bad">₪320K</td>
-                                <td>4</td>
-                                <td class="bad">8%</td>
-                            </tr>
-                            <!-- Feb 2026 -->
-                            <tr class="due-soon">
-                                <td class="segment-cell warning">Feb 2026</td>
-                                <td>מכירות חו"ל</td>
-                                <td>עופר, ירון</td>
-                                <td class="number">₪420K</td>
-                                <td>6</td>
-                                <td>10%</td>
-                            </tr>
-                            <tr class="due-soon">
-                                <td class="segment-cell warning">Feb 2026</td>
-                                <td>מערכות — דודו</td>
-                                <td>—</td>
+                            <tr>
+                                <td class="segment-cell">שוק ביתי — מירי</td>
+                                <td class="number">—</td>
+                                <td class="number">₪95K</td>
                                 <td class="number">₪180K</td>
-                                <td>3</td>
-                                <td>4%</td>
-                            </tr>
-                            <!-- Mar 2026 -->
-                            <tr>
-                                <td class="segment-cell">Mar 2026</td>
-                                <td>מכירות חו"ל</td>
-                                <td>עופר</td>
-                                <td class="number">₪380K</td>
-                                <td>5</td>
-                                <td>9%</td>
-                            </tr>
-                            <tr>
-                                <td class="segment-cell">Mar 2026</td>
-                                <td>סחר מפיצים — אילן</td>
-                                <td>—</td>
-                                <td class="number">₪520K</td>
-                                <td>8</td>
-                                <td>12%</td>
-                            </tr>
-                            <tr>
-                                <td class="segment-cell">Mar 2026</td>
-                                <td>מערכות — דודו</td>
-                                <td>—</td>
-                                <td class="number">₪380K</td>
-                                <td>5</td>
-                                <td>9%</td>
-                            </tr>
-                            <!-- Q2 2026 -->
-                            <tr>
-                                <td class="segment-cell">Q2 2026</td>
-                                <td>מכירות חו"ל</td>
-                                <td>Mixed</td>
-                                <td class="number">₪890K</td>
-                                <td>8</td>
-                                <td>21%</td>
-                            </tr>
-                            <tr>
-                                <td class="segment-cell">Q2 2026</td>
-                                <td>מערכות — דודו</td>
-                                <td>—</td>
-                                <td class="number">₪650K</td>
-                                <td>5</td>
-                                <td>15%</td>
-                            </tr>
-                            <tr>
-                                <td class="segment-cell">Q2 2026</td>
-                                <td>שוק ביתי — מירי</td>
-                                <td>—</td>
                                 <td class="number">₪470K</td>
-                                <td>3</td>
-                                <td>11%</td>
+                                <td class="number">₪120K</td>
+                                <td class="number"><strong>₪865K</strong></td>
                             </tr>
-                            <!-- Total -->
+                            <tr>
+                                <td class="segment-cell">סחר מפיצים — אילן</td>
+                                <td class="number">—</td>
+                                <td class="number">₪110K</td>
+                                <td class="number">₪520K</td>
+                                <td class="number">₪340K</td>
+                                <td class="number">₪85K</td>
+                                <td class="number"><strong>₪1,055K</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">מערכות — דודו</td>
+                                <td class="number">—</td>
+                                <td class="number">₪180K</td>
+                                <td class="number">₪380K</td>
+                                <td class="number">₪650K</td>
+                                <td class="number">₪210K</td>
+                                <td class="number"><strong>₪1,420K</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="segment-cell">מכירות חו"ל</td>
+                                <td class="number bad">₪320K</td>
+                                <td class="number">₪420K</td>
+                                <td class="number">₪380K</td>
+                                <td class="number">₪890K</td>
+                                <td class="number">₪260K</td>
+                                <td class="number"><strong>₪2,270K</strong></td>
+                            </tr>
                             <tr class="total-row">
-                                <td class="segment-cell">סה"כ פתוח</td>
-                                <td>—</td>
-                                <td>—</td>
-                                <td class="number">₪4,210K</td>
-                                <td>47</td>
-                                <td>100%</td>
+                                <td class="segment-cell">סה"כ</td>
+                                <td class="number bad">₪320K</td>
+                                <td class="number">₪805K</td>
+                                <td class="number">₪1,460K</td>
+                                <td class="number">₪2,350K</td>
+                                <td class="number">₪675K</td>
+                                <td class="number"><strong>₪5,610K</strong></td>
                             </tr>
                         </tbody>
                     </table>
