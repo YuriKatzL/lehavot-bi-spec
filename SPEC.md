@@ -199,7 +199,8 @@ Microsoft Power BI + Priority ERP API
 | 3 | תקופה | Date Range | חודש נוכחי | `ORDERS.CURDATE` |
 | 4 | סגמנט מכירות | Multi-select | הכל | `AGENTS.AGENTNAME` + `FAMILY.FAMILYNAME` |
 | 5 | מפיץ | Multi-select | הכל | `AGENTS.AGENTCODE` |
-| 6 | חברה | Single-select | מאוחד | `ENVIRONMENT` |
+| 6 | מוצר/מק"ט (משפחה) | Multi-select | הכל | `FAMILY.FAMILYNAME` |
+| 7 | חברה | Single-select | מאוחד | `ENVIRONMENT` |
 
 ### 5.3 כרטיסי סיכום (Summary Cards)
 
@@ -243,11 +244,17 @@ Microsoft Power BI + Priority ERP API
 
 ### 6.2 פילטרים
 
+> **הערה:** אותם פילטרים כמו בדשבורד מכירות והזמנות — כפי שמוצג בדוגמת Tuttnauer של אליק.
+
 | # | פילטר | סוג | ברירת מחדל | מקור נתונים |
 |---|-------|-----|------------|-------------|
-| 1 | סגמנט מכירות | Multi-select | הכל | `AGENTS.AGENTNAME` + `FAMILY.FAMILYNAME` |
-| 2 | מפיץ | Multi-select | הכל | `AGENTS.AGENTCODE` |
-| 3 | מוצר/מק"ט | Multi-select | הכל | `FAMILY.FAMILYNAME` |
+| 1 | שנה | Multi-select | שנה נוכחית | `YEAR(ORDERITEMS.DUEDATE)` |
+| 2 | רבעון | Multi-select | רבעון נוכחי | `DATEPART(Q, DUEDATE)` |
+| 3 | תקופה | Date Range | חודש נוכחי | `ORDERITEMS.DUEDATE` |
+| 4 | סגמנט מכירות | Multi-select | הכל | `AGENTS.AGENTNAME` + `FAMILY.FAMILYNAME` |
+| 5 | מפיץ | Multi-select | הכל | `AGENTS.AGENTCODE` |
+| 6 | מוצר/מק"ט (משפחה) | Multi-select | הכל | `FAMILY.FAMILYNAME` |
+| 7 | חברה | Single-select | מאוחד | `ENVIRONMENT` |
 
 ### 6.3 טבלת הזמנות לפי תאריך אספקה
 

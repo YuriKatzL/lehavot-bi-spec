@@ -404,7 +404,7 @@
             <!-- Filters Bar -->
             <div class="filters-bar">
                 <div class="filter-group">
-                    <label>Year <span class="data-source">ORDERS.CURDATE</span></label>
+                    <label>Year <span class="data-source">ORDERITEMS.DUEDATE</span></label>
                     <select>
                         <option>2026</option>
                         <option>2025</option>
@@ -413,7 +413,7 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>Quarter <span class="data-source">ORDERS.CURDATE</span></label>
+                    <label>Quarter <span class="data-source">ORDERITEMS.DUEDATE</span></label>
                     <select>
                         <option>All</option>
                         <option>Q1</option>
@@ -421,6 +421,11 @@
                         <option>Q3</option>
                         <option>Q4</option>
                     </select>
+                </div>
+
+                <div class="filter-group">
+                    <label>Period <span class="data-source">ORDERITEMS.DUEDATE</span></label>
+                    <input type="text" value="1/1/2026 - 31/12/2026" style="width: 160px;">
                 </div>
 
                 <div class="filter-group">
@@ -442,22 +447,10 @@
                 </div>
 
                 <div class="filter-group">
-                    <label>משפחה <span class="data-source">FAMILY_LOG.FAMILYNAME</span></label>
+                    <label>מוצר/מק"ט <span class="data-source">FAMILY.FAMILYNAME</span></label>
                     <select>
                         <option>All</option>
                     </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>מוצר/מק"ט <span class="data-source">LOGPART.PARTNAME</span></label>
-                    <select>
-                        <option>All</option>
-                    </select>
-                </div>
-
-                <div class="filter-group">
-                    <label>Due Date Range <span class="data-source">ORDERS.DUEDATE</span></label>
-                    <input type="text" value="Feb 2026 - Dec 2026" style="width: 180px;">
                 </div>
 
                 <div class="filter-group">
