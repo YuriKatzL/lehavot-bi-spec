@@ -2031,6 +2031,247 @@
                     </div>
                 </div>
 
+                <!-- Power BI Implementation Guide -->
+                <div class="data-table-section" style="margin-bottom: 24px;">
+                    <div class="table-header" style="background: linear-gradient(135deg, #F2C811, #E8B800); color: #3B3838;">
+                        <span style="font-size: 18px;">⚡</span> Power BI — מדריך למפתח | Orders Dashboard
+                    </div>
+                    <div style="padding: 20px;">
+
+                        <!-- Step 1: OData Connection -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">1. חיבור OData לפריוריטי</h4>
+                        <div style="background: #FFF8E1; padding: 16px; border-radius: 6px; margin-bottom: 20px; border-right: 4px solid #F2C811;">
+                            <p style="margin: 0 0 8px; font-size: 13px;"><strong>Power BI Desktop → Get Data → OData Feed</strong></p>
+                            <div style="background: #3B3838; color: #F2C811; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; margin-bottom: 8px;">
+                                https://&lt;priority-server&gt;/odata/Priority/tabula.ini/&lt;company&gt;/ORDERS
+                            </div>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #78909C;">Authentication: Basic (Priority user credentials) | Read-only access</p>
+                        </div>
+
+                        <p style="font-size: 13px; margin-bottom: 12px;"><strong>OData Entities נדרשים:</strong></p>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #FFF8E1; text-align: right; padding: 8px; border: 1px solid #FFE082;">Entity</th>
+                                    <th style="background: #FFF8E1; text-align: right; padding: 8px; border: 1px solid #FFE082;">URL Path</th>
+                                    <th style="background: #FFF8E1; text-align: right; padding: 8px; border: 1px solid #FFE082;">תפקיד</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">ORDERS</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/ORDERS</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">Fact table — הזמנות (header)</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">ORDERITEMS</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/ORDERS('...')/ORDERITEMS_SUBFORM</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">שורות הזמנה (sub-form)</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">CUSTOMERS</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/CUSTOMERS</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">Dimension — לקוחות</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">AGENTS</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/AGENTS</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">Dimension — סוכנים</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">LOGPART</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/LOGPART</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">Dimension — מוצרים</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-weight: 600;">FAMILY_LOG</td><td style="padding: 6px 8px; border: 1px solid #FFE082; font-family: monospace; font-size: 11px;">/FAMILY_LOG</td><td style="padding: 6px 8px; border: 1px solid #FFE082;">Dimension — משפחות מוצרים</td></tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Step 2: Data Model -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">2. מודל נתונים — Relationships</h4>
+                        <div style="background: #F5F5F5; padding: 20px; border-radius: 6px; font-family: 'Consolas', monospace; font-size: 12px; line-height: 2; direction: ltr; text-align: left; margin-bottom: 12px;">
+                            <span style="color: #D32F2F; font-weight: bold;">[Date Table]</span> (Auto / Calendar)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│ Date ←→ CURDATE<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                            <span style="color: #1565C0; font-weight: bold;">[ORDERS]</span> ◄══ FACT (header)<br>
+                            &nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│<br>
+                            &nbsp;&nbsp;│ AGENT&nbsp;&nbsp;&nbsp;&nbsp;│ CUST&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ ORD → ORDI<br>
+                            &nbsp;&nbsp;▼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                            <span style="color: #2E7D32; font-weight: bold;">[AGENTS]</span>&nbsp;&nbsp;&nbsp;<span style="color: #2E7D32; font-weight: bold;">[CUSTOMERS]</span>&nbsp;&nbsp;&nbsp;<span style="color: #1565C0; font-weight: bold;">[ORDERITEMS]</span> ◄══ FACT (lines)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ PARTNAME<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2E7D32; font-weight: bold;">[LOGPART]</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│ FAMILYNAME<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▼<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #2E7D32; font-weight: bold;">[FAMILY_LOG]</span>
+                        </div>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #E8EAF6; text-align: right; padding: 8px; border: 1px solid #C5CAE9;">Relationship</th>
+                                    <th style="background: #E8EAF6; text-align: right; padding: 8px; border: 1px solid #C5CAE9;">From → To</th>
+                                    <th style="background: #E8EAF6; text-align: right; padding: 8px; border: 1px solid #C5CAE9;">Key</th>
+                                    <th style="background: #E8EAF6; text-align: right; padding: 8px; border: 1px solid #C5CAE9;">Type</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Orders → Agents</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">ORDERS.AGENT → AGENTS.AGENT</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">AGENT (INT)</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Many:1</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Orders → Customers</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">ORDERS.CUST → CUSTOMERS.CUST</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">CUST (INT)</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Many:1</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Orders → OrderItems</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">ORDERS.ORD → ORDERITEMS.ORD</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">ORD (INT)</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">1:Many</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">OrderItems → Part</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">ORDERITEMS.PARTNAME → LOGPART.PARTNAME</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">PARTNAME (CHAR)</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Many:1</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Part → Family</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">LOGPART.FAMILYNAME → FAMILY_LOG.FAMILYNAME</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">FAMILYNAME (CHAR)</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Many:1</td></tr>
+                                <tr><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">Date → Orders</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9; font-family: monospace;">Calendar.Date → ORDERS.CURDATE</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">DATE</td><td style="padding: 6px 8px; border: 1px solid #C5CAE9;">1:Many</td></tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Step 3: DAX Measures -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">3. DAX Measures</h4>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Orders Value MTD:</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Orders MTD</span> =<br>
+                                <span style="color: #9C27B0;">CALCULATE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">SUM</span>( ORDERITEMS[QPRICE] ),<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">DATESMTD</span>( Calendar[Date] )<br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Orders Value QTD:</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Orders QTD</span> =<br>
+                                <span style="color: #9C27B0;">CALCULATE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">SUM</span>( ORDERITEMS[QPRICE] ),<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">DATESQTD</span>( Calendar[Date] )<br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Orders Value YTD:</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Orders YTD</span> =<br>
+                                <span style="color: #9C27B0;">CALCULATE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">SUM</span>( ORDERITEMS[QPRICE] ),<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">DATESYTD</span>( Calendar[Date] )<br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Orders Same Period Last Year:</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Orders LY</span> =<br>
+                                <span style="color: #9C27B0;">CALCULATE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;[Orders MTD],<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">SAMEPERIODLASTYEAR</span>( Calendar[Date] )<br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">% from Last Year:</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">% from LY</span> =<br>
+                                <span style="color: #9C27B0;">DIVIDE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;[Orders MTD],<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;[Orders LY],<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;0<br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 16px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Open Orders Value (יתרה פתוחה):</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Open Orders Value</span> =<br>
+                                <span style="color: #9C27B0;">CALCULATE</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">SUM</span>( ORDERITEMS[TBALANCE] ),<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;ORDERS[CLOSED] = <span style="color: #A5D6A7;">"N"</span><br>
+                                )
+                            </div>
+                        </div>
+
+                        <div style="margin-bottom: 20px;">
+                            <p style="font-weight: 600; margin-bottom: 6px; font-size: 13px;">Overdue Orders (הזמנות באיחור):</p>
+                            <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                                <span style="color: #F2C811;">Overdue Orders</span> =<br>
+                                <span style="color: #9C27B0;">COUNTROWS</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">FILTER</span>(<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDERITEMS,<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ORDERITEMS[DUEDATE] &lt; <span style="color: #9C27B0;">TODAY</span>()<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; ORDERITEMS[TBALANCE] &gt; 0<br>
+                                &nbsp;&nbsp;&nbsp;&nbsp;)<br>
+                                )
+                            </div>
+                        </div>
+
+                        <!-- Step 4: Calculated Column — Segment -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">4. Calculated Column — סגמנט</h4>
+                        <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6; margin-bottom: 12px;">
+                            <span style="color: #F2C811;">Segment</span> =<br>
+                            <span style="color: #64B5F6;">-- Logic based on Report 740</span><br>
+                            <span style="color: #64B5F6;">-- Map AGENT + FAMILY → Segment name</span><br>
+                            <span style="color: #9C27B0;">SWITCH</span>( <span style="color: #9C27B0;">TRUE</span>(),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;RELATED(AGENTS[AGENTNAME]) = <span style="color: #A5D6A7;">"מירי"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"שוק ביתי — מירי"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;RELATED(AGENTS[AGENTNAME]) = <span style="color: #A5D6A7;">"אילן"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"סחר מפיצים — אילן"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;RELATED(AGENTS[AGENTNAME]) = <span style="color: #A5D6A7;">"דודו"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"מערכות — דודו"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;RELATED(CUSTOMERS[COUNTRY]) &lt;&gt; <span style="color: #A5D6A7;">"ישראל"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"מכירות חו״ל"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"אחר"</span><br>
+                            )
+                        </div>
+                        <div style="background: #FFF8E1; padding: 10px; border-radius: 4px; font-size: 12px; color: #E65100; margin-bottom: 20px;">
+                            <strong>שים לב:</strong> הלוגיקה למעלה היא דוגמה — המיפוי המדויק ייקבע ע"י ראובן. יתכן שיהיה לפי AGENTSFAMILY (סוכן×משפחה).
+                        </div>
+
+                        <!-- Step 5: Calculated Column — Overdue Flag -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">5. Calculated Column — דגל איחור</h4>
+                        <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6; margin-bottom: 12px;">
+                            <span style="color: #F2C811;">IsOverdue</span> =<br>
+                            <span style="color: #9C27B0;">IF</span>(<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;ORDERITEMS[DUEDATE] &lt; <span style="color: #9C27B0;">TODAY</span>()<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&amp;&amp; ORDERITEMS[TBALANCE] &gt; 0,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"באיחור"</span>,<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"בזמן"</span><br>
+                            )
+                        </div>
+                        <div style="background: #FFF8E1; padding: 10px; border-radius: 4px; font-size: 12px; color: #5D4037; margin-bottom: 20px;">
+                            <strong>TBALANCE</strong> = יתרה לאספקה (כמות). אם TBALANCE &gt; 0 ותאריך האספקה עבר → הזמנה באיחור.
+                        </div>
+
+                        <!-- Step 6: Conditional Formatting -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">6. Conditional Formatting — קידוד צבעים</h4>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #FFF8E1; text-align: right; padding: 8px; border: 1px solid #FFE082;">מדד</th>
+                                    <th style="background: #E8F5E9; text-align: center; padding: 8px; border: 1px solid #FFE082;">ירוק</th>
+                                    <th style="background: #FFEBEE; text-align: center; padding: 8px; border: 1px solid #FFE082;">אדום</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; font-weight: 600;">% from LY</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #2E7D32; font-weight: 600;">≥ 100%</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #C62828; font-weight: 600;">&lt; 100%</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; font-weight: 600;">Overdue Flag</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #2E7D32; font-weight: 600;">בזמן</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #C62828; font-weight: 600;">באיחור</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; font-weight: 600;">Open Balance</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #2E7D32; font-weight: 600;">= 0 (סופק)</td>
+                                    <td style="padding: 8px; border: 1px solid #FFE082; text-align: center; color: #C62828; font-weight: 600;">&gt; 0 (פתוח)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <!-- Step 7: Calendar Table -->
+                        <h4 style="color: #3B3838; margin-bottom: 12px; font-size: 15px; border-bottom: 2px solid #F2C811; padding-bottom: 8px;">7. Calendar Table (Date Dimension)</h4>
+                        <div style="background: #3B3838; color: #E0E0E0; padding: 12px; border-radius: 4px; font-family: 'Consolas', monospace; font-size: 12px; direction: ltr; text-align: left; line-height: 1.6;">
+                            <span style="color: #F2C811;">Calendar</span> =<br>
+                            <span style="color: #9C27B0;">ADDCOLUMNS</span>(<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #9C27B0;">CALENDARAUTO</span>(),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"Year"</span>, <span style="color: #9C27B0;">YEAR</span>([Date]),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"Quarter"</span>, <span style="color: #A5D6A7;">"Q"</span> &amp; <span style="color: #9C27B0;">QUARTER</span>([Date]),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"Month"</span>, <span style="color: #9C27B0;">MONTH</span>([Date]),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"MonthName"</span>, <span style="color: #9C27B0;">FORMAT</span>([Date], <span style="color: #A5D6A7;">"MMMM"</span>),<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #A5D6A7;">"WeekNum"</span>, <span style="color: #9C27B0;">WEEKNUM</span>([Date])<br>
+                            )
+                        </div>
+
+                    </div>
+                </div>
+
                 <div class="footer">
                     <p><strong>Lehavot BI</strong> — Specification v2.1 | עודכן: 09/02/2026 | יורי כץ</p>
                     <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
