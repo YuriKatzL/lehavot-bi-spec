@@ -1787,6 +1787,250 @@
                     </div>
                 </div>
 
+                <!-- Priority Screens & Filters Reference -->
+                <div class="data-table-section" style="margin-bottom: 24px;">
+                    <div class="table-header" style="background: #37474F;">📋 מסכים ופילטרים נדרשים — Orders Dashboard</div>
+                    <div style="padding: 20px;">
+
+                        <h4 style="color: var(--orders-blue); margin-bottom: 12px; font-size: 14px;">מקור נתונים ראשי: הזמנות לקוח</h4>
+
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #ECEFF1; text-align: right; padding: 10px; border: 1px solid #CFD8DC;">מסך Priority</th>
+                                    <th style="background: #ECEFF1; text-align: right; padding: 10px; border: 1px solid #CFD8DC;">שדות נדרשים</th>
+                                    <th style="background: #ECEFF1; text-align: right; padding: 10px; border: 1px solid #CFD8DC;">שימוש בדשבורד</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">ORDERS<br><span style="font-size: 11px; color: #78909C;">הזמנות לקוח (46 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        ORDNAME — מספר הזמנה (CHAR 16)<br>
+                                        CURDATE — תאריך הזמנה (DATE 8)<br>
+                                        QPRICE — סכום ללא מע"מ (REAL 16)<br>
+                                        TOTPRICE — סכום כולל מע"מ (REAL 16)<br>
+                                        CUST — מזהה לקוח (INT 13)<br>
+                                        AGENT — מזהה סוכן (INT 13)<br>
+                                        CLOSED — סטטוס סגירה (CHAR 1: C/blank)<br>
+                                        PCLOSED — סגירה חלקית (CHAR 1)<br>
+                                        ORDSTATUS — מזהה סטטוס (INT 13)<br>
+                                        ORDTYPE — סוג מכירה (INT 13)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">נתוני הזמנות — header level</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">ORDERITEMS<br><span style="font-size: 11px; color: #78909C;">שורות הזמנה (57 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        ORD — מזהה הזמנה (INT 13)<br>
+                                        PART — מזהה מוצר (INT 13)<br>
+                                        QUANT — כמות (INT 17)<br>
+                                        DUEDATE — תאריך אספקה (DATE 8)<br>
+                                        QPRICE — סכום שורה (REAL 16)<br>
+                                        PRICE — מחיר ליחידה (REAL 14)<br>
+                                        TBALANCE — יתרה לאספקה (INT 17)<br>
+                                        ABALANCE — יתרה אספקה (INT 17)<br>
+                                        CLOSED — סטטוס שורה (CHAR 1)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">פירוט מוצרים + Due Date + יתרות</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">AGENTS<br><span style="font-size: 11px; color: #78909C;">סוכנים (27 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        AGENT — מזהה (INT 13)<br>
+                                        AGENTCODE — קוד סוכן (CHAR 16)<br>
+                                        AGENTNAME — שם סוכן (RCHAR 32)<br>
+                                        INACTIVE — לא פעיל (CHAR 1)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">פילטר מפיץ + סגמנטציה</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">CUSTOMERS<br><span style="font-size: 11px; color: #78909C;">לקוחות (105 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        CUST — מזהה (INT 13)<br>
+                                        CUSTNAME — מספר לקוח (CHAR 16)<br>
+                                        CUSTDES — שם לקוח (RCHAR 48)<br>
+                                        AGENT — סוכן ראשי (INT 13)<br>
+                                        CTYPE — סוג לקוח (INT 13)<br>
+                                        COUNTRY — מדינה (INT 13)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">מיפוי לקוח → סגמנט</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">PART<br><span style="font-size: 11px; color: #78909C;">מוצרים (91 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        PART — מזהה (INT 13)<br>
+                                        PARTNAME — קוד מוצר (CHAR 22)<br>
+                                        PARTDES — תיאור (RCHAR 59)<br>
+                                        FAMILY — מזהה משפחה (INT 13)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">קישור מוצר → משפחה</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-weight: 600;">FAMILY<br><span style="font-size: 11px; color: #78909C;">משפחות מוצרים (53 שדות)</span></td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC; font-family: monospace; font-size: 12px;">
+                                        FAMILY — מזהה (INT 13)<br>
+                                        FAMILYNAME — קוד (CHAR 8)<br>
+                                        FAMILYDES — תיאור (RCHAR 32)
+                                    </td>
+                                    <td style="padding: 10px; border: 1px solid #CFD8DC;">סגמנטציה לפי משפחה</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="color: #37474F; margin-bottom: 12px; font-size: 14px;">פילטרים — מיפוי לשדות Priority</h4>
+
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">פילטר בדשבורד</th>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">שדה Priority</th>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">סוג</th>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">הערות</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">שנה</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">YEAR(ORDERS.CURDATE)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">DATE, 8 chars</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">רבעון</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">DATEPART(Q, ORDERS.CURDATE)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">חישוב מ-CURDATE</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">תקופה</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ORDERS.CURDATE</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Date Range</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">ברירת מחדל: חודש נוכחי</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">סגמנט מכירות</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">AGENTS.AGENTNAME + PART.FAMILY</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">לוגיקת דוח 740: סוכן+משפחה → סגמנט</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">מפיץ / סוכן</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">AGENTS.AGENTNAME (RCHAR 32)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">JOIN: ORDERS.AGENT → AGENTS.AGENT</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">סטטוס הזמנה</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ORDERS.CLOSED (CHAR 1) + ORDERS.ORDSTATUS (INT 13)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">CLOSED: C=סגור, blank=פתוח. ORDSTATUS: lookup table</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">לקוח</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">CUSTOMERS.CUSTDES (RCHAR 48)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Multi-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">JOIN: ORDERS.CUST → CUSTOMERS.CUST</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">חברה</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ENVIRONMENT</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Single-select</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">להבות / פיירטק / מאוחד</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="color: #37474F; margin-bottom: 12px; font-size: 14px;">לוגיקת סגמנטציה (כמו דוח 740)</h4>
+                        <div style="background: #F5F5F5; padding: 16px; border-radius: 6px; font-family: monospace; font-size: 12px; line-height: 1.8; direction: ltr; text-align: left;">
+                            ORDERS (header)<br>
+                            &nbsp;&nbsp;→ ORDERITEMS (lines, JOIN on ORD)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;→ PART (product, JOIN on PART)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ FAMILY (family, JOIN on FAMILY)<br>
+                            &nbsp;&nbsp;→ AGENTS (agent, JOIN on AGENT)<br>
+                            <br>
+                            Segment = f(AGENTS.AGENTNAME, FAMILY.FAMILYDES)
+                        </div>
+
+                        <h4 style="color: #37474F; margin: 16px 0 12px; font-size: 14px;">מדדים (Measures)</h4>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">מדד</th>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">נוסחה</th>
+                                    <th style="background: #E3F2FD; text-align: right; padding: 10px; border: 1px solid #BBDEFB;">שדה מקור</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">Orders Value (₪)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">SUM(QPRICE)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ORDERS.QPRICE (REAL 16)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">% from LY</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">Orders(Y) / Orders(Y-1) × 100</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ORDERS.QPRICE (same, Y-1 filter)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-weight: 600;">Quantity</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB;">SUM(QUANT)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #BBDEFB; font-family: monospace;">ORDERITEMS.QUANT (INT 17)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4 style="color: #E65100; margin: 16px 0 12px; font-size: 14px;">Orders by Due Date — שדות ספציפיים</h4>
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr>
+                                    <th style="background: #FFF3E0; text-align: right; padding: 10px; border: 1px solid #FFE0B2;">עמודה</th>
+                                    <th style="background: #FFF3E0; text-align: right; padding: 10px; border: 1px solid #FFE0B2;">שדה Priority</th>
+                                    <th style="background: #FFF3E0; text-align: right; padding: 10px; border: 1px solid #FFE0B2;">הערות</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Due Date</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">ORDERITEMS.DUEDATE (DATE 8)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">תאריך אספקה מתוכנן</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Open Balance</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">ORDERITEMS.TBALANCE (INT 17)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">יתרה לאספקה (כמות)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Open Value</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">ORDERITEMS.PRICEBAL (REAL 16)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">יתרת ערך (₪)</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Order Status</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">ORDERS.CLOSED (CHAR 1)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">C=סגור, blank=פתוח, PCLOSED=חלקי</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Distributor</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">AGENTS.AGENTNAME (RCHAR 32)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">מפיץ חו"ל</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Customer</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">CUSTOMERS.CUSTDES (RCHAR 48)</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">שם לקוח חו"ל</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-weight: 600;">Overdue Flag</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2; font-family: monospace;">ORDERITEMS.DUEDATE &lt; TODAY()</td>
+                                    <td style="padding: 8px 10px; border: 1px solid #FFE0B2;">חישוב: הזמנות באיחור</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+
                 <div class="footer">
                     <p><strong>Lehavot BI</strong> — Specification v2.1 | עודכן: 09/02/2026 | יורי כץ</p>
                     <p class="warning">⚠️ נתונים בדוגמה בלבד — לא נתונים אמיתיים</p>
