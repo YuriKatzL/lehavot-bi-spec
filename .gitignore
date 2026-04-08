@@ -1,0 +1,10 @@
+# Power BI files (binary, large)
+*.pbix
+
+# Temp extraction folders
+BI_extracted/
+
+# Windows
+Thumbs.db
+desktop.ini
+nul
