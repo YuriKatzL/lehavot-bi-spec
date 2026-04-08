@@ -8,3 +8,12 @@ BI_extracted/
 Thumbs.db
 desktop.ini
 nul
+.claude/worktrees/
+.claude/settings.local.json
+.claude/plans/
+.idea/
+__pycache__/
+*.pyc
+bin/Debug/
+obj/Debug/
+~$*
